@@ -1,4 +1,5 @@
 import isort
+import black
 
 from prompt_toolkit import Application, widgets
 from prompt_toolkit.buffer import Buffer
@@ -11,6 +12,22 @@ from prompt_toolkit.widgets import TextArea, toolbars
 from prompt_toolkit.widgets.base import Box, Frame, Button
 
 kb = KeyBindings()
+
+
+def black_format_code(contents: str) -> str:
+    """Formats the given import section using black."""
+    try:
+        immediate.buffer.text = ""
+        return black.format_file_contents(
+            contents,
+            fast=True,
+            mode=black.FileMode(),
+        )
+    except black.NothingChanged:
+        return contents
+    except Exception as error:
+        immediate.buffer.text = str(error)
+        return contents
 
 
 @kb.add("c-q")
@@ -27,6 +44,24 @@ def exit_(event):
 @kb.add('tab')
 def indent(event):
     event.app.current_buffer.insert_text('    ')
+    
+    
+@kb.add('enter')
+def enter(event):
+    buffer = event.app.current_buffer
+    buffer.insert_text('\n')
+    
+    old_cursor_position = buffer.cursor_position
+    if old_cursor_position == 0:
+        return
+    
+    end_position = buffer.text.rfind("\n", 0, old_cursor_position) + 1
+    code, rest = buffer.text[:end_position], buffer.text[end_position:]
+    formatted_code = black_format_code(isort.code(code, profile="black"))
+    difference = len(formatted_code) - len(code)
+    buffer.text = formatted_code + rest
+    buffer.cursor_position = old_cursor_position + difference
+    
 
 
 class MainEditor(TextArea):
@@ -46,8 +81,7 @@ class MainEditor(TextArea):
         
         
 
-buffer1 = Buffer()  # Editable buffer.
-
+immediate = TextArea()
 root_container = HSplit(
     [
         Box(VSplit([Button(text="File"), Button(text="Edit")]), height=1, style="bg:#AAAAAA fg:black bold"),
@@ -56,7 +90,7 @@ root_container = HSplit(
                 [
                     # One window that holds the BufferControl with the default buffer on
                     # the left.
-                    MainEditor(scrollbar=True, wrap_lines=False, focus_on_click=True),
+                    TextArea(scrollbar=True, wrap_lines=False, focus_on_click=True),
                     # A vertical line in the middle. We explicitly specify the width, to
                     # make sure that the layout engine will not try to divide the whole
                     # width by three for all these windows. The window will simply fill its
@@ -68,9 +102,9 @@ root_container = HSplit(
             style="bg:#0000AA fg:#AAAAAA bold",
         ),
         Frame(
-            TextArea(),
+            immediate,
             title="Immediate",
-            height=10,
+            height=5,
             style="bg:#0000AA fg:#AAAAAA bold",
         )
     ]

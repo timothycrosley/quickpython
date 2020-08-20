@@ -10,6 +10,7 @@ readme = "README.md"
 python = "^3.6.1"
 prompt-toolkit = "^3.0.6"
 isort = "^5.4.2"
+black = {version = "^19.10b0", allow-prereleases = true}
 
 [tool.poetry.scripts]
 quickpython = "quickpython.cli:start"
@@ -21,7 +22,7 @@ bandit = "^1.6"
 safety = "^1.8"
 isort = "^5.3"
 flake8-bugbear = "^19.8"
-black = {version = "^18.3-alpha.0", allow-prereleases = true}
+black = {version = "^19.10b0", allow-prereleases = true}
 mypy = "^0.730.0"
 ipython = "^7.7"
 pytest = "^5.0"
