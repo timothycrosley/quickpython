@@ -9,9 +9,11 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.6.1"
 prompt-toolkit = "^3.0.6"
+isort = "^5.4.2"
 
 [tool.poetry.scripts]
 quickpython = "quickpython.cli:start"
+qpython = "quickpython.cli:start"
 
 [tool.poetry.dev-dependencies]
 vulture = "^1.0"
