@@ -9,7 +9,7 @@ from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.utils import Event
 from prompt_toolkit.widgets import TextArea, toolbars
-from prompt_toolkit.widgets.base import Box, Frame, Button
+from prompt_toolkit.widgets.base import Box, Frame, Button, Label
 
 kb = KeyBindings()
 
@@ -84,7 +84,7 @@ class MainEditor(TextArea):
 immediate = TextArea()
 root_container = HSplit(
     [
-        Box(VSplit([Button(text="File"), Button(text="Edit")]), height=1, style="bg:#AAAAAA fg:black bold"),
+        VSplit([Button(text="File"), Button(text="Edit")], height=1, style="bg:#AAAAAA fg:black bold"),
         Frame(
             HSplit(
                 [
@@ -106,7 +106,8 @@ root_container = HSplit(
             title="Immediate",
             height=5,
             style="bg:#0000AA fg:#AAAAAA bold",
-        )
+        ),
+        VSplit([Label(text=" F1 - Help")], style="bg:#00AAAA fg:white bold", height=1),
     ]
 )
 
