@@ -1,4 +1,6 @@
 import sys
+from pathlib import Path
+from typing import Optional
 
 import black
 import isort
@@ -13,6 +15,15 @@ from prompt_toolkit.widgets import TextArea, toolbars
 from prompt_toolkit.widgets.base import Box, Button, Frame, Label
 
 kb = KeyBindings()
+current_file: Optional[Path] = None
+
+
+def format_code(contents: str) -> str:
+    return black_format_code(isort_format_code(contents))
+
+
+def isort_format_code(contents: str) -> str:
+    return isort.code(contents, profile="black")
 
 
 def black_format_code(contents: str) -> str:
@@ -54,10 +65,20 @@ def enter(event):
 
     end_position = buffer.text.rfind("\n", 0, old_cursor_position) + 1
     code, rest = buffer.text[:end_position], buffer.text[end_position:]
-    formatted_code = black_format_code(isort.code(code, profile="black"))
+    formatted_code = format_code(code)
     difference = len(formatted_code) - len(code)
     buffer.text = formatted_code + rest
     buffer.cursor_position = old_cursor_position + difference
+
+
+@kb.add("c-s")
+def safe_file(event):
+    if not current_file:
+        raise NotImplementedError("Put file save dialog here")
+    buffer = event.app.current_buffer
+    buffer.text = format_code(buffer.text)
+    current_file.write_text(buffer.text, encoding="utf8")
+    immediate.buffer.text = f"Successfully saved {current_file}"
 
 
 class MainEditor(TextArea):
@@ -98,27 +119,35 @@ immediate = TextArea()
 root_container = HSplit(
     [
         VSplit(
-            [Button(text="File"), Button(text="Edit")], height=1, style="bg:#AAAAAA fg:black bold"
+            [Button(text="File"), Button(text="Edit")],
+            height=1,
+            style="bg:#AAAAAA fg:black bold",
         ),
         open_file_frame,
-        Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
+        Frame(
+            immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",
+        ),
         VSplit([Label(text=" F1 - Help")], style="bg:#00AAAA fg:white bold", height=1),
     ]
 )
 
 layout = Layout(root_container)
 
-app: Application = Application(layout=layout, full_screen=True, key_bindings=kb, mouse_support=True)
+app: Application = Application(
+    layout=layout, full_screen=True, key_bindings=kb, mouse_support=True
+)
 
 
 def start(argv=None):
+    global current_file
+
     argv = sys.argv if argv is None else argv
     if len(sys.argv) > 2:
         sys.exit("Usage: qpython [filename]")
     elif len(sys.argv) == 2:
-        open_filename = sys.argv[1]
-        with open(open_filename, "r", encoding="utf8") as open_file:
+        current_file = Path(sys.argv[1]).resolve()
+        with current_file.open(encoding="utf8") as open_file:
             code.buffer.text = open_file.read()
-            open_file_frame.title = open_filename
+            open_file_frame.title = str(current_file)
 
     app.run()
