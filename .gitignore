@@ -80,6 +80,9 @@ venv/
 # VSCode
 /.vscode
 
+# qpython
+*.qpython
+
 # Automatically generated files
 docs/preconvert
 site/
