@@ -1,3 +1,5 @@
+import asyncio
+import os
 import sys
 from pathlib import Path
 from typing import Optional
@@ -10,6 +12,7 @@ from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.containers import HSplit, VSplit, Window
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
+from prompt_toolkit.shortcuts import clear
 from prompt_toolkit.utils import Event
 from prompt_toolkit.widgets import TextArea, toolbars
 from prompt_toolkit.widgets.base import Box, Button, Frame, Label
@@ -79,6 +82,24 @@ def safe_file(event):
     buffer.text = format_code(buffer.text)
     current_file.write_text(buffer.text, encoding="utf8")
     immediate.buffer.text = f"Successfully saved {current_file}"
+
+
+async def _run_buffer():
+    buffer_filename = f"{current_file or 'buffer'}.qpython"
+    with open(buffer_filename, "w") as buffer_file:
+        buffer_file.write(app.current_buffer.text)
+
+    try:
+        clear()
+        await app.run_system_command(f'python "{buffer_filename}"')
+    finally:
+        os.remove(buffer_filename)
+
+
+@kb.add("c-r")
+@kb.add("f5")
+def run_buffer(event):
+    asyncio.ensure_future(_run_buffer())
 
 
 class MainEditor(TextArea):
@@ -151,3 +172,7 @@ def start(argv=None):
             open_file_frame.title = str(current_file)
 
     app.run()
+
+
+if __name__ == "__main__":
+    start()
