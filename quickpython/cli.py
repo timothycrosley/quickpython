@@ -70,7 +70,7 @@ def enter(event):
     code, rest = buffer.text[:end_position], buffer.text[end_position:]
     if code[-1] == "\n" and code[-2] == "\n":
         return
-    
+
     formatted_code = format_code(code)
     difference = len(formatted_code) - len(code)
     buffer.text = formatted_code + rest
@@ -94,7 +94,7 @@ async def _run_buffer():
 
     try:
         clear()
-        await app.run_system_command(f'python "{buffer_filename}"')
+        await app.run_system_command(f'{sys.executable} "{buffer_filename}"')
     finally:
         os.remove(buffer_filename)
 
@@ -151,7 +151,11 @@ root_container = HSplit(
         Frame(
             immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",
         ),
-        VSplit([Label(text=" F1 - Help")], style="bg:#00AAAA fg:white bold", height=1),
+        VSplit(
+            [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
+            style="bg:#00AAAA fg:white bold",
+            height=1,
+        ),
     ]
 )
 
@@ -174,6 +178,7 @@ def start(argv=None):
             code.buffer.text = open_file.read()
             open_file_frame.title = str(current_file)
 
+    app.layout.focus(code.buffer)
     app.run()
 
 
