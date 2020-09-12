@@ -12,7 +12,8 @@ from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.containers import HSplit, VSplit, Window
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
-from prompt_toolkit.shortcuts import clear
+from prompt_toolkit.shortcuts import clear, message_dialog
+from prompt_toolkit.styles import Style
 from prompt_toolkit.utils import Event
 from prompt_toolkit.widgets import TextArea, toolbars
 from prompt_toolkit.widgets.base import Box, Button, Frame, Label
@@ -143,14 +144,10 @@ immediate = TextArea()
 root_container = HSplit(
     [
         VSplit(
-            [Button(text="File"), Button(text="Edit")],
-            height=1,
-            style="bg:#AAAAAA fg:black bold",
+            [Button(text="File"), Button(text="Edit")], height=1, style="bg:#AAAAAA fg:black bold",
         ),
         open_file_frame,
-        Frame(
-            immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",
-        ),
+        Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
         VSplit(
             [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
             style="bg:#00AAAA fg:white bold",
@@ -161,8 +158,17 @@ root_container = HSplit(
 
 layout = Layout(root_container)
 
-app: Application = Application(
-    layout=layout, full_screen=True, key_bindings=kb, mouse_support=True
+app: Application = Application(layout=layout, full_screen=True, key_bindings=kb, mouse_support=True)
+
+
+dialog_style = Style.from_dict(
+    {
+        "dialog": "bg:#0000AA",
+        "dialog frame.label": "fg:black bg:#AAAAAA",
+        "dialog.body": "bg:#AAAAAA fg:#000000",
+        "dialog shadow": "bg:#000000",
+        "button": "bg:#AAAAAA fg:#000000",
+    }
 )
 
 
@@ -177,6 +183,18 @@ def start(argv=None):
         with current_file.open(encoding="utf8") as open_file:
             code.buffer.text = open_file.read()
             open_file_frame.title = str(current_file)
+    else:
+        message_dialog(
+            title="Welcome to",
+            text="""QuickPython version 0.0.2
+
+Copyright (c) 2020 Timothy Crosley. Few rights reserved. MIT Licensed.
+Simultanously distributed to the US and Canada. And you know, the rest of the world.
+
+A productive parody.
+""",
+            style=dialog_style,
+        ).run()
 
     app.layout.focus(code.buffer)
     app.run()
