@@ -18,6 +18,16 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.utils import Event
 from prompt_toolkit.widgets import Button, Dialog, Label, TextArea, toolbars
 from prompt_toolkit.widgets.base import Box, Button, Frame, Label
+from prompt_toolkit.widgets import (
+    Button,
+    Dialog,
+    Label,
+    MenuContainer,
+    MenuItem,
+    SearchToolbar,
+    TextArea,
+)
+
 
 kb = KeyBindings()
 current_file: Optional[Path] = None
@@ -158,15 +168,13 @@ open_file_frame = Frame(
 
 
 
+def not_yet_implemented(event):
+    raise NotImplementedError("Still need to implement handler for this event")
+
 immediate = TextArea()
-root_container = FloatContainer(
-    HSplit(
+root_container = MenuContainer(
+    body=HSplit(
         [
-            VSplit(
-                [Button(text="File"), Button(text="Edit")],
-                height=1,
-                style="bg:#AAAAAA fg:black bold",
-            ),
             open_file_frame,
             Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
             VSplit(
@@ -176,7 +184,45 @@ root_container = FloatContainer(
             ),
         ]
     ),
-    [],
+    menu_items=[
+        MenuItem(
+            " File ",
+            children=[
+                MenuItem("New...", handler=not_yet_implemented),
+                MenuItem("Open...", handler=not_yet_implemented),
+                MenuItem("Save"),
+                MenuItem("Save as..."),
+                MenuItem("-", disabled=True),
+                MenuItem("Exit", handler=not_yet_implemented),
+            ],
+        ),
+        MenuItem(
+            " Edit ",
+            children=[
+                MenuItem("Undo", handler=not_yet_implemented),
+                MenuItem("Cut", handler=not_yet_implemented),
+                MenuItem("Copy", handler=not_yet_implemented),
+                MenuItem("Paste", handler=not_yet_implemented),
+                MenuItem("Delete", handler=not_yet_implemented),
+                MenuItem("-", disabled=True),
+                MenuItem("Find", handler=not_yet_implemented),
+                MenuItem("Find next", handler=not_yet_implemented),
+                MenuItem("Replace"),
+                MenuItem("Go To", handler=not_yet_implemented),
+                MenuItem("Select All", handler=not_yet_implemented),
+                MenuItem("Time/Date", handler=not_yet_implemented),
+            ],
+        ),
+        MenuItem(
+            " View ",
+            children=[MenuItem("Status Bar", handler=not_yet_implemented)],
+        ),
+        MenuItem(
+            " Info ",
+            children=[MenuItem("About", handler=not_yet_implemented)],
+        ),
+    ],
+    floats=[],
 )
 
 
