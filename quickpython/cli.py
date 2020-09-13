@@ -106,6 +106,23 @@ def run_buffer(event):
     asyncio.ensure_future(_run_buffer())
 
 
+def search_text():
+    pass
+
+
+@kb.add("c-f")
+def search(event):
+    dialog = Dialog(
+            modal=True,
+            title="Find text",
+            body=Label(text="YOUR_TEXT", dont_extend_height=True),
+            buttons=[
+                Button(text="BUTTON_TEXT", handler=search_text),
+    ])
+
+    root_container.floats.append(Float(content=dialog))
+
+
 class MainEditor(TextArea):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -140,8 +157,12 @@ open_file_frame = Frame(
 )
 
 
+
+from prompt_toolkit.layout import FloatContainer, Float
+from prompt_toolkit.widgets import Dialog, Label, Button
+
 immediate = TextArea()
-root_container = HSplit(
+root_container = FloatContainer(HSplit(
     [
         VSplit(
             [Button(text="File"), Button(text="Edit")], height=1, style="bg:#AAAAAA fg:black bold",
@@ -154,7 +175,8 @@ root_container = HSplit(
             height=1,
         ),
     ]
-)
+), [])
+
 
 layout = Layout(root_container)
 
