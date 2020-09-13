@@ -113,12 +113,11 @@ def search_text():
 @kb.add("c-f")
 def search(event):
     dialog = Dialog(
-            modal=True,
-            title="Find text",
-            body=Label(text="YOUR_TEXT", dont_extend_height=True),
-            buttons=[
-                Button(text="BUTTON_TEXT", handler=search_text),
-    ])
+        modal=True,
+        title="Find text",
+        body=Label(text="YOUR_TEXT", dont_extend_height=True),
+        buttons=[Button(text="BUTTON_TEXT", handler=search_text),],
+    )
 
     root_container.floats.append(Float(content=dialog))
 
@@ -157,25 +156,29 @@ open_file_frame = Frame(
 )
 
 
-
-from prompt_toolkit.layout import FloatContainer, Float
-from prompt_toolkit.widgets import Dialog, Label, Button
+from prompt_toolkit.layout import Float, FloatContainer
+from prompt_toolkit.widgets import Button, Dialog, Label
 
 immediate = TextArea()
-root_container = FloatContainer(HSplit(
-    [
-        VSplit(
-            [Button(text="File"), Button(text="Edit")], height=1, style="bg:#AAAAAA fg:black bold",
-        ),
-        open_file_frame,
-        Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
-        VSplit(
-            [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
-            style="bg:#00AAAA fg:white bold",
-            height=1,
-        ),
-    ]
-), [])
+root_container = FloatContainer(
+    HSplit(
+        [
+            VSplit(
+                [Button(text="File"), Button(text="Edit")],
+                height=1,
+                style="bg:#AAAAAA fg:black bold",
+            ),
+            open_file_frame,
+            Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
+            VSplit(
+                [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
+                style="bg:#00AAAA fg:white bold",
+                height=1,
+            ),
+        ]
+    ),
+    [],
+)
 
 
 layout = Layout(root_container)
