@@ -9,13 +9,14 @@ import isort
 from prompt_toolkit import Application, widgets
 from prompt_toolkit.buffer import Buffer
 from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit.layout import Float, FloatContainer
 from prompt_toolkit.layout.containers import HSplit, VSplit, Window
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
 from prompt_toolkit.utils import Event
-from prompt_toolkit.widgets import TextArea, toolbars
+from prompt_toolkit.widgets import Button, Dialog, Label, TextArea, toolbars
 from prompt_toolkit.widgets.base import Box, Button, Frame, Label
 
 kb = KeyBindings()
@@ -156,8 +157,6 @@ open_file_frame = Frame(
 )
 
 
-from prompt_toolkit.layout import Float, FloatContainer
-from prompt_toolkit.widgets import Button, Dialog, Label
 
 immediate = TextArea()
 root_container = FloatContainer(
