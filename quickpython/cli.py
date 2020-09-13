@@ -116,7 +116,7 @@ def search(event):
         modal=True,
         title="Find text",
         body=Label(text="YOUR_TEXT", dont_extend_height=True),
-        buttons=[Button(text="BUTTON_TEXT", handler=search_text),],
+        buttons=[Button(text="BUTTON_TEXT", handler=search_text)],
     )
 
     root_container.floats.append(Float(content=dialog))
