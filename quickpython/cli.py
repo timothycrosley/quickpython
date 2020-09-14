@@ -16,8 +16,6 @@ from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
 from prompt_toolkit.utils import Event
-from prompt_toolkit.widgets import Button, Dialog, Label, TextArea, toolbars
-from prompt_toolkit.widgets.base import Box, Button, Frame, Label
 from prompt_toolkit.widgets import (
     Button,
     Dialog,
@@ -26,11 +24,32 @@ from prompt_toolkit.widgets import (
     MenuItem,
     SearchToolbar,
     TextArea,
+    toolbars,
 )
-
+from prompt_toolkit.widgets.base import Box, Button, Frame, Label
 
 kb = KeyBindings()
 current_file: Optional[Path] = None
+
+style = Style.from_dict(
+    {
+        "menu-bar": "bg:#aaaaaa black bold",
+        "menu-bar.selected-item": "bg:black #aaaaaa bold",
+        "menu": "bg:#aaaaaa black bold",
+        "menu.border shadow": "black",
+        "shadow": "bg:black",
+    }
+)
+
+
+@kb.add("escape")
+@kb.add("c-m")
+def _(event):
+    """Focus the menu"""
+    if event.app.layout.has_focus(root_container.window):
+        event.app.layout.focus(code)
+    else:
+        event.app.layout.focus(root_container.window)
 
 
 def format_code(contents: str) -> str:
@@ -54,14 +73,9 @@ def black_format_code(contents: str) -> str:
 
 
 @kb.add("c-q")
-def exit_(event):
-    """
-    Pressing Ctrl-Q will exit the user interface.
-
-    Setting a return value means: quit the event loop that drives the user
-    interface and return this value from the `Application.run()` call.
-    """
-    event.app.exit()
+def exit(event=None):
+    """Triggers the request to close QPython cleanly."""
+    app.exit()
 
 
 @kb.add("tab")
@@ -167,9 +181,9 @@ open_file_frame = Frame(
 )
 
 
-
-def not_yet_implemented(event):
+def not_yet_implemented(event=None):
     raise NotImplementedError("Still need to implement handler for this event")
+
 
 immediate = TextArea()
 root_container = MenuContainer(
@@ -193,7 +207,7 @@ root_container = MenuContainer(
                 MenuItem("Save"),
                 MenuItem("Save as..."),
                 MenuItem("-", disabled=True),
-                MenuItem("Exit", handler=not_yet_implemented),
+                MenuItem("Exit", handler=exit),
             ],
         ),
         MenuItem(
@@ -213,14 +227,8 @@ root_container = MenuContainer(
                 MenuItem("Time/Date", handler=not_yet_implemented),
             ],
         ),
-        MenuItem(
-            " View ",
-            children=[MenuItem("Status Bar", handler=not_yet_implemented)],
-        ),
-        MenuItem(
-            " Info ",
-            children=[MenuItem("About", handler=not_yet_implemented)],
-        ),
+        MenuItem(" View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],),
+        MenuItem(" Info ", children=[MenuItem("About", handler=not_yet_implemented)],),
     ],
     floats=[],
 )
@@ -228,7 +236,9 @@ root_container = MenuContainer(
 
 layout = Layout(root_container)
 
-app: Application = Application(layout=layout, full_screen=True, key_bindings=kb, mouse_support=True)
+app: Application = Application(
+    layout=layout, full_screen=True, key_bindings=kb, mouse_support=True, style=style
+)
 
 
 dialog_style = Style.from_dict(
