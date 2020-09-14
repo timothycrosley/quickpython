@@ -94,7 +94,7 @@ def enter(event):
 
     end_position = buffer.text.rfind("\n", 0, old_cursor_position) + 1
     code, rest = buffer.text[:end_position], buffer.text[end_position:]
-    if code[-1] == "\n" and code[-2] == "\n":
+    if len(code) < 2 or (code[-1] == "\n" and code[-2] == "\n"):
         return
 
     formatted_code = format_code(code)
