@@ -147,6 +147,29 @@ def search(event):
     root_container.floats.append(Float(content=dialog))
 
 
+
+def undo():
+    code.buffer.undo()
+
+
+def cut():
+    data = code.buffer.cut_selection()
+    app.clipboard.set_data(data)
+
+
+def copy():
+    data = code.buffer.copy_selection()
+    app.clipboard.set_data(data)
+
+
+def delete():
+    code.buffer.cut_selection()
+
+
+def paste():
+    code.buffer.paste_clipboard_data(app.clipboard.get_data())
+
+
 class MainEditor(TextArea):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -213,11 +236,11 @@ root_container = MenuContainer(
         MenuItem(
             " Edit ",
             children=[
-                MenuItem("Undo", handler=not_yet_implemented),
-                MenuItem("Cut", handler=not_yet_implemented),
-                MenuItem("Copy", handler=not_yet_implemented),
-                MenuItem("Paste", handler=not_yet_implemented),
-                MenuItem("Delete", handler=not_yet_implemented),
+                MenuItem("Undo", handler=undo),
+                MenuItem("Cut", handler=cut),
+                MenuItem("Copy", handler=copy),
+                MenuItem("Paste", handler=paste),
+                MenuItem("Delete", handler=delete),
                 MenuItem("-", disabled=True),
                 MenuItem("Find", handler=not_yet_implemented),
                 MenuItem("Find next", handler=not_yet_implemented),
