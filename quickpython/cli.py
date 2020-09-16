@@ -3,16 +3,19 @@ import os
 import sys
 from pathlib import Path
 from typing import Optional
+from asyncio import Future, ensure_future
 
 import black
 import isort
 from prompt_toolkit import Application, widgets
 from prompt_toolkit.buffer import Buffer
+from prompt_toolkit.completion import PathCompleter
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout import Float, FloatContainer
 from prompt_toolkit.layout.containers import HSplit, VSplit, Window
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
+from prompt_toolkit.layout.dimension import D
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
 from prompt_toolkit.utils import Event
@@ -58,6 +61,86 @@ def format_code(contents: str) -> str:
 
 def isort_format_code(contents: str) -> str:
     return isort.code(contents, profile="black")
+
+
+class TextInputDialog:
+    def __init__(self, title="", label_text="", completer=None):
+        self.future = Future()
+
+        def accept_text(buf):
+            get_app().layout.focus(ok_button)
+            buf.complete_state = None
+            return True
+
+        def accept():
+            self.future.set_result(self.text_area.text)
+
+        def cancel():
+            self.future.set_result(None)
+
+        self.text_area = TextArea(
+            completer=completer,
+            multiline=False,
+            width=D(preferred=40),
+            accept_handler=accept_text,
+        )
+
+        ok_button = Button(text="OK", handler=accept)
+        cancel_button = Button(text="Cancel", handler=cancel)
+
+        self.dialog = Dialog(
+            title=title,
+            body=HSplit([Label(text=label_text), self.text_area]),
+            buttons=[ok_button, cancel_button],
+            width=D(preferred=80),
+            modal=True,
+        )
+
+    def __pt_container__(self):
+        return self.dialog
+
+
+async def show_dialog_as_float(dialog):
+    " Coroutine. "
+    float_ = Float(content=dialog)
+    root_container.floats.insert(0, float_)
+
+    focused_before = app.layout.current_window
+    app.layout.focus(dialog)
+    result = await dialog.future
+    app.layout.focus(focused_before)
+
+    if float_ in root_container.floats:
+        root_container.floats.remove(float_)
+
+    return result
+
+
+def open_file():
+    async def coroutine():
+        open_dialog = TextInputDialog(
+            title="Open file",
+            label_text="Enter the path of a file:",
+            completer=PathCompleter(),
+        )
+
+        path = await show_dialog_as_float(open_dialog)
+        current_file = path
+
+        if path is not None:
+            try:
+                with open(path, "r", encoding="utf8") as new_file_conent:
+                    code.buffer.text = new_file_conent.read()
+                feedback(f"Successfully opened {path}")
+            except IOError as error:
+                feedback(f"Error: {error}")
+
+    ensure_future(coroutine())
+
+
+
+def feedback(text):
+    immediate.buffer.text = text
 
 
 def black_format_code(contents: str) -> str:
@@ -226,7 +309,7 @@ root_container = MenuContainer(
             " File ",
             children=[
                 MenuItem("New...", handler=not_yet_implemented),
-                MenuItem("Open...", handler=not_yet_implemented),
+                MenuItem("Open...", handler=open_file),
                 MenuItem("Save"),
                 MenuItem("Save as..."),
                 MenuItem("-", disabled=True),
