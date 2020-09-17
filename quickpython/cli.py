@@ -1,9 +1,9 @@
 import asyncio
 import os
 import sys
+from asyncio import Future, ensure_future
 from pathlib import Path
 from typing import Optional
-from asyncio import Future, ensure_future
 
 import black
 import isort
@@ -14,8 +14,8 @@ from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout import Float, FloatContainer
 from prompt_toolkit.layout.containers import HSplit, VSplit, Window
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
-from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.layout.dimension import D
+from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
 from prompt_toolkit.utils import Event
@@ -41,6 +41,11 @@ style = Style.from_dict(
         "menu": "bg:#aaaaaa black bold",
         "menu.border shadow": "black",
         "shadow": "bg:black",
+        "dialog": "bg:#0000AA",
+        "dialog frame.label": "fg:black bg:#AAAAAA",
+        "dialog.body": "bg:#AAAAAA fg:#000000",
+        "dialog shadow": "bg:#000000",
+        "button": "bg:#AAAAAA fg:#000000",
     }
 )
 
@@ -116,27 +121,30 @@ async def show_dialog_as_float(dialog):
     return result
 
 
-def open_file():
+@kb.add("c-o")
+def open_file(event=None):
     async def coroutine():
+        global current_file
+
         open_dialog = TextInputDialog(
             title="Open file",
             label_text="Enter the path of a file:",
             completer=PathCompleter(),
         )
 
-        path = await show_dialog_as_float(open_dialog)
-        current_file = path
+        filename = await show_dialog_as_float(open_dialog)
 
-        if path is not None:
+        if filename is not None:
+            current_file = Path(filename).resolve()
             try:
-                with open(path, "r", encoding="utf8") as new_file_conent:
+                with open(current_file, "r", encoding="utf8") as new_file_conent:
                     code.buffer.text = new_file_conent.read()
-                feedback(f"Successfully opened {path}")
+                    open_file_frame.title = str(current_file)
+                feedback(f"Successfully opened {current_file}")
             except IOError as error:
                 feedback(f"Error: {error}")
 
     ensure_future(coroutine())
-
 
 
 def feedback(text):
@@ -187,7 +195,7 @@ def enter(event):
 
 
 @kb.add("c-s")
-def safe_file(event):
+def save_file(event=None):
     if not current_file:
         raise NotImplementedError("Put file save dialog here")
     buffer = event.app.current_buffer
@@ -228,7 +236,6 @@ def search(event):
     )
 
     root_container.floats.append(Float(content=dialog))
-
 
 
 def undo():
@@ -296,7 +303,12 @@ root_container = MenuContainer(
     body=HSplit(
         [
             open_file_frame,
-            Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
+            Frame(
+                immediate,
+                title="Immediate",
+                height=5,
+                style="bg:#0000AA fg:#AAAAAA bold",
+            ),
             VSplit(
                 [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
                 style="bg:#00AAAA fg:white bold",
@@ -310,7 +322,7 @@ root_container = MenuContainer(
             children=[
                 MenuItem("New...", handler=not_yet_implemented),
                 MenuItem("Open...", handler=open_file),
-                MenuItem("Save"),
+                MenuItem("Save", handler=save_file),
                 MenuItem("Save as..."),
                 MenuItem("-", disabled=True),
                 MenuItem("Exit", handler=exit),
@@ -333,7 +345,9 @@ root_container = MenuContainer(
                 MenuItem("Time/Date", handler=not_yet_implemented),
             ],
         ),
-        MenuItem(" View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],),
+        MenuItem(
+            " View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],
+        ),
         MenuItem(" Info ", children=[MenuItem("About", handler=not_yet_implemented)],),
     ],
     floats=[],
@@ -344,17 +358,6 @@ layout = Layout(root_container)
 
 app: Application = Application(
     layout=layout, full_screen=True, key_bindings=kb, mouse_support=True, style=style
-)
-
-
-dialog_style = Style.from_dict(
-    {
-        "dialog": "bg:#0000AA",
-        "dialog frame.label": "fg:black bg:#AAAAAA",
-        "dialog.body": "bg:#AAAAAA fg:#000000",
-        "dialog shadow": "bg:#000000",
-        "button": "bg:#AAAAAA fg:#000000",
-    }
 )
 
 
@@ -379,7 +382,7 @@ Simultanously distributed to the US and Canada. And you know, the rest of the wo
 
 A productive parody.
 """,
-            style=dialog_style,
+            style=style,
         ).run()
 
     app.layout.focus(code.buffer)
