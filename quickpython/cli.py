@@ -10,12 +10,14 @@ import isort
 from prompt_toolkit import Application, widgets
 from prompt_toolkit.buffer import Buffer
 from prompt_toolkit.completion import PathCompleter
+from prompt_toolkit.filters import Condition
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout import Float, FloatContainer
 from prompt_toolkit.layout.containers import HSplit, VSplit, Window
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.dimension import D
 from prompt_toolkit.layout.layout import Layout
+from prompt_toolkit.search import start_search
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
 from prompt_toolkit.utils import Event
@@ -32,6 +34,7 @@ from prompt_toolkit.widgets import (
 from prompt_toolkit.widgets.base import Box, Button, Frame, Label
 
 kb = KeyBindings()
+eb = KeyBindings()
 current_file: Optional[Path] = None
 
 style = Style.from_dict(
@@ -51,7 +54,6 @@ style = Style.from_dict(
 
 
 @kb.add("escape")
-@kb.add("c-m")
 def _(event):
     """Focus the menu"""
     if event.app.layout.has_focus(root_container.window):
@@ -65,7 +67,7 @@ def format_code(contents: str) -> str:
 
 
 def isort_format_code(contents: str) -> str:
-    return isort.code(contents, profile="black")
+    return isort.code(contents, profile="black", float_to_top=True)
 
 
 class TextInputDialog:
@@ -73,7 +75,7 @@ class TextInputDialog:
         self.future = Future()
 
         def accept_text(buf):
-            get_app().layout.focus(ok_button)
+            app.layout.focus(ok_button)
             buf.complete_state = None
             return True
 
@@ -169,12 +171,17 @@ def exit(event=None):
     app.exit()
 
 
+@Condition
+def is_code_focused() -> bool:
+    return app.layout.has_focus(code)
+
+
 @kb.add("tab")
 def indent(event):
     event.app.current_buffer.insert_text("    ")
 
 
-@kb.add("enter")
+@kb.add("enter", filter=is_code_focused)
 def enter(event):
     buffer = event.app.current_buffer
     buffer.insert_text("\n")
@@ -260,22 +267,14 @@ def paste():
     code.buffer.paste_clipboard_data(app.clipboard.get_data())
 
 
-class MainEditor(TextArea):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.buffer.on_text_changed = Event(self.buffer, self.format_code)
-
-    def format_code(self, code):
-        end_position = self.buffer.text.rfind("\n", 0, self.buffer.cursor_position) + 1
-        code, rest = self.buffer.text[:end_position], self.buffer.text[end_position:]
-        formatted_code = isort.code(code)
-        difference = len(formatted_code) - len(code)
-        self.buffer.cursor_position += difference
-        self.buffer.text = formatted_code + rest
-
-
-code = TextArea(scrollbar=True, wrap_lines=False, focus_on_click=True)
+search_toolbar = SearchToolbar()
+code = TextArea(
+    scrollbar=True,
+    wrap_lines=False,
+    focus_on_click=True,
+    line_numbers=True,
+    search_field=search_toolbar,
+)
 open_file_frame = Frame(
     HSplit(
         [
@@ -298,11 +297,16 @@ def not_yet_implemented(event=None):
     raise NotImplementedError("Still need to implement handler for this event")
 
 
+def search():
+    start_search(code.control)
+
+
 immediate = TextArea()
 root_container = MenuContainer(
     body=HSplit(
         [
             open_file_frame,
+            search_toolbar,
             Frame(
                 immediate,
                 title="Immediate",
@@ -337,7 +341,7 @@ root_container = MenuContainer(
                 MenuItem("Paste", handler=paste),
                 MenuItem("Delete", handler=delete),
                 MenuItem("-", disabled=True),
-                MenuItem("Find", handler=not_yet_implemented),
+                MenuItem("Find", handler=search),
                 MenuItem("Find next", handler=not_yet_implemented),
                 MenuItem("Replace"),
                 MenuItem("Go To", handler=not_yet_implemented),
@@ -351,13 +355,18 @@ root_container = MenuContainer(
         MenuItem(" Info ", children=[MenuItem("About", handler=not_yet_implemented)],),
     ],
     floats=[],
+    key_bindings=kb,
 )
 
 
 layout = Layout(root_container)
 
 app: Application = Application(
-    layout=layout, full_screen=True, key_bindings=kb, mouse_support=True, style=style
+    layout=layout,
+    full_screen=True,
+    mouse_support=True,
+    style=style,
+    enable_page_navigation_bindings=True,
 )
 
 
