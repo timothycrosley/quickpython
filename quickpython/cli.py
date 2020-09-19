@@ -277,6 +277,27 @@ def not_yet_implemented(event=None):
     raise NotImplementedError("Still need to implement handler for this event")
 
 
+@kb.add("c-g")
+def goto(event=None):
+    async def coroutine():
+        dialog = TextInputDialog(title="Go to line", label_text="Line number:")
+
+        line_number = await show_dialog_as_float(dialog)
+
+        try:
+            line_number = int(line_number)
+        except ValueError:
+            feedback("Invalid line number")
+        else:
+            code.buffer.cursor_position = (
+                code.buffer.document.translate_row_col_to_index(
+                    line_number - 1, 0
+                )
+            )
+
+    ensure_future(coroutine())
+
+
 @kb.add("c-f")
 def search(event=None):
     start_search(code.control)
@@ -327,7 +348,7 @@ root_container = MenuContainer(
                 MenuItem("Find", handler=search),
                 MenuItem("Find next", handler=search_next),
                 MenuItem("Replace"),
-                MenuItem("Go To", handler=not_yet_implemented),
+                MenuItem("Go To", handler=goto),
                 MenuItem("Select All", handler=not_yet_implemented),
                 MenuItem("Time/Date", handler=not_yet_implemented),
             ],
