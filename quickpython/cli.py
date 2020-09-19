@@ -17,6 +17,7 @@ from prompt_toolkit.layout.containers import HSplit, VSplit, Window
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.dimension import D
 from prompt_toolkit.layout.layout import Layout
+from prompt_toolkit.layout.menus import CompletionsMenu
 from prompt_toolkit.search import start_search
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
@@ -86,10 +87,7 @@ class TextInputDialog:
             self.future.set_result(None)
 
         self.text_area = TextArea(
-            completer=completer,
-            multiline=False,
-            width=D(preferred=40),
-            accept_handler=accept_text,
+            completer=completer, multiline=False, width=D(preferred=40), accept_handler=accept_text,
         )
 
         ok_button = Button(text="OK", handler=accept)
@@ -129,9 +127,7 @@ def open_file(event=None):
         global current_file
 
         open_dialog = TextInputDialog(
-            title="Open file",
-            label_text="Enter the path of a file:",
-            completer=PathCompleter(),
+            title="Open file", label_text="Enter the path of a file:", completer=PathCompleter(),
         )
 
         filename = await show_dialog_as_float(open_dialog)
@@ -229,22 +225,6 @@ def run_buffer(event):
     asyncio.ensure_future(_run_buffer())
 
 
-def search_text():
-    pass
-
-
-@kb.add("c-f")
-def search(event):
-    dialog = Dialog(
-        modal=True,
-        title="Find text",
-        body=Label(text="YOUR_TEXT", dont_extend_height=True),
-        buttons=[Button(text="BUTTON_TEXT", handler=search_text)],
-    )
-
-    root_container.floats.append(Float(content=dialog))
-
-
 def undo():
     code.buffer.undo()
 
@@ -297,8 +277,16 @@ def not_yet_implemented(event=None):
     raise NotImplementedError("Still need to implement handler for this event")
 
 
-def search():
+@kb.add("c-f")
+def search(event=None):
     start_search(code.control)
+
+
+def search_next():
+    search_state = app.current_search_state
+
+    cursor_position = code.buffer.get_search_position(search_state, include_current_position=False)
+    code.buffer.cursor_position = cursor_position
 
 
 immediate = TextArea()
@@ -307,12 +295,7 @@ root_container = MenuContainer(
         [
             open_file_frame,
             search_toolbar,
-            Frame(
-                immediate,
-                title="Immediate",
-                height=5,
-                style="bg:#0000AA fg:#AAAAAA bold",
-            ),
+            Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
             VSplit(
                 [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
                 style="bg:#00AAAA fg:white bold",
@@ -342,19 +325,19 @@ root_container = MenuContainer(
                 MenuItem("Delete", handler=delete),
                 MenuItem("-", disabled=True),
                 MenuItem("Find", handler=search),
-                MenuItem("Find next", handler=not_yet_implemented),
+                MenuItem("Find next", handler=search_next),
                 MenuItem("Replace"),
                 MenuItem("Go To", handler=not_yet_implemented),
                 MenuItem("Select All", handler=not_yet_implemented),
                 MenuItem("Time/Date", handler=not_yet_implemented),
             ],
         ),
-        MenuItem(
-            " View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],
-        ),
+        MenuItem(" View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],),
         MenuItem(" Info ", children=[MenuItem("About", handler=not_yet_implemented)],),
     ],
-    floats=[],
+    floats=[
+        Float(xcursor=True, ycursor=True, content=CompletionsMenu(max_height=16, scroll_offset=1),),
+    ],
     key_bindings=kb,
 )
 
