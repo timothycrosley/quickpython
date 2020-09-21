@@ -47,8 +47,12 @@ style = Style.from_dict(
         "shadow": "bg:black",
         "dialog": "bg:#0000AA",
         "dialog frame.label": "fg:black bg:#AAAAAA",
+        "frame.label": "bg:#AAAAAA fg:#0000aa",
         "dialog.body": "bg:#AAAAAA fg:#000000",
         "dialog shadow": "bg:#000000",
+        "scrollbar.background": "bg:#AAAAAA",
+        "scrollbar.button": "bg:black fg:black",
+        "scrollbar.arrow": "bg:#AAAAAA fg:black bold",
         "button": "bg:#AAAAAA fg:#000000",
     }
 )
@@ -87,7 +91,10 @@ class TextInputDialog:
             self.future.set_result(None)
 
         self.text_area = TextArea(
-            completer=completer, multiline=False, width=D(preferred=40), accept_handler=accept_text,
+            completer=completer,
+            multiline=False,
+            width=D(preferred=40),
+            accept_handler=accept_text,
         )
 
         ok_button = Button(text="OK", handler=accept)
@@ -127,7 +134,9 @@ def open_file(event=None):
         global current_file
 
         open_dialog = TextInputDialog(
-            title="Open file", label_text="Enter the path of a file:", completer=PathCompleter(),
+            title="Open file",
+            label_text="Enter the path of a file:",
+            completer=PathCompleter(),
         )
 
         filename = await show_dialog_as_float(open_dialog)
@@ -255,6 +264,8 @@ code = TextArea(
     line_numbers=True,
     search_field=search_toolbar,
 )
+code.window.right_margins[0].up_arrow_symbol = "↑"
+code.window.right_margins[0].down_arrow_symbol = "↓"
 open_file_frame = Frame(
     HSplit(
         [
@@ -289,10 +300,8 @@ def goto(event=None):
         except ValueError:
             feedback("Invalid line number")
         else:
-            code.buffer.cursor_position = (
-                code.buffer.document.translate_row_col_to_index(
-                    line_number - 1, 0
-                )
+            code.buffer.cursor_position = code.buffer.document.translate_row_col_to_index(
+                line_number - 1, 0
             )
 
     ensure_future(coroutine())
@@ -303,10 +312,12 @@ def search(event=None):
     start_search(code.control)
 
 
-def search_next():
+def search_next(event=None):
     search_state = app.current_search_state
 
-    cursor_position = code.buffer.get_search_position(search_state, include_current_position=False)
+    cursor_position = code.buffer.get_search_position(
+        search_state, include_current_position=False
+    )
     code.buffer.cursor_position = cursor_position
 
 
@@ -316,7 +327,12 @@ root_container = MenuContainer(
         [
             open_file_frame,
             search_toolbar,
-            Frame(immediate, title="Immediate", height=5, style="bg:#0000AA fg:#AAAAAA bold",),
+            Frame(
+                immediate,
+                title="Immediate",
+                height=5,
+                style="bg:#0000AA fg:#AAAAAA bold",
+            ),
             VSplit(
                 [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
                 style="bg:#00AAAA fg:white bold",
@@ -353,11 +369,17 @@ root_container = MenuContainer(
                 MenuItem("Time/Date", handler=not_yet_implemented),
             ],
         ),
-        MenuItem(" View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],),
+        MenuItem(
+            " View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],
+        ),
         MenuItem(" Info ", children=[MenuItem("About", handler=not_yet_implemented)],),
     ],
     floats=[
-        Float(xcursor=True, ycursor=True, content=CompletionsMenu(max_height=16, scroll_offset=1),),
+        Float(
+            xcursor=True,
+            ycursor=True,
+            content=CompletionsMenu(max_height=16, scroll_offset=1),
+        ),
     ],
     key_bindings=kb,
 )
