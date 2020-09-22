@@ -54,6 +54,7 @@ style = Style.from_dict(
         "scrollbar.button": "bg:black fg:black",
         "scrollbar.arrow": "bg:#AAAAAA fg:black bold",
         "button": "bg:#AAAAAA fg:#000000",
+        "": "bg:#0000AA fg:#AAAAAA bold",
     }
 )
 
@@ -277,10 +278,8 @@ open_file_frame = Frame(
             # width by three for all these windows. The window will simply fill its
             # content by repeating this character.
         ],
-        style="bg:#0000AA fg:#AAAAAA bold",
     ),
     title="Untitled",
-    style="bg:#0000AA fg:#AAAAAA bold",
 )
 
 
