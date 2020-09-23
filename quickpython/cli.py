@@ -2,26 +2,80 @@ import asyncio
 import os
 import sys
 from asyncio import Future, ensure_future
+from functools import partial
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Generic, List, Optional, Sequence, Tuple, TypeVar, Union
 
 import black
 import isort
 from prompt_toolkit import Application, widgets
-from prompt_toolkit.buffer import Buffer
-from prompt_toolkit.completion import PathCompleter
-from prompt_toolkit.filters import Condition
+from prompt_toolkit.application.current import get_app
+from prompt_toolkit.auto_suggest import AutoSuggest, DynamicAutoSuggest
+from prompt_toolkit.buffer import Buffer, BufferAcceptHandler
+from prompt_toolkit.completion import Completer, DynamicCompleter, PathCompleter
+from prompt_toolkit.document import Document
+from prompt_toolkit.filters import (
+    Condition,
+    FilterOrBool,
+    has_focus,
+    is_done,
+    is_true,
+    to_filter,
+)
+from prompt_toolkit.formatted_text import (
+    AnyFormattedText,
+    StyleAndTextTuples,
+    Template,
+    to_formatted_text,
+)
+from prompt_toolkit.formatted_text.utils import fragment_list_to_text
+from prompt_toolkit.history import History
 from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit.key_binding.key_bindings import KeyBindings
+from prompt_toolkit.key_binding.key_processor import KeyPressEvent
+from prompt_toolkit.keys import Keys
 from prompt_toolkit.layout import Float, FloatContainer
-from prompt_toolkit.layout.containers import HSplit, VSplit, Window
-from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
-from prompt_toolkit.layout.dimension import D
+from prompt_toolkit.layout.containers import (
+    AnyContainer,
+    ConditionalContainer,
+    Container,
+    DynamicContainer,
+    Float,
+    FloatContainer,
+    HSplit,
+    VSplit,
+    Window,
+    WindowAlign,
+)
+from prompt_toolkit.layout.controls import (
+    BufferControl,
+    FormattedTextControl,
+    GetLinePrefixCallable,
+)
+from prompt_toolkit.layout.dimension import AnyDimension, D
+from prompt_toolkit.layout.dimension import Dimension as D
+from prompt_toolkit.layout.dimension import to_dimension
 from prompt_toolkit.layout.layout import Layout
+from prompt_toolkit.layout.margins import (
+    ConditionalMargin,
+    NumberedMargin,
+    ScrollbarMargin,
+)
 from prompt_toolkit.layout.menus import CompletionsMenu
+from prompt_toolkit.layout.processors import (
+    AppendAutoSuggestion,
+    BeforeInput,
+    ConditionalProcessor,
+    PasswordProcessor,
+    Processor,
+)
+from prompt_toolkit.lexers import DynamicLexer, Lexer
+from prompt_toolkit.mouse_events import MouseEvent, MouseEventType
+from prompt_toolkit.output.color_depth import ColorDepth
 from prompt_toolkit.search import start_search
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
-from prompt_toolkit.utils import Event
+from prompt_toolkit.utils import Event, get_cwidth
 from prompt_toolkit.widgets import (
     Button,
     Dialog,
@@ -32,12 +86,13 @@ from prompt_toolkit.widgets import (
     TextArea,
     toolbars,
 )
-from prompt_toolkit.widgets.base import Box, Button, Frame, Label
+from prompt_toolkit.widgets.base import Border, Box, Button, Frame, Label
 
 kb = KeyBindings()
 eb = KeyBindings()
 current_file: Optional[Path] = None
 
+code_frame_style = Style.from_dict({"frame.label": "bg:#AAAAAA fg:#0000aa"})
 style = Style.from_dict(
     {
         "menu-bar": "bg:#aaaaaa black bold",
@@ -47,13 +102,14 @@ style = Style.from_dict(
         "shadow": "bg:black",
         "dialog": "bg:#0000AA",
         "dialog frame.label": "fg:black bg:#AAAAAA",
-        "frame.label": "bg:#AAAAAA fg:#0000aa",
+        "frame.label": "fg:#AAAAAA bold",
+        "code-frame frame.label": "bg:#AAAAAA fg:#0000aa",
         "dialog.body": "bg:#AAAAAA fg:#000000",
         "dialog shadow": "bg:#000000",
         "scrollbar.background": "bg:#AAAAAA",
         "scrollbar.button": "bg:black fg:black",
         "scrollbar.arrow": "bg:#AAAAAA fg:black bold",
-        "button": "bg:#AAAAAA fg:#000000",
+        # "button": "bg:#AAAAAA fg:#000000",
         "": "bg:#0000AA fg:#AAAAAA bold",
     }
 )
@@ -147,7 +203,7 @@ def open_file(event=None):
             try:
                 with open(current_file, "r", encoding="utf8") as new_file_conent:
                     code.buffer.text = new_file_conent.read()
-                    open_file_frame.title = str(current_file)
+                    open_file_frame.title = current_file.name
                 feedback(f"Successfully opened {current_file}")
             except IOError as error:
                 feedback(f"Error: {error}")
@@ -235,7 +291,8 @@ def run_buffer(event):
     asyncio.ensure_future(_run_buffer())
 
 
-def undo():
+@kb.add("c-z")
+def undo(event=None):
     code.buffer.undo()
 
 
@@ -267,7 +324,166 @@ code = TextArea(
 )
 code.window.right_margins[0].up_arrow_symbol = "↑"
 code.window.right_margins[0].down_arrow_symbol = "↓"
-open_file_frame = Frame(
+
+
+class CodeFrame:
+    """A custom frame for the quick python code container to match desired styling"""
+
+    def __init__(
+        self,
+        body: AnyContainer,
+        title: AnyFormattedText = "",
+        style: str = "",
+        width: AnyDimension = None,
+        height: AnyDimension = None,
+        key_bindings: Optional[KeyBindings] = None,
+        modal: bool = False,
+    ) -> None:
+
+        self.title = title
+        self.body = body
+
+        fill = partial(Window, style="class:frame.border")
+        style = "class:frame " + style
+
+        top_row_with_title = VSplit(
+            [
+                fill(width=1, height=1, char=Border.TOP_LEFT),
+                fill(char=Border.HORIZONTAL),
+                Label(
+                    lambda: Template(" {} ").format(self.title),
+                    style="class:frame.label",
+                    dont_extend_width=True,
+                ),
+                fill(char=Border.HORIZONTAL),
+                fill(width=1, height=1, char=Border.TOP_RIGHT),
+            ],
+            height=1,
+        )
+
+        top_row_without_title = VSplit(
+            [
+                fill(width=1, height=1, char=Border.TOP_LEFT),
+                fill(char=Border.HORIZONTAL),
+                fill(width=1, height=1, char=Border.TOP_RIGHT),
+            ],
+            height=1,
+        )
+
+        @Condition
+        def has_title() -> bool:
+            return bool(self.title)
+
+        self.container = HSplit(
+            [
+                ConditionalContainer(content=top_row_with_title, filter=has_title),
+                ConditionalContainer(content=top_row_without_title, filter=~has_title),
+                VSplit(
+                    [
+                        fill(width=1, char=Border.VERTICAL),
+                        DynamicContainer(lambda: self.body),
+                        fill(width=1, char=Border.VERTICAL),
+                        # Padding is required to make sure that if the content is
+                        # too small, the right frame border is still aligned.
+                    ],
+                    padding=0,
+                ),
+            ],
+            width=width,
+            height=height,
+            style=style,
+            key_bindings=key_bindings,
+            modal=modal,
+        )
+
+    def __pt_container__(self) -> Container:
+        return self.container
+
+
+class ImmediateFrame:
+    """
+    Draw a border around any container, optionally with a title text.
+    Changing the title and body of the frame is possible at runtime by
+    assigning to the `body` and `title` attributes of this class.
+    :param body: Another container object.
+    :param title: Text to be displayed in the top of the frame (can be formatted text).
+    :param style: Style string to be applied to this widget.
+    """
+
+    def __init__(
+        self,
+        body: AnyContainer,
+        title: AnyFormattedText = "",
+        style: str = "",
+        width: AnyDimension = None,
+        height: AnyDimension = None,
+        key_bindings: Optional[KeyBindings] = None,
+        modal: bool = False,
+    ) -> None:
+
+        self.title = title
+        self.body = body
+
+        fill = partial(Window, style="class:frame.border")
+        style = "class:frame " + style
+
+        top_row_with_title = VSplit(
+            [
+                fill(width=1, height=1, char="├"),
+                fill(char=Border.HORIZONTAL),
+                # Notice: we use `Template` here, because `self.title` can be an
+                # `HTML` object for instance.
+                Label(
+                    lambda: Template(" {} ").format(self.title),
+                    style="class:frame.label",
+                    dont_extend_width=True,
+                ),
+                fill(char=Border.HORIZONTAL),
+                fill(width=1, height=1, char="┤"),
+            ],
+            height=1,
+        )
+
+        top_row_without_title = VSplit(
+            [
+                fill(width=1, height=1, char=Border.TOP_LEFT),
+                fill(char=Border.HORIZONTAL),
+                fill(width=1, height=1, char=Border.TOP_RIGHT),
+            ],
+            height=1,
+        )
+
+        @Condition
+        def has_title() -> bool:
+            return bool(self.title)
+
+        self.container = HSplit(
+            [
+                ConditionalContainer(content=top_row_with_title, filter=has_title),
+                ConditionalContainer(content=top_row_without_title, filter=~has_title),
+                VSplit(
+                    [
+                        fill(width=1, char=Border.VERTICAL),
+                        DynamicContainer(lambda: self.body),
+                        fill(width=1, char=Border.VERTICAL),
+                        # Padding is required to make sure that if the content is
+                        # too small, the right frame border is still aligned.
+                    ],
+                    padding=0,
+                ),
+            ],
+            width=width,
+            height=height,
+            style=style,
+            key_bindings=key_bindings,
+            modal=modal,
+        )
+
+    def __pt_container__(self) -> Container:
+        return self.container
+
+
+open_file_frame = CodeFrame(
     HSplit(
         [
             # One window that holds the BufferControl with the default buffer on
@@ -280,6 +496,7 @@ open_file_frame = Frame(
         ],
     ),
     title="Untitled",
+    style="class:code-frame",
 )
 
 
@@ -320,20 +537,29 @@ def search_next(event=None):
     code.buffer.cursor_position = cursor_position
 
 
+QLabel = partial(Label, dont_extend_width=True)
+SPACE = QLabel(" ")
+
 immediate = TextArea()
 root_container = MenuContainer(
     body=HSplit(
         [
             open_file_frame,
             search_toolbar,
-            Frame(
+            ImmediateFrame(
                 immediate,
                 title="Immediate",
                 height=5,
                 style="bg:#0000AA fg:#AAAAAA bold",
             ),
             VSplit(
-                [Label(text=" F1 - Help"), Label(text="F5 or Ctrl+R - Run")],
+                [
+                    QLabel("<F1=Help>"),
+                    SPACE,
+                    QLabel("<F5=Run>"),
+                    SPACE,
+                    QLabel("<CTRL+R=Run>"),
+                ],
                 style="bg:#00AAAA fg:white bold",
                 height=1,
             ),
@@ -392,6 +618,7 @@ app: Application = Application(
     mouse_support=True,
     style=style,
     enable_page_navigation_bindings=True,
+    color_depth=ColorDepth.DEPTH_8_BIT,
 )
 
 
@@ -405,7 +632,7 @@ def start(argv=None):
         current_file = Path(sys.argv[1]).resolve()
         with current_file.open(encoding="utf8") as open_file:
             code.buffer.text = open_file.read()
-            open_file_frame.title = str(current_file)
+            open_file_frame.title = current_file.name
     else:
         message_dialog(
             title="Welcome to",
