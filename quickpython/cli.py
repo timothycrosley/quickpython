@@ -227,6 +227,15 @@ def black_format_code(contents: str) -> str:
         return contents
 
 
+def new():
+    """Creates a new file buffer."""
+    global current_file
+    current_file = None
+    code.buffer.text = ""
+    open_file_frame.title = "Untitled"
+    feedback("")
+
+
 @kb.add("c-q")
 def exit(event=None):
     """Triggers the request to close QPython cleanly."""
@@ -267,7 +276,7 @@ def enter(event):
 def save_file(event=None):
     if not current_file:
         raise NotImplementedError("Put file save dialog here")
-    buffer = event.app.current_buffer
+    buffer = app.current_buffer
     buffer.text = format_code(buffer.text)
     current_file.write_text(buffer.text, encoding="utf8")
     immediate.buffer.text = f"Successfully saved {current_file}"
@@ -569,7 +578,7 @@ root_container = MenuContainer(
         MenuItem(
             " File ",
             children=[
-                MenuItem("New...", handler=not_yet_implemented),
+                MenuItem("New...", handler=new),
                 MenuItem("Open...", handler=open_file),
                 MenuItem("Save", handler=save_file),
                 MenuItem("Save as..."),
