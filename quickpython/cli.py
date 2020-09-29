@@ -2,6 +2,7 @@ import asyncio
 import os
 import sys
 from asyncio import Future, ensure_future
+from datetime import datetime
 from functools import partial
 from pathlib import Path
 from typing import Callable, Generic, List, Optional, Sequence, Tuple, TypeVar, Union
@@ -323,6 +324,17 @@ def paste():
     code.buffer.paste_clipboard_data(app.clipboard.get_data())
 
 
+@kb.add("c-a")
+def select_all(event=None):
+    code.buffer.cursor_position = 0
+    code.buffer.start_selection()
+    code.buffer.cursor_position = len(code.buffer.text)
+
+
+def insert_time_and_date():
+    code.buffer.insert_text(datetime.now().isoformat())
+
+
 search_toolbar = SearchToolbar()
 code = TextArea(
     scrollbar=True,
@@ -599,8 +611,8 @@ root_container = MenuContainer(
                 MenuItem("Find next", handler=search_next),
                 MenuItem("Replace"),
                 MenuItem("Go To", handler=goto),
-                MenuItem("Select All", handler=not_yet_implemented),
-                MenuItem("Time/Date", handler=not_yet_implemented),
+                MenuItem("Select All", handler=select_all),
+                MenuItem("Time/Date", handler=insert_time_and_date),
             ],
         ),
         MenuItem(
