@@ -651,9 +651,10 @@ def start(argv=None):
         sys.exit("Usage: qpython [filename]")
     elif len(sys.argv) == 2:
         current_file = Path(sys.argv[1]).resolve()
-        with current_file.open(encoding="utf8") as open_file:
-            code.buffer.text = open_file.read()
-            open_file_frame.title = current_file.name
+        open_file_frame.title = current_file.name
+        if current_file.exists():
+            with current_file.open(encoding="utf8") as open_file:
+                code.buffer.text = open_file.read()
     else:
         message_dialog(
             title="Welcome to",
