@@ -257,7 +257,11 @@ def indent(event):
 def enter(event):
     buffer = event.app.current_buffer
     buffer.insert_text("\n")
-    if ".py" not in current_file.suffixes and ".pyi" not in current_file.suffixes:
+    if (
+        current_file
+        and ".py" not in current_file.suffixes
+        and ".pyi" not in current_file.suffixes
+    ):
         return
 
     old_cursor_position = buffer.cursor_position
