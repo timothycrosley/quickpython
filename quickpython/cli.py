@@ -299,7 +299,7 @@ async def _run_buffer():
 
 @kb.add("c-r")
 @kb.add("f5")
-def run_buffer(event):
+def run_buffer(event=None):
     asyncio.ensure_future(_run_buffer())
 
 
@@ -620,6 +620,7 @@ root_container = MenuContainer(
         MenuItem(
             " View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],
         ),
+        MenuItem(" Run ", children=[MenuItem("Start (F5)", handler=run_buffer)]),
         MenuItem(" Info ", children=[MenuItem("About", handler=not_yet_implemented)],),
     ],
     floats=[
