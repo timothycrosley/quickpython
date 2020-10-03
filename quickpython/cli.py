@@ -212,6 +212,28 @@ def open_file(event=None):
     ensure_future(coroutine())
 
 
+def save_as_file():
+    async def coroutine():
+        global current_file
+
+        save_dialog = TextInputDialog(
+            title="Save file",
+            label_text="Enter the path of a file:",
+            completer=PathCompleter(),
+        )
+
+        filename = await show_dialog_as_float(save_dialog)
+
+        if filename is not None:
+            current_file = Path(filename).resolve()
+            if not current_file.suffixes and not current_file.exists():
+                current_file = current_file.with_suffix(".py")
+            open_file_frame.title = current_file.name
+            save_file()
+
+    ensure_future(coroutine())
+
+
 def feedback(text):
     immediate.buffer.text = text
 
@@ -282,7 +304,9 @@ def enter(event):
 @kb.add("c-s")
 def save_file(event=None):
     if not current_file:
-        raise NotImplementedError("Put file save dialog here")
+        save_as_file()
+        return
+
     buffer = app.current_buffer
     buffer.text = format_code(buffer.text)
     current_file.write_text(buffer.text, encoding="utf8")
@@ -599,7 +623,7 @@ root_container = MenuContainer(
                 MenuItem("New...", handler=new),
                 MenuItem("Open...", handler=open_file),
                 MenuItem("Save", handler=save_file),
-                MenuItem("Save as..."),
+                MenuItem("Save as...", handler=save_as_file),
                 MenuItem("-", disabled=True),
                 MenuItem("Exit", handler=exit),
             ],
