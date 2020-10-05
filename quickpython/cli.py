@@ -92,6 +92,7 @@ from prompt_toolkit.widgets.base import Border, Box, Button, Frame, Label
 kb = KeyBindings()
 eb = KeyBindings()
 current_file: Optional[Path] = None
+isort_config: isort.Config = isort.Config(profile="black", float_to_top=True)
 
 code_frame_style = Style.from_dict({"frame.label": "bg:#AAAAAA fg:#0000aa"})
 style = Style.from_dict(
@@ -130,7 +131,7 @@ def format_code(contents: str) -> str:
 
 
 def isort_format_code(contents: str) -> str:
-    return isort.code(contents, profile="black", float_to_top=True)
+    return isort.code(contents, config=isort_config)
 
 
 class TextInputDialog:
@@ -190,6 +191,7 @@ async def show_dialog_as_float(dialog):
 def open_file(event=None):
     async def coroutine():
         global current_file
+        global isort_config
 
         open_dialog = TextInputDialog(
             title="Open file",
@@ -201,6 +203,7 @@ def open_file(event=None):
 
         if filename is not None:
             current_file = Path(filename).resolve()
+            isort_config = isort.Config(settings_path=current_file)
             try:
                 with open(current_file, "r", encoding="utf8") as new_file_conent:
                     code.buffer.text = new_file_conent.read()
@@ -215,6 +218,7 @@ def open_file(event=None):
 def save_as_file():
     async def coroutine():
         global current_file
+        global isort_config
 
         save_dialog = TextInputDialog(
             title="Save file",
@@ -226,6 +230,7 @@ def save_as_file():
 
         if filename is not None:
             current_file = Path(filename).resolve()
+            isort_config = isort.Config(settings_path=current_file)
             if not current_file.suffixes and not current_file.exists():
                 current_file = current_file.with_suffix(".py")
             open_file_frame.title = current_file.name
@@ -253,7 +258,10 @@ def black_format_code(contents: str) -> str:
 def new():
     """Creates a new file buffer."""
     global current_file
+    global isort_config
+
     current_file = None
+    isort_config = isort.Config(profile="black", float_to_top=True)
     code.buffer.text = ""
     open_file_frame.title = "Untitled"
     feedback("")
@@ -676,12 +684,14 @@ app: Application = Application(
 
 def start(argv=None):
     global current_file
+    global isort_config
 
     argv = sys.argv if argv is None else argv
     if len(sys.argv) > 2:
         sys.exit("Usage: qpython [filename]")
     elif len(sys.argv) == 2:
         current_file = Path(sys.argv[1]).resolve()
+        isort_config = isort.Config(settings_path=current_file)
         open_file_frame.title = current_file.name
         if current_file.exists():
             with current_file.open(encoding="utf8") as open_file:
