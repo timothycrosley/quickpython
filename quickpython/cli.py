@@ -645,9 +645,6 @@ root_container = MenuContainer(
                 MenuItem("Paste", handler=paste),
                 MenuItem("Delete", handler=delete),
                 MenuItem("-", disabled=True),
-                MenuItem("Find", handler=search),
-                MenuItem("Find next", handler=search_next),
-                MenuItem("Replace"),
                 MenuItem("Go To", handler=goto),
                 MenuItem("Select All", handler=select_all),
                 MenuItem("Time/Date", handler=insert_time_and_date),
@@ -656,8 +653,16 @@ root_container = MenuContainer(
         MenuItem(
             " View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],
         ),
+        MenuItem(
+            " Search ",
+            children=[
+                MenuItem("Find (CTRL+F)", handler=search),
+                MenuItem("Repeat last find", handler=search_next),
+                MenuItem("Change"),
+            ],
+        ),
         MenuItem(" Run ", children=[MenuItem("Start (F5)", handler=run_buffer)]),
-        MenuItem(" Info ", children=[MenuItem("About", handler=not_yet_implemented)],),
+        MenuItem(" Help ", children=[MenuItem("About", handler=not_yet_implemented)],),
     ],
     floats=[
         Float(
