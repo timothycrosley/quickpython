@@ -333,10 +333,19 @@ async def _run_buffer():
         os.remove(buffer_filename)
 
 
+async def _view_buffer():
+    clear()
+    await app.run_system_command("echo ''")
+
+
 @kb.add("c-r")
 @kb.add("f5")
 def run_buffer(event=None):
     asyncio.ensure_future(_run_buffer())
+
+
+def view_buffer(event=None):
+    asyncio.ensure_future(_view_buffer())
 
 
 @kb.add("c-z")
@@ -651,7 +660,7 @@ root_container = MenuContainer(
             ],
         ),
         MenuItem(
-            " View ", children=[MenuItem("Status Bar", handler=not_yet_implemented)],
+            " View ", children=[MenuItem("Output Screen", handler=view_buffer)],
         ),
         MenuItem(
             " Search ",
