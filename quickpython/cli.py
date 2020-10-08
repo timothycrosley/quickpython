@@ -578,6 +578,8 @@ def goto(event=None):
         dialog = TextInputDialog(title="Go to line", label_text="Line number:")
 
         line_number = await show_dialog_as_float(dialog)
+        if line_number is None:
+            return
 
         try:
             line_number = int(line_number)
@@ -588,6 +590,109 @@ def goto(event=None):
                 line_number - 1, 0
             )
 
+    ensure_future(coroutine())
+
+
+def add_function():
+    async def coroutine():
+        dialog = TextInputDialog(title="Add Function", label_text="Function name:")
+
+        function_name = await show_dialog_as_float(dialog)
+        if not function_name:
+            return
+
+        code.buffer.insert_text(f"""
+def {function_name}():
+    pass
+""")
+        code.buffer.text = format_code(code.buffer.text)
+    ensure_future(coroutine())
+
+
+def add_class():
+    async def coroutine():
+        dialog = TextInputDialog(title="Add Class", label_text="Class name:")
+
+        class_name = await show_dialog_as_float(dialog)
+        if not class_name:
+            return
+
+        code.buffer.insert_text(f"""
+class {class_name}:
+    def __init__(self):
+        pass
+""")
+        code.buffer.text = format_code(code.buffer.text)
+    ensure_future(coroutine())
+
+
+def add_data_class():
+    async def coroutine():
+        dialog = TextInputDialog(title="Add Data Class", label_text="Class name:")
+
+        class_name = await show_dialog_as_float(dialog)
+        if not class_name:
+            return
+
+        code.buffer.insert_text(f'''
+@dataclass
+class {class_name}:
+    """Comment"""
+''')
+        code.buffer.text = isort.code(code.buffer.text,
+                                      add_imports=["from dataclasses import dataclass"],
+                                      float_to_top=True)
+        code.buffer.text = format_code(code.buffer.text)
+    ensure_future(coroutine())
+
+
+def add_method():
+    async def coroutine():
+        dialog = TextInputDialog(title="Add Method", label_text="Method name:")
+
+        method_name = await show_dialog_as_float(dialog)
+        if not method_name:
+            return
+
+        code.buffer.insert_text(f"""
+    def {method_name}(self):
+        pass
+""")
+        code.buffer.text = format_code(code.buffer.text)
+    ensure_future(coroutine())
+
+
+def add_static_method():
+    async def coroutine():
+        dialog = TextInputDialog(title="Add Static Method", label_text="Method name:")
+
+        method_name = await show_dialog_as_float(dialog)
+        if not method_name:
+            return
+
+        code.buffer.insert_text(f"""
+    @staticmethod
+    def {method_name}():
+        pass
+""")
+        code.buffer.text = format_code(code.buffer.text)
+    ensure_future(coroutine())
+
+
+def add_class_method():
+    async def coroutine():
+        dialog = TextInputDialog(title="Add Class Method", label_text="Method name:")
+
+        method_name = await show_dialog_as_float(dialog)
+        if not method_name:
+            return
+
+        code.buffer.insert_text(f"""
+    @classmethod
+    def {method_name}(cls):
+        pass
+""")
+        code.buffer.text = format_code(code.buffer.text)
     ensure_future(coroutine())
 
 
@@ -656,7 +761,14 @@ root_container = MenuContainer(
                 MenuItem("-", disabled=True),
                 MenuItem("Go To", handler=goto),
                 MenuItem("Select All", handler=select_all),
-                MenuItem("Time/Date", handler=insert_time_and_date),
+                MenuItem("Add Time/Date", handler=insert_time_and_date),
+                MenuItem("-", disabled=True),
+                MenuItem("New Function", handler=add_function),
+                MenuItem("New Class", handler=add_class),
+                MenuItem("New Data Class", handler=add_data_class),
+                MenuItem("New Method", handler=add_method),
+                MenuItem("New Static Method", handler=add_static_method),
+                MenuItem("New Class Method", handler=add_class_method),
             ],
         ),
         MenuItem(
