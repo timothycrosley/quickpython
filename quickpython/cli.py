@@ -593,6 +593,25 @@ def goto(event=None):
     ensure_future(coroutine())
 
 
+@kb.add("c-r")
+def replace_text(event=None):
+    async def coroutine():
+        to_replace_dialog = TextInputDialog(title="Text to Replace", label_text="original:")
+        replacement_dialog = TextInputDialog(title="Replace With", label_text="replacement:")
+
+        to_replace = await show_dialog_as_float(to_replace_dialog)
+        if to_replace is None:
+            return
+        
+        replacement = await show_dialog_as_float(replacement_dialog)
+        if replacement is None:
+            return
+
+        code.buffer.text = format_code(code.buffer.text.replace(to_replace, replacement))
+
+    ensure_future(coroutine())
+
+
 def add_function():
     async def coroutine():
         dialog = TextInputDialog(title="Add Function", label_text="Function name:")
@@ -779,7 +798,7 @@ root_container = MenuContainer(
             children=[
                 MenuItem("Find (CTRL+F)", handler=search),
                 MenuItem("Repeat last find", handler=search_next),
-                MenuItem("Change"),
+                MenuItem("Change (CTRL+R)", handler=replace_text),
             ],
         ),
         MenuItem(" Run ", children=[MenuItem("Start (F5)", handler=run_buffer)]),
