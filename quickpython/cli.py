@@ -742,7 +742,7 @@ root_container = MenuContainer(
                 immediate,
                 title="Immediate",
                 height=5,
-                style="bg:#0000AA fg:#AAAAAA bold",
+                style="fg:#AAAAAA bold",
             ),
             VSplit(
                 [
