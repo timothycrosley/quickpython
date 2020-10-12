@@ -15,14 +15,7 @@ from prompt_toolkit.auto_suggest import AutoSuggest, DynamicAutoSuggest
 from prompt_toolkit.buffer import Buffer, BufferAcceptHandler
 from prompt_toolkit.completion import Completer, DynamicCompleter, PathCompleter
 from prompt_toolkit.document import Document
-from prompt_toolkit.filters import (
-    Condition,
-    FilterOrBool,
-    has_focus,
-    is_done,
-    is_true,
-    to_filter,
-)
+from prompt_toolkit.filters import Condition, FilterOrBool, has_focus, is_done, is_true, to_filter
 from prompt_toolkit.formatted_text import (
     AnyFormattedText,
     StyleAndTextTuples,
@@ -57,11 +50,7 @@ from prompt_toolkit.layout.dimension import AnyDimension, D
 from prompt_toolkit.layout.dimension import Dimension as D
 from prompt_toolkit.layout.dimension import to_dimension
 from prompt_toolkit.layout.layout import Layout
-from prompt_toolkit.layout.margins import (
-    ConditionalMargin,
-    NumberedMargin,
-    ScrollbarMargin,
-)
+from prompt_toolkit.layout.margins import ConditionalMargin, NumberedMargin, ScrollbarMargin
 from prompt_toolkit.layout.menus import CompletionsMenu
 from prompt_toolkit.layout.processors import (
     AppendAutoSuggestion,
@@ -88,6 +77,15 @@ from prompt_toolkit.widgets import (
     toolbars,
 )
 from prompt_toolkit.widgets.base import Border, Box, Button, Frame, Label
+
+ABOUT_MESSAGE = """QuickPython version 0.0.2
+
+Copyright (c) 2020 Timothy Crosley. Few rights reserved. MIT Licensed.
+Simultanously distributed to the US and Canada.
+And you know, the rest of the world.
+
+A productive parody.
+"""
 
 kb = KeyBindings()
 eb = KeyBindings()
@@ -150,10 +148,7 @@ class TextInputDialog:
             self.future.set_result(None)
 
         self.text_area = TextArea(
-            completer=completer,
-            multiline=False,
-            width=D(preferred=40),
-            accept_handler=accept_text,
+            completer=completer, multiline=False, width=D(preferred=40), accept_handler=accept_text,
         )
 
         ok_button = Button(text="OK", handler=accept)
@@ -163,6 +158,27 @@ class TextInputDialog:
             title=title,
             body=HSplit([Label(text=label_text), self.text_area]),
             buttons=[ok_button, cancel_button],
+            width=D(preferred=80),
+            modal=True,
+        )
+
+    def __pt_container__(self):
+        return self.dialog
+
+
+class MessageDialog:
+    def __init__(self, title, text):
+        self.future = Future()
+
+        def set_done():
+            self.future.set_result(None)
+
+        ok_button = Button(text="OK", handler=(lambda: set_done()))
+
+        self.dialog = Dialog(
+            title=title,
+            body=HSplit([Label(text=text)]),
+            buttons=[ok_button],
             width=D(preferred=80),
             modal=True,
         )
@@ -194,9 +210,7 @@ def open_file(event=None):
         global isort_config
 
         open_dialog = TextInputDialog(
-            title="Open file",
-            label_text="Enter the path of a file:",
-            completer=PathCompleter(),
+            title="Open file", label_text="Enter the path of a file:", completer=PathCompleter(),
         )
 
         filename = await show_dialog_as_float(open_dialog)
@@ -221,9 +235,7 @@ def save_as_file():
         global isort_config
 
         save_dialog = TextInputDialog(
-            title="Save file",
-            label_text="Enter the path of a file:",
-            completer=PathCompleter(),
+            title="Save file", label_text="Enter the path of a file:", completer=PathCompleter(),
         )
 
         filename = await show_dialog_as_float(save_dialog)
@@ -287,11 +299,7 @@ def indent(event):
 def enter(event):
     buffer = event.app.current_buffer
     buffer.insert_text("\n")
-    if (
-        current_file
-        and ".py" not in current_file.suffixes
-        and ".pyi" not in current_file.suffixes
-    ):
+    if current_file and ".py" not in current_file.suffixes and ".pyi" not in current_file.suffixes:
         return
 
     old_cursor_position = buffer.cursor_position
@@ -568,10 +576,6 @@ open_file_frame = CodeFrame(
 )
 
 
-def not_yet_implemented(event=None):
-    raise NotImplementedError("Still need to implement handler for this event")
-
-
 @kb.add("c-g")
 def goto(event=None):
     async def coroutine():
@@ -602,12 +606,19 @@ def replace_text(event=None):
         to_replace = await show_dialog_as_float(to_replace_dialog)
         if to_replace is None:
             return
-        
+
         replacement = await show_dialog_as_float(replacement_dialog)
         if replacement is None:
             return
 
         code.buffer.text = format_code(code.buffer.text.replace(to_replace, replacement))
+
+    ensure_future(coroutine())
+
+
+def about():
+    async def coroutine():
+        await show_dialog_as_float(MessageDialog("About QuickPython", ABOUT_MESSAGE))
 
     ensure_future(coroutine())
 
@@ -620,11 +631,14 @@ def add_function():
         if not function_name:
             return
 
-        code.buffer.insert_text(f"""
+        code.buffer.insert_text(
+            f"""
 def {function_name}():
     pass
-""")
+"""
+        )
         code.buffer.text = format_code(code.buffer.text)
+
     ensure_future(coroutine())
 
 
@@ -636,12 +650,15 @@ def add_class():
         if not class_name:
             return
 
-        code.buffer.insert_text(f"""
+        code.buffer.insert_text(
+            f"""
 class {class_name}:
     def __init__(self):
         pass
-""")
+"""
+        )
         code.buffer.text = format_code(code.buffer.text)
+
     ensure_future(coroutine())
 
 
@@ -653,15 +670,18 @@ def add_data_class():
         if not class_name:
             return
 
-        code.buffer.insert_text(f'''
+        code.buffer.insert_text(
+            f'''
 @dataclass
 class {class_name}:
     """Comment"""
-''')
-        code.buffer.text = isort.code(code.buffer.text,
-                                      add_imports=["from dataclasses import dataclass"],
-                                      float_to_top=True)
+'''
+        )
+        code.buffer.text = isort.code(
+            code.buffer.text, add_imports=["from dataclasses import dataclass"], float_to_top=True
+        )
         code.buffer.text = format_code(code.buffer.text)
+
     ensure_future(coroutine())
 
 
@@ -673,11 +693,14 @@ def add_method():
         if not method_name:
             return
 
-        code.buffer.insert_text(f"""
+        code.buffer.insert_text(
+            f"""
     def {method_name}(self):
         pass
-""")
+"""
+        )
         code.buffer.text = format_code(code.buffer.text)
+
     ensure_future(coroutine())
 
 
@@ -689,12 +712,15 @@ def add_static_method():
         if not method_name:
             return
 
-        code.buffer.insert_text(f"""
+        code.buffer.insert_text(
+            f"""
     @staticmethod
     def {method_name}():
         pass
-""")
+"""
+        )
         code.buffer.text = format_code(code.buffer.text)
+
     ensure_future(coroutine())
 
 
@@ -706,12 +732,15 @@ def add_class_method():
         if not method_name:
             return
 
-        code.buffer.insert_text(f"""
+        code.buffer.insert_text(
+            f"""
     @classmethod
     def {method_name}(cls):
         pass
-""")
+"""
+        )
         code.buffer.text = format_code(code.buffer.text)
+
     ensure_future(coroutine())
 
 
@@ -723,9 +752,7 @@ def search(event=None):
 def search_next(event=None):
     search_state = app.current_search_state
 
-    cursor_position = code.buffer.get_search_position(
-        search_state, include_current_position=False
-    )
+    cursor_position = code.buffer.get_search_position(search_state, include_current_position=False)
     code.buffer.cursor_position = cursor_position
 
 
@@ -738,20 +765,9 @@ root_container = MenuContainer(
         [
             open_file_frame,
             search_toolbar,
-            ImmediateFrame(
-                immediate,
-                title="Immediate",
-                height=5,
-                style="fg:#AAAAAA bold",
-            ),
+            ImmediateFrame(immediate, title="Immediate", height=5, style="fg:#AAAAAA bold",),
             VSplit(
-                [
-                    QLabel("<F1=Help>"),
-                    SPACE,
-                    QLabel("<F5=Run>"),
-                    SPACE,
-                    QLabel("<CTRL+R=Run>"),
-                ],
+                [QLabel("<F1=Help>"), SPACE, QLabel("<F5=Run>"), SPACE, QLabel("<CTRL+R=Run>"),],
                 style="bg:#00AAAA fg:white bold",
                 height=1,
             ),
@@ -790,9 +806,7 @@ root_container = MenuContainer(
                 MenuItem("New Class Method", handler=add_class_method),
             ],
         ),
-        MenuItem(
-            " View ", children=[MenuItem("Output Screen", handler=view_buffer)],
-        ),
+        MenuItem(" View ", children=[MenuItem("Output Screen", handler=view_buffer)],),
         MenuItem(
             " Search ",
             children=[
@@ -802,14 +816,10 @@ root_container = MenuContainer(
             ],
         ),
         MenuItem(" Run ", children=[MenuItem("Start (F5)", handler=run_buffer)]),
-        MenuItem(" Help ", children=[MenuItem("About", handler=not_yet_implemented)],),
+        MenuItem(" Help ", children=[MenuItem("About", handler=about)],),
     ],
     floats=[
-        Float(
-            xcursor=True,
-            ycursor=True,
-            content=CompletionsMenu(max_height=16, scroll_offset=1),
-        ),
+        Float(xcursor=True, ycursor=True, content=CompletionsMenu(max_height=16, scroll_offset=1),),
     ],
     key_bindings=kb,
 )
@@ -842,17 +852,7 @@ def start(argv=None):
             with current_file.open(encoding="utf8") as open_file:
                 code.buffer.text = open_file.read()
     else:
-        message_dialog(
-            title="Welcome to",
-            text="""QuickPython version 0.0.2
-
-Copyright (c) 2020 Timothy Crosley. Few rights reserved. MIT Licensed.
-Simultanously distributed to the US and Canada. And you know, the rest of the world.
-
-A productive parody.
-""",
-            style=style,
-        ).run()
+        message_dialog(title="Welcome to", text=ABOUT_MESSAGE, style=style,).run()
 
     app.layout.focus(code.buffer)
     app.run()
