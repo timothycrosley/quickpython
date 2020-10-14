@@ -5,78 +5,34 @@ from asyncio import Future, ensure_future
 from datetime import datetime
 from functools import partial
 from pathlib import Path
-from typing import Callable, Generic, List, Optional, Sequence, Tuple, TypeVar, Union
+from typing import Optional
 
 import black
 import isort
-from prompt_toolkit import Application, widgets
-from prompt_toolkit.application.current import get_app
-from prompt_toolkit.auto_suggest import AutoSuggest, DynamicAutoSuggest
-from prompt_toolkit.buffer import Buffer, BufferAcceptHandler
-from prompt_toolkit.completion import Completer, DynamicCompleter, PathCompleter
-from prompt_toolkit.document import Document
-from prompt_toolkit.filters import Condition, FilterOrBool, has_focus, is_done, is_true, to_filter
-from prompt_toolkit.formatted_text import (
-    AnyFormattedText,
-    StyleAndTextTuples,
-    Template,
-    to_formatted_text,
-)
-from prompt_toolkit.formatted_text.utils import fragment_list_to_text
-from prompt_toolkit.history import History
-from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit import Application
+from prompt_toolkit.completion import PathCompleter
+from prompt_toolkit.filters import Condition
+from prompt_toolkit.formatted_text import AnyFormattedText, Template
 from prompt_toolkit.key_binding.key_bindings import KeyBindings
-from prompt_toolkit.key_binding.key_processor import KeyPressEvent
-from prompt_toolkit.keys import Keys
-from prompt_toolkit.layout import Float, FloatContainer
 from prompt_toolkit.layout.containers import (
     AnyContainer,
     ConditionalContainer,
     Container,
     DynamicContainer,
     Float,
-    FloatContainer,
     HSplit,
     VSplit,
     Window,
-    WindowAlign,
 )
-from prompt_toolkit.layout.controls import (
-    BufferControl,
-    FormattedTextControl,
-    GetLinePrefixCallable,
-)
-from prompt_toolkit.layout.dimension import AnyDimension, D
-from prompt_toolkit.layout.dimension import Dimension as D
-from prompt_toolkit.layout.dimension import to_dimension
+from prompt_toolkit.layout.dimension import AnyDimension, Dimension
 from prompt_toolkit.layout.layout import Layout
-from prompt_toolkit.layout.margins import ConditionalMargin, NumberedMargin, ScrollbarMargin
 from prompt_toolkit.layout.menus import CompletionsMenu
-from prompt_toolkit.layout.processors import (
-    AppendAutoSuggestion,
-    BeforeInput,
-    ConditionalProcessor,
-    PasswordProcessor,
-    Processor,
-)
-from prompt_toolkit.lexers import DynamicLexer, Lexer
-from prompt_toolkit.mouse_events import MouseEvent, MouseEventType
 from prompt_toolkit.output.color_depth import ColorDepth
 from prompt_toolkit.search import start_search
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
-from prompt_toolkit.utils import Event, get_cwidth
-from prompt_toolkit.widgets import (
-    Button,
-    Dialog,
-    Label,
-    MenuContainer,
-    MenuItem,
-    SearchToolbar,
-    TextArea,
-    toolbars,
-)
-from prompt_toolkit.widgets.base import Border, Box, Button, Frame, Label
+from prompt_toolkit.widgets import Dialog, MenuContainer, MenuItem, SearchToolbar, TextArea
+from prompt_toolkit.widgets.base import Border, Button, Label
 
 ABOUT_MESSAGE = """QuickPython version 0.0.2
 
@@ -91,6 +47,7 @@ kb = KeyBindings()
 eb = KeyBindings()
 current_file: Optional[Path] = None
 isort_config: isort.Config = isort.Config(profile="black", float_to_top=True)
+black_config: dict = {}
 
 code_frame_style = Style.from_dict({"frame.label": "bg:#AAAAAA fg:#0000aa"})
 style = Style.from_dict(
@@ -148,7 +105,10 @@ class TextInputDialog:
             self.future.set_result(None)
 
         self.text_area = TextArea(
-            completer=completer, multiline=False, width=D(preferred=40), accept_handler=accept_text,
+            completer=completer,
+            multiline=False,
+            width=Dimension(preferred=40),
+            accept_handler=accept_text,
         )
 
         ok_button = Button(text="OK", handler=accept)
@@ -158,7 +118,7 @@ class TextInputDialog:
             title=title,
             body=HSplit([Label(text=label_text), self.text_area]),
             buttons=[ok_button, cancel_button],
-            width=D(preferred=80),
+            width=Dimension(preferred=80),
             modal=True,
         )
 
@@ -179,7 +139,7 @@ class MessageDialog:
             title=title,
             body=HSplit([Label(text=text)]),
             buttons=[ok_button],
-            width=D(preferred=80),
+            width=Dimension(preferred=80),
             modal=True,
         )
 
@@ -208,9 +168,12 @@ def open_file(event=None):
     async def coroutine():
         global current_file
         global isort_config
+        global black_config
 
         open_dialog = TextInputDialog(
-            title="Open file", label_text="Enter the path of a file:", completer=PathCompleter(),
+            title="Open file",
+            label_text="Enter the path of a file:",
+            completer=PathCompleter(),
         )
 
         filename = await show_dialog_as_float(open_dialog)
@@ -218,6 +181,12 @@ def open_file(event=None):
         if filename is not None:
             current_file = Path(filename).resolve()
             isort_config = isort.Config(settings_path=current_file)
+            black_config_file = black.find_pyproject_toml((current_file,))
+            if black_config_file:
+                black_config = black.parse_pyproject_toml(black_config_file)
+            else:
+                black_config = {}
+
             try:
                 with open(current_file, "r", encoding="utf8") as new_file_conent:
                     code.buffer.text = new_file_conent.read()
@@ -233,9 +202,12 @@ def save_as_file():
     async def coroutine():
         global current_file
         global isort_config
+        global black_config
 
         save_dialog = TextInputDialog(
-            title="Save file", label_text="Enter the path of a file:", completer=PathCompleter(),
+            title="Save file",
+            label_text="Enter the path of a file:",
+            completer=PathCompleter(),
         )
 
         filename = await show_dialog_as_float(save_dialog)
@@ -243,6 +215,11 @@ def save_as_file():
         if filename is not None:
             current_file = Path(filename).resolve()
             isort_config = isort.Config(settings_path=current_file)
+            black_config_file = black.find_pyproject_toml((current_file,))
+            if black_config_file:
+                black_config = black.parse_pyproject_toml(black_config_file)
+            else:
+                black_config = {}
             if not current_file.suffixes and not current_file.exists():
                 current_file = current_file.with_suffix(".py")
             open_file_frame.title = current_file.name
@@ -259,7 +236,7 @@ def black_format_code(contents: str) -> str:
     """Formats the given import section using black."""
     try:
         immediate.buffer.text = ""
-        return black.format_file_contents(contents, fast=True, mode=black.FileMode(),)
+        return black.format_file_contents(contents, fast=True, mode=black.FileMode(**black_config))
     except black.NothingChanged:
         return contents
     except Exception as error:
@@ -271,9 +248,11 @@ def new():
     """Creates a new file buffer."""
     global current_file
     global isort_config
+    global black_config
 
     current_file = None
     isort_config = isort.Config(profile="black", float_to_top=True)
+    black_config = {}
     code.buffer.text = ""
     open_file_frame.title = "Untitled"
     feedback("")
@@ -398,8 +377,8 @@ code = TextArea(
     line_numbers=True,
     search_field=search_toolbar,
 )
-code.window.right_margins[0].up_arrow_symbol = "↑"
-code.window.right_margins[0].down_arrow_symbol = "↓"
+code.window.right_margins[0].up_arrow_symbol = "↑"  # type: ignore
+code.window.right_margins[0].down_arrow_symbol = "↓"  # type: ignore
 
 
 class CodeFrame:
@@ -765,9 +744,20 @@ root_container = MenuContainer(
         [
             open_file_frame,
             search_toolbar,
-            ImmediateFrame(immediate, title="Immediate", height=5, style="fg:#AAAAAA bold",),
+            ImmediateFrame(
+                immediate,
+                title="Immediate",
+                height=5,
+                style="fg:#AAAAAA bold",
+            ),
             VSplit(
-                [QLabel("<F1=Help>"), SPACE, QLabel("<F5=Run>"), SPACE, QLabel("<CTRL+R=Run>"),],
+                [
+                    QLabel("<F1=Help>"),
+                    SPACE,
+                    QLabel("<F5=Run>"),
+                    SPACE,
+                    QLabel("<CTRL+R=Run>"),
+                ],
                 style="bg:#00AAAA fg:white bold",
                 height=1,
             ),
@@ -806,7 +796,10 @@ root_container = MenuContainer(
                 MenuItem("New Class Method", handler=add_class_method),
             ],
         ),
-        MenuItem(" View ", children=[MenuItem("Output Screen", handler=view_buffer)],),
+        MenuItem(
+            " View ",
+            children=[MenuItem("Output Screen", handler=view_buffer)],
+        ),
         MenuItem(
             " Search ",
             children=[
@@ -816,10 +809,17 @@ root_container = MenuContainer(
             ],
         ),
         MenuItem(" Run ", children=[MenuItem("Start (F5)", handler=run_buffer)]),
-        MenuItem(" Help ", children=[MenuItem("About", handler=about)],),
+        MenuItem(
+            " Help ",
+            children=[MenuItem("About", handler=about)],
+        ),
     ],
     floats=[
-        Float(xcursor=True, ycursor=True, content=CompletionsMenu(max_height=16, scroll_offset=1),),
+        Float(
+            xcursor=True,
+            ycursor=True,
+            content=CompletionsMenu(max_height=16, scroll_offset=1),
+        ),
     ],
     key_bindings=kb,
 )
@@ -852,7 +852,11 @@ def start(argv=None):
             with current_file.open(encoding="utf8") as open_file:
                 code.buffer.text = open_file.read()
     else:
-        message_dialog(title="Welcome to", text=ABOUT_MESSAGE, style=style,).run()
+        message_dialog(
+            title="Welcome to",
+            text=ABOUT_MESSAGE,
+            style=style,
+        ).run()
 
     app.layout.focus(code.buffer)
     app.run()
