@@ -308,10 +308,12 @@ def save_file(event=None):
     immediate.buffer.text = f"Successfully saved {current_file}"
 
 
-async def _run_buffer():
+async def _run_buffer(debug: bool = False):
     buffer_filename = f"{current_file or 'buffer'}.qpython"
     with open(buffer_filename, "w") as buffer_file:
         buffer_file.write(app.current_buffer.text)
+        if debug:
+            buffer_file.write("breakpoint()")
 
     try:
         clear()
@@ -329,6 +331,10 @@ async def _view_buffer():
 @kb.add("f5")
 def run_buffer(event=None):
     asyncio.ensure_future(_run_buffer())
+
+
+def debug():
+    asyncio.ensure_future(_run_buffer(debug=True))
 
 
 def view_buffer(event=None):
@@ -807,7 +813,10 @@ root_container = MenuContainer(
                 MenuItem("Change", handler=replace_text),
             ],
         ),
-        MenuItem(" Run ", children=[MenuItem("Start (F5)", handler=run_buffer)]),
+        MenuItem(
+            " Run ",
+            children=[MenuItem("Start (F5)", handler=run_buffer), MenuItem("Debug", handler=debug)],
+        ),
         MenuItem(
             " Help ",
             children=[MenuItem("About", handler=about)],
