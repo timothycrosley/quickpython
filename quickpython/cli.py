@@ -66,7 +66,6 @@ style = Style.from_dict(
         "scrollbar.background": "bg:#AAAAAA",
         "scrollbar.button": "bg:black fg:black",
         "scrollbar.arrow": "bg:#AAAAAA fg:black bold",
-        # "button": "bg:#AAAAAA fg:#000000",
         "": "bg:#0000AA fg:#AAAAAA bold",
     }
 )
