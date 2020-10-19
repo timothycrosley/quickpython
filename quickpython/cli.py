@@ -34,7 +34,9 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.widgets import Dialog, MenuContainer, MenuItem, SearchToolbar, TextArea
 from prompt_toolkit.widgets.base import Border, Button, Label
 
-ABOUT_MESSAGE = """QuickPython version 0.0.2
+from quickpython import __version__
+
+ABOUT_MESSAGE = f"""QuickPython version {__version__}
 
 Copyright (c) 2020 Timothy Crosley. Few rights reserved. MIT Licensed.
 Simultanously distributed to the US and Canada.
