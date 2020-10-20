@@ -318,7 +318,9 @@ async def _run_buffer(debug: bool = False):
 
     try:
         clear()
-        await app.run_system_command(f'{sys.executable} "{buffer_filename}"')
+        await app.run_system_command(
+            f'PYTHONBREAKPOINT=ipdb.set_trace {sys.executable} "{buffer_filename}"'
+        )
     finally:
         os.remove(buffer_filename)
 

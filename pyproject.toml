@@ -11,6 +11,7 @@ python = "^3.6.1"
 prompt-toolkit = "^3.0.6"
 isort = "^5.4.2"
 black = {version = "^20.8b1", allow-prereleases = true}
+ipdb = "^0.13.4"
 
 [tool.poetry.scripts]
 quickpython = "quickpython.cli:start"
