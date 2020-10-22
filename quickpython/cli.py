@@ -48,8 +48,21 @@ A productive parody.
 kb = KeyBindings()
 eb = KeyBindings()
 current_file: Optional[Path] = None
-isort_config: isort.Config = isort.Config(profile="black", float_to_top=True)
-black_config: dict = {}
+
+default_isort_config = isort.Config(settings_path=os.getcwd())
+if default_isort_config == isort.settings.DEFAULT_CONFIG:
+    default_isort_config = isort.Config(profile="black", float_to_top=True)
+
+default_black_config_file = black.find_pyproject_toml((os.getcwd(),))
+if default_black_config_file:
+    default_black_config = black.parse_pyproject_toml(default_black_config_file)
+else:
+    default_black_config = {}
+
+default_black_config = {}
+
+isort_config: isort.Config = default_isort_config
+black_config: dict = default_black_config
 
 code_frame_style = Style.from_dict({"frame.label": "bg:#AAAAAA fg:#0000aa"})
 style = Style.from_dict(
@@ -252,8 +265,8 @@ def new():
     global black_config
 
     current_file = None
-    isort_config = isort.Config(profile="black", float_to_top=True)
-    black_config = {}
+    isort_config = default_isort_config
+    black_config = default_black_config
     code.buffer.text = ""
     open_file_frame.title = "Untitled"
     feedback("")
