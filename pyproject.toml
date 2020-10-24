@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "quickpython"
-version = "0.0.7"
+version = "0.0.8"
 description = "A retro interactive coding environment powered by Python and nostalgia "
 authors = ["Timothy Crosley <timothy.crosley@gmail.com>"]
 license = "MIT"
