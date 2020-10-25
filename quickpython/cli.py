@@ -326,7 +326,9 @@ def save_file(event=None):
 async def _run_buffer(debug: bool = False):
     buffer_filename = f"{current_file or 'buffer'}.qpython"
     with open(buffer_filename, "w") as buffer_file:
-        buffer_file.write(app.current_buffer.text)
+        user_code = app.current_buffer.text
+        with_qpython_injected = isort.code(user_code, add_imports=["import quickpython.extensions"])
+        buffer_file.write(isort_format_code(with_qpython_injected))
         if debug:
             buffer_file.write("breakpoint()")
 
