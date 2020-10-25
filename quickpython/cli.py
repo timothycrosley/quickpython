@@ -43,6 +43,7 @@ Simultanously distributed to the US and Canada.
 And you know, the rest of the world.
 
 A productive parody.
+Made in Seattle.
 """
 
 kb = KeyBindings()
