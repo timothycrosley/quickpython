@@ -8,10 +8,10 @@ __version__ = 0
 import sys
 
 # Set up the constants:
-O_PLAYER = 'O'
-X_PLAYER = 'X'
-TIED = 'tied'
-EMPTY_SPACE = '.'
+O_PLAYER = "O"
+X_PLAYER = "X"
+TIED = "tied"
+EMPTY_SPACE = "."
 BOARD_WIDTH = 3
 BOARD_HEIGHT = 3
 CANVAS_WIDTH = 15
@@ -21,13 +21,15 @@ SUBCANVAS_HEIGHT = 3
 
 
 def main():
-    print('''Ultimate Tic-Tac-Toe, by Al Sweigart al@inventwithpython.com
+    print(
+        """Ultimate Tic-Tac-Toe, by Al Sweigart al@inventwithpython.com
 Instead of tic-tac-toe with 9 spaces, this game has a "big" board
 made up of 9 "small" tic-tac-toe boards. Moving on a small board causes
 the next player to move on that relative board. Winning on a small board
 lets that player put their mark on the big board. The winner must get
 three in a row on the big board.
-''')
+"""
+    )
 
     turn = X_PLAYER  # X will go first.
     gameBoard = getNewBoard()
@@ -44,13 +46,13 @@ three in a row on the big board.
         bigWinner = getWinner(bigBoard)
         if bigWinner == TIED:
             displayBoard(gameBoard)
-            print('The game is a tie!')
-            print('Thanks for playing!')
+            print("The game is a tie!")
+            print("Thanks for playing!")
             sys.exit()
         elif bigWinner != None:
             displayBoard(gameBoard)
-            print(bigWinner, 'has won!')
-            print('Thanks for playing!')
+            print(bigWinner, "has won!")
+            print("Thanks for playing!")
             sys.exit()
 
         # Switch to the other player's turn:
@@ -86,7 +88,7 @@ def displayBoard(board):
     # First, put blank spaces on the entire canvas:
     for x in range(CANVAS_WIDTH):
         for y in range(CANVAS_HEIGHT):
-            canvas[(x, y)] = ' '
+            canvas[(x, y)] = " "
 
     # Second, fill in the big board Xs and Os on the canvas:
     for x in range(BOARD_WIDTH):
@@ -94,24 +96,24 @@ def displayBoard(board):
             winner = getWinner(board[(x, y)])
             if winner == X_PLAYER:
                 # Draw a large X for each small board X won:
-                canvas[(x * 5 + 1, y * 3 + 0)] = '\\'
-                canvas[(x * 5 + 3, y * 3 + 0)] = '/'
-                canvas[(x * 5 + 2, y * 3 + 1)] = 'X'
-                canvas[(x * 5 + 1, y * 3 + 2)] = '/'
-                canvas[(x * 5 + 3, y * 3 + 2)] = '\\'
+                canvas[(x * 5 + 1, y * 3 + 0)] = "\\"
+                canvas[(x * 5 + 3, y * 3 + 0)] = "/"
+                canvas[(x * 5 + 2, y * 3 + 1)] = "X"
+                canvas[(x * 5 + 1, y * 3 + 2)] = "/"
+                canvas[(x * 5 + 3, y * 3 + 2)] = "\\"
             elif winner == O_PLAYER:
                 # Draw a large O for each small board O won:
-                canvas[(x * 5 + 2, y * 3 + 0)] = '_'
-                canvas[(x * 5 + 1, y * 3 + 1)] = '/'
-                canvas[(x * 5 + 3, y * 3 + 1)] = '\\'
-                canvas[(x * 5 + 1, y * 3 + 2)] = '\\'
-                canvas[(x * 5 + 2, y * 3 + 2)] = '_'
-                canvas[(x * 5 + 3, y * 3 + 2)] = '/'
+                canvas[(x * 5 + 2, y * 3 + 0)] = "_"
+                canvas[(x * 5 + 1, y * 3 + 1)] = "/"
+                canvas[(x * 5 + 3, y * 3 + 1)] = "\\"
+                canvas[(x * 5 + 1, y * 3 + 2)] = "\\"
+                canvas[(x * 5 + 2, y * 3 + 2)] = "_"
+                canvas[(x * 5 + 3, y * 3 + 2)] = "/"
             elif winner == TIED:
                 # Draw a large ### block for tied small boards:
                 for scx in range(SUBCANVAS_WIDTH):
                     for scy in range(SUBCANVAS_HEIGHT):
-                        canvas[(x * 5 + scx, y * 3 + scy)] = '#'
+                        canvas[(x * 5 + scx, y * 3 + scy)] = "#"
 
     # Third, fill in the Xs and Os of the small boards on the canvas:
     for ix, smallTopLeftX in enumerate([0, 5, 10]):
@@ -128,13 +130,13 @@ def displayBoard(board):
     # Print out the tic tac toe board:
     for y in range(9):
         for x in range(15):
-            print(canvas[(x, y)], end='')
+            print(canvas[(x, y)], end="")
             if x == 4 or x == 9:
-                print('|', end='')
+                print("|", end="")
         print()  # Print a newline.
 
         if y == 2 or y == 5:
-            print('-----+-----+-----')
+            print("-----+-----+-----")
 
 
 def getWinner(board):
@@ -147,14 +149,16 @@ def getWinner(board):
     botL, botM, botR = board[(0, 2)], board[(1, 2)], board[(2, 2)]
 
     for player in (X_PLAYER, O_PLAYER):
-        if ((topL == topM == topR == player) or  # Top row
-            (midL == midM == midR == player) or  # Middle row
-            (botL == botM == botR == player) or  # Bottom row
-            (topL == midL == botL == player) or  # Left column
-            (topM == midM == botM == player) or  # Middle column
-            (topR == midR == botR == player) or  # Right column
-            (topL == midM == botR == player) or  # \ diagonal
-            (topR == midM == botL == player)):   # / diagonal
+        if (
+            (topL == topM == topR == player)
+            or (midL == midM == midR == player)  # Top row
+            or (botL == botM == botR == player)  # Middle row
+            or (topL == midL == botL == player)  # Bottom row
+            or (topM == midM == botM == player)  # Left column
+            or (topR == midR == botR == player)  # Middle column
+            or (topL == midM == botR == player)  # Right column
+            or (topR == midM == botL == player)  # \ diagonal
+        ):  # / diagonal
             return player
 
     # Check for a tie:
@@ -175,7 +179,7 @@ def askForPlayerMove(player, board, focusX, focusY):
     # Check if the player can freely select any small board:
     if focusX == None and focusY == None:
         # Let the player pick which board they want to move on:
-        print(player + ': Enter the BOARD you want to move on.')
+        print(player + ": Enter the BOARD you want to move on.")
         validBoardsToSelect = []
         for xyTuple, smallBoard in board.items():
             if getWinner(smallBoard) == None:
@@ -185,9 +189,9 @@ def askForPlayerMove(player, board, focusX, focusY):
         focusY = selectedBoard // 3
 
     # Select the space on the focused small board:
-    smallXDesc = ['left', 'middle', 'right'][focusX]
-    smallYDesc = ['top', 'middle', 'bottom'][focusY]
-    print(player, 'moves on the', smallYDesc, smallXDesc, 'board.')
+    smallXDesc = ["left", "middle", "right"][focusX]
+    smallYDesc = ["top", "middle", "bottom"][focusY]
+    print(player, "moves on the", smallYDesc, smallXDesc, "board.")
     validSpacesToSelect = []
     for xyTuple, tile in board[(focusX, focusY)].items():
         if tile == EMPTY_SPACE:
@@ -216,20 +220,20 @@ def enter1Through9(validMoves):
     for i, move in enumerate(validMoves):
         # Convert the (x, y) tuple values to an integer 1 through 9:
         validMoves[i] = str((move[1] * 3 + move[0]) + 1)
-    print('      1 2 3')
-    print('      4 5 6')
-    print('      7 8 9')
-    print('Enter your move (1-9) or QUIT:')
+    print("      1 2 3")
+    print("      4 5 6")
+    print("      7 8 9")
+    print("Enter your move (1-9) or QUIT:")
     while True:  # Keep asking the player until they enter a valid move.
-        response = input('> ').upper()
-        if response == 'QUIT':
-            print('Thanks for playing!')
+        response = input("> ").upper()
+        if response == "QUIT":
+            print("Thanks for playing!")
             sys.exit()
 
         if response in validMoves:
             # Return a int that is 0-8, not a string that is 1-9.
             return int(response) - 1
-        print('You cannot select that space.')
+        print("You cannot select that space.")
 
 
 def makeBoardFromSmallBoards(smallBoards):
@@ -247,5 +251,5 @@ def makeBoardFromSmallBoards(smallBoards):
 
 
 # If the program is run (instead of imported), run the game:
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
