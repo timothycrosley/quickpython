@@ -259,7 +259,7 @@ def black_format_code(contents: str) -> str:
         return contents
 
 
-def new():
+def new(content=""):
     """Creates a new file buffer."""
     global current_file
     global isort_config
@@ -268,7 +268,7 @@ def new():
     current_file = None
     isort_config = default_isort_config
     black_config = default_black_config
-    code.buffer.text = ""
+    code.buffer.text = content
     open_file_frame.title = "Untitled"
     feedback("")
 
@@ -759,6 +759,17 @@ def search_next(event=None):
     code.buffer.cursor_position = cursor_position
 
 
+def example(game_name: str):
+    import inspect
+
+    from quickpython import examples
+
+    def expand_example():
+        new(inspect.getsource(getattr(examples, game_name)))
+
+    return expand_example
+
+
 QLabel = partial(Label, dont_extend_width=True)
 SPACE = QLabel(" ")
 
@@ -835,6 +846,10 @@ root_container = MenuContainer(
         MenuItem(
             " Run ",
             children=[MenuItem("Start (F5)", handler=run_buffer), MenuItem("Debug", handler=debug)],
+        ),
+        MenuItem(
+            " Examples ",
+            children=[MenuItem("Tic Tac Toe", handler=example("tictactoe"))],
         ),
         MenuItem(
             " Help ",
