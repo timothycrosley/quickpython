@@ -1,3 +1,25 @@
-from quickpython.examples import tictactoe
+from quickpython.examples import (
+    connect,
+    eightpuzzle,
+    hangman,
+    memory,
+    minesweeper,
+    simon,
+    tictactoe,
+    towers,
+    uno,
+    zigzag,
+)
 
-__all__ = ["tictactoe"]
+__all__ = [
+    "connect",
+    "eightpuzzle",
+    "hangman",
+    "memory",
+    "minesweeper",
+    "simon",
+    "tictactoe",
+    "towers",
+    "uno",
+    "zigzag",
+]

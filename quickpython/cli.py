@@ -849,7 +849,18 @@ root_container = MenuContainer(
         ),
         MenuItem(
             " Examples ",
-            children=[MenuItem("Tic Tac Toe", handler=example("tictactoe"))],
+            children=[
+                MenuItem("Connect", handler=example("connect")),
+                MenuItem("Eight Puzzle", handler=example("eightpuzzle")),
+                MenuItem("Hang Man", handler=example("hangman")),
+                MenuItem("Memory", handler=example("memory")),
+                MenuItem("Minesweeper", handler=example("minesweeper")),
+                MenuItem("Simon", handler=example("simon")),
+                MenuItem("Tic Tac Toe", handler=example("tictactoe")),
+                MenuItem("Towers", handler=example("towers")),
+                MenuItem("Zig Zag", handler=example("zigzag")),
+                MenuItem("Uno", handler=example("uno")),
+            ],
         ),
         MenuItem(
             " Help ",
