@@ -229,7 +229,7 @@ def save_as_file():
 
         if filename is not None:
             current_file = Path(filename).resolve()
-            isort_config = isort.Config(settings_path=current_file)
+            isort_config = isort.Config(settings_path=current_file.parent)
             black_config_file = black.find_pyproject_toml((current_file,))
             if black_config_file:
                 black_config = black.parse_pyproject_toml(black_config_file)
