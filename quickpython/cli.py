@@ -195,7 +195,7 @@ def open_file(event=None):
 
         if filename is not None:
             current_file = Path(filename).resolve()
-            isort_config = isort.Config(settings_path=current_file)
+            isort_config = isort.Config(settings_path=current_file.parent)
             black_config_file = black.find_pyproject_toml((current_file,))
             if black_config_file:
                 black_config = black.parse_pyproject_toml(black_config_file)
@@ -899,7 +899,7 @@ def start(argv=None):
         sys.exit("Usage: qpython [filename]")
     elif len(sys.argv) == 2:
         current_file = Path(sys.argv[1]).resolve()
-        isort_config = isort.Config(settings_path=current_file)
+        isort_config = isort.Config(settings_path=current_file.parent)
         open_file_frame.title = current_file.name
         if current_file.exists():
             with current_file.open(encoding="utf8") as open_file:
