@@ -44,3 +44,13 @@ line-length = 100
 
 [tool.isort]
 profile = "hug"
+
+[tool.portray.mkdocs]
+edit_uri = "https://github.com/timothycrosley/quickpython/edit/develop/"
+extra_css = ["art/stylesheets/extra.css"]
+
+[tool.portray.mkdocs.theme]
+name = "material"
+favicon = "art/logo.png"
+logo = "art/logo.png"
+palette = {scheme = "quickpython"}
