@@ -1,0 +1,1845 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../art/logo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Memory - quickpython</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../../art/stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="quickpython" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-quickpythonexamplesmemory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../.." title="quickpython" class="md-header-nav__button md-logo" aria-label="quickpython">
+      
+  <img src="../../../../art/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            quickpython
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Memory
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/timothycrosley/quickpython/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    quickpython
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="quickpython" class="md-nav__button md-logo" aria-label="quickpython">
+      
+  <img src="../../../../art/logo.png" alt="logo">
+
+    </a>
+    quickpython
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/timothycrosley/quickpython/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    quickpython
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../CHANGELOG/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Contributing
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Contributing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/1.-contributing-guide/" title="1. Contributing Guide" class="md-nav__link">
+      1. Contributing Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/2.-coding-standard/" title="2. Coding Standard" class="md-nav__link">
+      2. Coding Standard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/3.-code-of-conduct/" title="3. Code Of Conduct" class="md-nav__link">
+      3. Code Of Conduct
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/4.-acknowledgements/" title="4. Acknowledgements" class="md-nav__link">
+      4. Acknowledgements
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Usage
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Usage" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/usage/functions/" title="Functions" class="md-nav__link">
+      Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Quickpython
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Quickpython" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        <span class="md-nav__icon md-icon"></span>
+        Quickpython
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../extensions/" title="Extensions" class="md-nav__link">
+      Extensions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1-4" type="checkbox" id="nav-5-1-4" checked>
+    
+    <label class="md-nav__link" for="nav-5-1-4">
+      Examples
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Examples" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connect/" title="Connect" class="md-nav__link">
+      Connect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../eightpuzzle/" title="Eightpuzzle" class="md-nav__link">
+      Eightpuzzle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hangman/" title="Hangman" class="md-nav__link">
+      Hangman
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Memory
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Memory" class="md-nav__link md-nav__link--active">
+      Memory
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    Memory
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game" class="md-nav__link">
+    game
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_coordinates" class="md-nav__link">
+    parse_coordinates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_grid" class="md-nav__link">
+    show_grid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    start
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valid_coordinates" class="md-nav__link">
+    valid_coordinates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../minesweeper/" title="Minesweeper" class="md-nav__link">
+      Minesweeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../simon/" title="Simon" class="md-nav__link">
+      Simon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tictactoe/" title="Tictactoe" class="md-nav__link">
+      Tictactoe
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../towers/" title="Towers" class="md-nav__link">
+      Towers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../uno/" title="Uno" class="md-nav__link">
+      Uno
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../zigzag/" title="Zigzag" class="md-nav__link">
+      Zigzag
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    Memory
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game" class="md-nav__link">
+    game
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_coordinates" class="md-nav__link">
+    parse_coordinates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_grid" class="md-nav__link">
+    show_grid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    start
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valid_coordinates" class="md-nav__link">
+    valid_coordinates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/timothycrosley/quickpython/edit/develop/reference/quickpython/examples/memory.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-quickpythonexamplesmemory">Module quickpython.examples.memory</h1>
+<p>/games/memory.py</p>
+<p>Copyright (c) 2019 ShineyDev</p>
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<div class="codehilite"><pre><span></span><code><span class="c">http://www.apache.org/licenses/LICENSE-2.0</span>
+</code></pre></div>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">/games/memory.py</span>
+
+<span class="s2">    Copyright (c) 2019 ShineyDev</span>
+
+<span class="s2">    Licensed under the Apache License, Version 2.0 (the &quot;</span><span class="nv">License</span><span class="s2">&quot;);</span>
+
+<span class="s2">    you may not use this file except in compliance with the License.</span>
+
+<span class="s2">    You may obtain a copy of the License at</span>
+
+<span class="s2">        http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="s2">    Unless required by applicable law or agreed to in writing, software</span>
+
+<span class="s2">    distributed under the License is distributed on an &quot;</span><span class="nv">AS</span> <span class="nv">IS</span><span class="s2">&quot; BASIS,</span>
+
+<span class="s2">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+
+<span class="s2">    See the License for the specific language governing permissions and</span>
+
+<span class="s2">    limitations under the License.</span>
+
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">__</span><span class="s s-Atom">authors__</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;shineydev&quot;</span><span class="p">,</span> <span class="s2">&quot;contact@shiney.dev&quot;</span><span class="p">)]</span>
+
+<span class="k">__</span><span class="s s-Atom">maintainers__</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;shineydev&quot;</span><span class="p">,</span> <span class="s2">&quot;contact@shiney.dev&quot;</span><span class="p">)]</span>
+
+<span class="k">__</span><span class="s s-Atom">version_info__</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;final&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="k">__</span><span class="s s-Atom">version__</span> <span class="o">=</span> <span class="s2">&quot;{0}.{1}.{2}{3}{4}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+    <span class="o">*</span><span class="p">[</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="nf">if</span> <span class="p">(</span><span class="s s-Atom">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="s s-Atom">else</span> <span class="nf">str</span><span class="p">(</span><span class="s s-Atom">n</span><span class="p">)</span> <span class="nf">for</span> <span class="p">(</span><span class="s s-Atom">i</span><span class="p">,</span> <span class="s s-Atom">n</span><span class="p">)</span> <span class="s s-Atom">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="k">__</span><span class="s s-Atom">version_info__</span><span class="p">)]</span>
+
+<span class="p">)</span>
+
+<span class="s s-Atom">import</span> <span class="s s-Atom">os</span>
+
+<span class="s s-Atom">import</span> <span class="s s-Atom">random</span>
+
+<span class="s s-Atom">import</span> <span class="s s-Atom">re</span>
+
+<span class="s s-Atom">import</span> <span class="s s-Atom">string</span>
+
+<span class="s s-Atom">import</span> <span class="s s-Atom">time</span>
+
+<span class="s s-Atom">import</span> <span class="s s-Atom">pyfiglet</span>
+
+<span class="nv">GRID_SIZES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;easy&quot;</span><span class="s s-Atom">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;intermediate&quot;</span><span class="s s-Atom">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="s s-Atom">:</span> <span class="mi">14</span><span class="p">}</span>
+
+<span class="nv">CHARACTERS</span> <span class="o">=</span> <span class="err">&quot;</span><span class="s s-Atom">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</span><span class="p">!</span><span class="s s-Atom">\</span><span class="err">&quot;</span><span class="s s-Atom">£</span><span class="err">$</span><span class="c1">%^&amp;*()-_=+[{]};:&#39;@#~,&lt;.&gt;/?\\|`¬áé&quot;</span>
+
+<span class="s s-Atom">class</span> <span class="nv">Memory</span><span class="s s-Atom">:</span>
+
+    <span class="s s-Atom">def</span> <span class="k">__</span><span class="nf">init__</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">difficulty</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        initializes a `Memory` object</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">=</span> <span class="nv">GRID_SIZES</span><span class="p">[</span><span class="s s-Atom">difficulty</span><span class="p">]</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">characters</span> <span class="o">=</span> <span class="nv">CHARACTERS</span><span class="p">[</span><span class="s s-Atom">:</span> <span class="p">(((</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="s s-Atom">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)]</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">game</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        starts the game</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">characters</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="s s-Atom">characters</span> <span class="o">=</span> <span class="p">[</span><span class="s s-Atom">character</span> <span class="s s-Atom">for</span> <span class="s s-Atom">character</span> <span class="s s-Atom">in</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">characters</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="s s-Atom">random</span><span class="p">.</span><span class="nf">shuffle</span><span class="p">(</span><span class="s s-Atom">characters</span><span class="p">)</span>
+
+        <span class="s s-Atom">while</span> <span class="s2">&quot; &quot;</span> <span class="s s-Atom">in</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nn">known</span><span class="p">:</span>
+
+            <span class="nf">cls</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nn">message</span><span class="p">:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span><span class="p">)</span>
+
+                <span class="nf">print</span><span class="p">()</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="s s-Atom">coordinates</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;coordinates;\n&gt; &quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">().</span><span class="nf">upper</span><span class="p">()</span>
+
+            <span class="s s-Atom">if</span> <span class="o">not</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">valid_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+                <span class="s s-Atom">continue</span>
+
+            <span class="s s-Atom">first_row</span><span class="p">,</span> <span class="s s-Atom">first_column</span> <span class="o">=</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">parse_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+            <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span> <span class="p">!</span><span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="s s-Atom">:</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+                <span class="s s-Atom">continue</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span> <span class="o">=</span> <span class="s s-Atom">characters</span><span class="p">[</span>
+
+                <span class="p">(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span>
+
+            <span class="p">]</span>
+
+            <span class="s s-Atom">while</span> <span class="nv">True</span><span class="s s-Atom">:</span>
+
+                <span class="nf">cls</span><span class="p">()</span>
+
+                <span class="nf">print</span><span class="p">()</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+                <span class="nf">print</span><span class="p">()</span>
+
+                <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nn">message</span><span class="p">:</span>
+
+                    <span class="nf">print</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span><span class="p">)</span>
+
+                    <span class="nf">print</span><span class="p">()</span>
+
+                    <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+                <span class="s s-Atom">coordinates</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;&gt; &quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">().</span><span class="nf">upper</span><span class="p">()</span>
+
+                <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">valid_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+                    <span class="s s-Atom">second_row</span><span class="p">,</span> <span class="s s-Atom">second_column</span> <span class="o">=</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">parse_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+                    <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span> <span class="p">!</span><span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="s s-Atom">:</span>
+
+                        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+                        <span class="s s-Atom">continue</span>
+
+                    <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span> <span class="o">=</span> <span class="s s-Atom">characters</span><span class="p">[</span>
+
+                        <span class="p">(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span>
+
+                    <span class="p">]</span>
+
+                    <span class="s s-Atom">break</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+            <span class="nf">cls</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+            <span class="s s-Atom">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="nf">if</span> <span class="p">(</span>
+
+                <span class="o">not</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span>
+
+                <span class="o">==</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span>
+
+            <span class="p">)</span><span class="s s-Atom">:</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+
+        <span class="nf">cls</span><span class="p">()</span>
+
+        <span class="nf">print</span><span class="p">()</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+        <span class="nf">print</span><span class="p">()</span>
+
+        <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;congrats&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">parse_coordinates</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">coordinates</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        generates a (row : int, column : int) tuple from coordinates</span>
+
+<span class="s2">        arguments:</span>
+
+<span class="s2">            coordinates :: str   :: the coordinates convert</span>
+
+<span class="s2">        returns:</span>
+
+<span class="s2">                        :: tuple :: a (row : int, column : int) tuple</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">pattern</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span>
+
+            <span class="s s-Atom">r</span><span class="s2">&quot;(?P&lt;column&gt;[A-{0}])(?P&lt;row&gt;{1})&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">[</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+
+                <span class="s2">&quot;|&quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s s-Atom">::-</span><span class="mi">1</span><span class="p">]),</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="s s-Atom">match</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s s-Atom">pattern</span><span class="p">,</span> <span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+        <span class="s s-Atom">row</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="s s-Atom">match</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">&quot;row&quot;</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="s s-Atom">column</span> <span class="o">=</span> <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="s s-Atom">match</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">&quot;column&quot;</span><span class="p">))</span>
+
+        <span class="nf">return</span> <span class="p">(</span><span class="s s-Atom">row</span><span class="p">,</span> <span class="s s-Atom">column</span><span class="p">)</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">show_grid</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="nf">print</span><span class="p">(</span>
+
+            <span class="s2">&quot;       {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s2">&quot;   &quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="s s-Atom">character</span> <span class="s s-Atom">for</span> <span class="s s-Atom">character</span> <span class="s s-Atom">in</span> <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_lowercase</span><span class="p">][</span><span class="s s-Atom">:</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">])</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;     {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">((</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+        <span class="s s-Atom">i</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="nf">for</span> <span class="p">(</span><span class="s s-Atom">j</span><span class="p">,</span> <span class="s s-Atom">k</span><span class="p">)</span> <span class="s s-Atom">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+            <span class="s s-Atom">if</span> <span class="s s-Atom">j</span> <span class="c1">% (self.grid_size) == 0:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;| {0} |&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">))</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;     {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">((</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+            <span class="s s-Atom">elif</span> <span class="s s-Atom">j</span> <span class="c1">% (self.grid_size) == 1:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;  {0:&gt;2} | {1} &quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">,</span> <span class="s s-Atom">k</span><span class="p">),</span> <span class="s s-Atom">end=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="s s-Atom">i</span> <span class="s s-Atom">+=</span> <span class="mi">1</span>
+
+            <span class="nn">else</span><span class="p">:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;| {0} &quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">),</span> <span class="s s-Atom">end=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">start</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        calls `self.game` in a &#39;would you like to play again?&#39; loop</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">choice</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+
+        <span class="s s-Atom">while</span> <span class="s s-Atom">choice</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+            <span class="nf">cls</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">(</span><span class="s s-Atom">pyfiglet</span><span class="p">.</span><span class="nf">figlet_format</span><span class="p">(</span><span class="s2">&quot;Memory&quot;</span><span class="p">))</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;enter to play\nctrl + c to quit to main menu\n\n&quot;</span><span class="p">)</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">game</span><span class="p">()</span>
+
+            <span class="s s-Atom">choice</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;\nwould you like to play again?\n&gt; &quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">()</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">valid_coordinates</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">coordinates</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        determines whether `coordinates` are valid</span>
+
+<span class="s2">        arguments:</span>
+
+<span class="s2">            coordinates :: str  :: the coordinates to check</span>
+
+<span class="s2">        returns:</span>
+
+<span class="s2">                        :: bool :: whether `coordinates` are valid</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">pattern</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span>
+
+            <span class="s s-Atom">r</span><span class="s2">&quot;(?P&lt;column&gt;[A-{0}])(?P&lt;row&gt;{1})&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">[</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+
+                <span class="s2">&quot;|&quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s s-Atom">::-</span><span class="mi">1</span><span class="p">]),</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="s s-Atom">match</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s s-Atom">pattern</span><span class="p">,</span> <span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+        <span class="s s-Atom">if</span> <span class="nn">match</span><span class="p">:</span>
+
+            <span class="s s-Atom">return</span> <span class="nv">True</span>
+
+        <span class="s s-Atom">return</span> <span class="nv">False</span>
+
+<span class="s s-Atom">if</span> <span class="k">__</span><span class="s s-Atom">name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="s s-Atom">:</span>
+
+    <span class="s s-Atom">difficulty</span> <span class="o">=</span> <span class="nv">None</span>
+
+    <span class="s s-Atom">while</span> <span class="s s-Atom">difficulty</span> <span class="o">not</span> <span class="s s-Atom">in</span> <span class="p">{</span><span class="s2">&quot;easy&quot;</span><span class="p">,</span> <span class="s2">&quot;intermediate&quot;</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="p">}</span><span class="s s-Atom">:</span>
+
+        <span class="nf">cls</span><span class="p">()</span>
+
+        <span class="nf">print</span><span class="p">()</span>
+
+        <span class="s s-Atom">difficulty</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;difficulty;\n&gt; &quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">()</span>
+
+    <span class="s s-Atom">game</span> <span class="o">=</span> <span class="nv">Memory</span><span class="p">(</span><span class="s s-Atom">difficulty</span><span class="p">)</span>
+
+    <span class="s s-Atom">game</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+</code></pre></div>
+
+</details>
+<h2 id="variables">Variables</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">CHARACTERS</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">GRID_SIZES</span>
+</code></pre></div>
+
+<h2 id="classes">Classes</h2>
+<h3 id="memory">Memory</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Memory</span><span class="p">(</span>
+    <span class="n">difficulty</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">class</span> <span class="nv">Memory</span><span class="s s-Atom">:</span>
+
+    <span class="s s-Atom">def</span> <span class="k">__</span><span class="nf">init__</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">difficulty</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        initializes a `Memory` object</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">=</span> <span class="nv">GRID_SIZES</span><span class="p">[</span><span class="s s-Atom">difficulty</span><span class="p">]</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">characters</span> <span class="o">=</span> <span class="nv">CHARACTERS</span><span class="p">[</span><span class="s s-Atom">:</span> <span class="p">(((</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="s s-Atom">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)]</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">game</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        starts the game</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">characters</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="s s-Atom">characters</span> <span class="o">=</span> <span class="p">[</span><span class="s s-Atom">character</span> <span class="s s-Atom">for</span> <span class="s s-Atom">character</span> <span class="s s-Atom">in</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">characters</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="s s-Atom">random</span><span class="p">.</span><span class="nf">shuffle</span><span class="p">(</span><span class="s s-Atom">characters</span><span class="p">)</span>
+
+        <span class="s s-Atom">while</span> <span class="s2">&quot; &quot;</span> <span class="s s-Atom">in</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nn">known</span><span class="p">:</span>
+
+            <span class="nf">cls</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nn">message</span><span class="p">:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span><span class="p">)</span>
+
+                <span class="nf">print</span><span class="p">()</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="s s-Atom">coordinates</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;coordinates;\n&gt; &quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">().</span><span class="nf">upper</span><span class="p">()</span>
+
+            <span class="s s-Atom">if</span> <span class="o">not</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">valid_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+                <span class="s s-Atom">continue</span>
+
+            <span class="s s-Atom">first_row</span><span class="p">,</span> <span class="s s-Atom">first_column</span> <span class="o">=</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">parse_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+            <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span> <span class="p">!</span><span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="s s-Atom">:</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+                <span class="s s-Atom">continue</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span> <span class="o">=</span> <span class="s s-Atom">characters</span><span class="p">[</span>
+
+                <span class="p">(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span>
+
+            <span class="p">]</span>
+
+            <span class="s s-Atom">while</span> <span class="nv">True</span><span class="s s-Atom">:</span>
+
+                <span class="nf">cls</span><span class="p">()</span>
+
+                <span class="nf">print</span><span class="p">()</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+                <span class="nf">print</span><span class="p">()</span>
+
+                <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nn">message</span><span class="p">:</span>
+
+                    <span class="nf">print</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span><span class="p">)</span>
+
+                    <span class="nf">print</span><span class="p">()</span>
+
+                    <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+                <span class="s s-Atom">coordinates</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;&gt; &quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">().</span><span class="nf">upper</span><span class="p">()</span>
+
+                <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">valid_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+                    <span class="s s-Atom">second_row</span><span class="p">,</span> <span class="s s-Atom">second_column</span> <span class="o">=</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">parse_coordinates</span><span class="p">(</span><span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+                    <span class="s s-Atom">if</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span> <span class="p">!</span><span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="s s-Atom">:</span>
+
+                        <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+                        <span class="s s-Atom">continue</span>
+
+                    <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span> <span class="o">=</span> <span class="s s-Atom">characters</span><span class="p">[</span>
+
+                        <span class="p">(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span>
+
+                    <span class="p">]</span>
+
+                    <span class="s s-Atom">break</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">message</span> <span class="o">=</span> <span class="s2">&quot;invalid coordinates&quot;</span>
+
+            <span class="nf">cls</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+            <span class="s s-Atom">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="nf">if</span> <span class="p">(</span>
+
+                <span class="o">not</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span>
+
+                <span class="o">==</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span>
+
+            <span class="p">)</span><span class="s s-Atom">:</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">first_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">first_column</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+
+                <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">[(</span><span class="s s-Atom">second_row</span> <span class="o">*</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">second_column</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+
+        <span class="nf">cls</span><span class="p">()</span>
+
+        <span class="nf">print</span><span class="p">()</span>
+
+        <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">show_grid</span><span class="p">()</span>
+
+        <span class="nf">print</span><span class="p">()</span>
+
+        <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;congrats&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">parse_coordinates</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">coordinates</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        generates a (row : int, column : int) tuple from coordinates</span>
+
+<span class="s2">        arguments:</span>
+
+<span class="s2">            coordinates :: str   :: the coordinates convert</span>
+
+<span class="s2">        returns:</span>
+
+<span class="s2">                        :: tuple :: a (row : int, column : int) tuple</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">pattern</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span>
+
+            <span class="s s-Atom">r</span><span class="s2">&quot;(?P&lt;column&gt;[A-{0}])(?P&lt;row&gt;{1})&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">[</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+
+                <span class="s2">&quot;|&quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s s-Atom">::-</span><span class="mi">1</span><span class="p">]),</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="s s-Atom">match</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s s-Atom">pattern</span><span class="p">,</span> <span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+        <span class="s s-Atom">row</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="s s-Atom">match</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">&quot;row&quot;</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="s s-Atom">column</span> <span class="o">=</span> <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="s s-Atom">match</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">&quot;column&quot;</span><span class="p">))</span>
+
+        <span class="nf">return</span> <span class="p">(</span><span class="s s-Atom">row</span><span class="p">,</span> <span class="s s-Atom">column</span><span class="p">)</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">show_grid</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="nf">print</span><span class="p">(</span>
+
+            <span class="s2">&quot;       {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s2">&quot;   &quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="s s-Atom">character</span> <span class="s s-Atom">for</span> <span class="s s-Atom">character</span> <span class="s s-Atom">in</span> <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_lowercase</span><span class="p">][</span><span class="s s-Atom">:</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span><span class="p">])</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;     {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">((</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+        <span class="s s-Atom">i</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="nf">for</span> <span class="p">(</span><span class="s s-Atom">j</span><span class="p">,</span> <span class="s s-Atom">k</span><span class="p">)</span> <span class="s s-Atom">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">known</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+            <span class="s s-Atom">if</span> <span class="s s-Atom">j</span> <span class="c1">% (self.grid_size) == 0:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;| {0} |&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">))</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;     {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">((</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+            <span class="s s-Atom">elif</span> <span class="s s-Atom">j</span> <span class="c1">% (self.grid_size) == 1:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;  {0:&gt;2} | {1} &quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">,</span> <span class="s s-Atom">k</span><span class="p">),</span> <span class="s s-Atom">end=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="s s-Atom">i</span> <span class="s s-Atom">+=</span> <span class="mi">1</span>
+
+            <span class="nn">else</span><span class="p">:</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="s2">&quot;| {0} &quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">),</span> <span class="s s-Atom">end=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">start</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        calls `self.game` in a &#39;would you like to play again?&#39; loop</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">choice</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+
+        <span class="s s-Atom">while</span> <span class="s s-Atom">choice</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+            <span class="nf">cls</span><span class="p">()</span>
+
+            <span class="nf">print</span><span class="p">(</span><span class="s s-Atom">pyfiglet</span><span class="p">.</span><span class="nf">figlet_format</span><span class="p">(</span><span class="s2">&quot;Memory&quot;</span><span class="p">))</span>
+
+            <span class="nf">print</span><span class="p">()</span>
+
+            <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;enter to play\nctrl + c to quit to main menu\n\n&quot;</span><span class="p">)</span>
+
+            <span class="s s-Atom">self</span><span class="p">.</span><span class="nf">game</span><span class="p">()</span>
+
+            <span class="s s-Atom">choice</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="s2">&quot;\nwould you like to play again?\n&gt; &quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">()</span>
+
+    <span class="s s-Atom">def</span> <span class="nf">valid_coordinates</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">coordinates</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        determines whether `coordinates` are valid</span>
+
+<span class="s2">        arguments:</span>
+
+<span class="s2">            coordinates :: str  :: the coordinates to check</span>
+
+<span class="s2">        returns:</span>
+
+<span class="s2">                        :: bool :: whether `coordinates` are valid</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">pattern</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span>
+
+            <span class="s s-Atom">r</span><span class="s2">&quot;(?P&lt;column&gt;[A-{0}])(?P&lt;row&gt;{1})&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">[</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+
+                <span class="s2">&quot;|&quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s s-Atom">::-</span><span class="mi">1</span><span class="p">]),</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="s s-Atom">match</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s s-Atom">pattern</span><span class="p">,</span> <span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+        <span class="s s-Atom">if</span> <span class="nn">match</span><span class="p">:</span>
+
+            <span class="s s-Atom">return</span> <span class="nv">True</span>
+
+        <span class="s s-Atom">return</span> <span class="nv">False</span>
+</code></pre></div>
+
+</details>
+<hr />
+<h4 id="methods">Methods</h4>
+<h5 id="game">game</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">game</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>starts the game</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="n">def</span> <span class="n">game</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+
+        <span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        starts the game</span>
+
+<span class="ss">        &quot;&quot;&quot;</span>
+
+        <span class="k">self</span><span class="p">.</span><span class="n">known</span> <span class="o">=</span> <span class="p">[</span><span class="ss">&quot; &quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">len</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">characters</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">characters</span> <span class="o">=</span> <span class="p">[</span><span class="nb">character</span> <span class="k">for</span> <span class="nb">character</span> <span class="k">in</span> <span class="k">self</span><span class="p">.</span><span class="n">characters</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">random</span><span class="p">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">characters</span><span class="p">)</span>
+
+        <span class="n">while</span> <span class="ss">&quot; &quot;</span> <span class="k">in</span> <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">:</span>
+
+            <span class="n">cls</span><span class="p">()</span>
+
+            <span class="n">print</span><span class="p">()</span>
+
+            <span class="k">self</span><span class="p">.</span><span class="n">show_grid</span><span class="p">()</span>
+
+            <span class="n">print</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="k">self</span><span class="p">.</span><span class="n">message</span><span class="p">:</span>
+
+                <span class="n">print</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">message</span><span class="p">)</span>
+
+                <span class="n">print</span><span class="p">()</span>
+
+                <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="ss">&quot;&quot;</span>
+
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="k">input</span><span class="p">(</span><span class="ss">&quot;coordinates;\n&gt; &quot;</span><span class="p">).</span><span class="n">strip</span><span class="p">().</span><span class="k">upper</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="k">not</span> <span class="k">self</span><span class="p">.</span><span class="n">valid_coordinates</span><span class="p">(</span><span class="n">coordinates</span><span class="p">):</span>
+
+                <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="ss">&quot;invalid coordinates&quot;</span>
+
+                <span class="k">continue</span>
+
+            <span class="n">first_row</span><span class="p">,</span> <span class="n">first_column</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">parse_coordinates</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">first_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">first_column</span><span class="p">]</span> <span class="o">!=</span> <span class="ss">&quot; &quot;</span><span class="p">:</span>
+
+                <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="ss">&quot;invalid coordinates&quot;</span>
+
+                <span class="k">continue</span>
+
+            <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">first_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">first_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">characters</span><span class="p">[</span>
+
+                <span class="p">(</span><span class="n">first_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">first_column</span>
+
+            <span class="p">]</span>
+
+            <span class="n">while</span> <span class="k">True</span><span class="p">:</span>
+
+                <span class="n">cls</span><span class="p">()</span>
+
+                <span class="n">print</span><span class="p">()</span>
+
+                <span class="k">self</span><span class="p">.</span><span class="n">show_grid</span><span class="p">()</span>
+
+                <span class="n">print</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="k">self</span><span class="p">.</span><span class="n">message</span><span class="p">:</span>
+
+                    <span class="n">print</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">message</span><span class="p">)</span>
+
+                    <span class="n">print</span><span class="p">()</span>
+
+                    <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="ss">&quot;&quot;</span>
+
+                <span class="n">coordinates</span> <span class="o">=</span> <span class="k">input</span><span class="p">(</span><span class="ss">&quot;&gt; &quot;</span><span class="p">).</span><span class="n">strip</span><span class="p">().</span><span class="k">upper</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="k">self</span><span class="p">.</span><span class="n">valid_coordinates</span><span class="p">(</span><span class="n">coordinates</span><span class="p">):</span>
+
+                    <span class="n">second_row</span><span class="p">,</span> <span class="n">second_column</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">parse_coordinates</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">second_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">second_column</span><span class="p">]</span> <span class="o">!=</span> <span class="ss">&quot; &quot;</span><span class="p">:</span>
+
+                        <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="ss">&quot;invalid coordinates&quot;</span>
+
+                        <span class="k">continue</span>
+
+                    <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">second_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">second_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">characters</span><span class="p">[</span>
+
+                        <span class="p">(</span><span class="n">second_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">second_column</span>
+
+                    <span class="p">]</span>
+
+                    <span class="n">break</span>
+
+                <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="ss">&quot;invalid coordinates&quot;</span>
+
+            <span class="n">cls</span><span class="p">()</span>
+
+            <span class="n">print</span><span class="p">()</span>
+
+            <span class="k">self</span><span class="p">.</span><span class="n">show_grid</span><span class="p">()</span>
+
+            <span class="k">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span>
+
+                <span class="k">not</span> <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">first_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">first_column</span><span class="p">]</span>
+
+                <span class="o">==</span> <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">second_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">second_column</span><span class="p">]</span>
+
+            <span class="p">):</span>
+
+                <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">first_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">first_column</span><span class="p">]</span> <span class="o">=</span> <span class="ss">&quot; &quot;</span>
+
+                <span class="k">self</span><span class="p">.</span><span class="n">known</span><span class="p">[(</span><span class="n">second_row</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">second_column</span><span class="p">]</span> <span class="o">=</span> <span class="ss">&quot; &quot;</span>
+
+        <span class="n">cls</span><span class="p">()</span>
+
+        <span class="n">print</span><span class="p">()</span>
+
+        <span class="k">self</span><span class="p">.</span><span class="n">show_grid</span><span class="p">()</span>
+
+        <span class="n">print</span><span class="p">()</span>
+
+        <span class="n">print</span><span class="p">(</span><span class="ss">&quot;congrats&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h5 id="parse_coordinates">parse_coordinates</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">parse_coordinates</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">coordinates</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>generates a (row : int, column : int) tuple from coordinates</p>
+<p>arguments:
+    coordinates :: str   :: the coordinates convert</p>
+<p>returns:
+                :: tuple :: a (row : int, column : int) tuple</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="s s-Atom">def</span> <span class="nf">parse_coordinates</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">coordinates</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        generates a (row : int, column : int) tuple from coordinates</span>
+
+<span class="s2">        arguments:</span>
+
+<span class="s2">            coordinates :: str   :: the coordinates convert</span>
+
+<span class="s2">        returns:</span>
+
+<span class="s2">                        :: tuple :: a (row : int, column : int) tuple</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">pattern</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span>
+
+            <span class="s s-Atom">r</span><span class="s2">&quot;(?P&lt;column&gt;[A-{0}])(?P&lt;row&gt;{1})&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">[</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+
+                <span class="s2">&quot;|&quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s s-Atom">::-</span><span class="mi">1</span><span class="p">]),</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="s s-Atom">match</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s s-Atom">pattern</span><span class="p">,</span> <span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+        <span class="s s-Atom">row</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="s s-Atom">match</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">&quot;row&quot;</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="s s-Atom">column</span> <span class="o">=</span> <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="s s-Atom">match</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">&quot;column&quot;</span><span class="p">))</span>
+
+        <span class="nf">return</span> <span class="p">(</span><span class="s s-Atom">row</span><span class="p">,</span> <span class="s s-Atom">column</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h5 id="show_grid">show_grid</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">show_grid</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="n">def</span> <span class="n">show_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="nb">print</span><span class="p">(</span>
+
+            <span class="s2">&quot;       {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+
+                <span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">character</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">][:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">])</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="ow">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">known</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">j</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;| {0} |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+            <span class="k">elif</span> <span class="n">j</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  {0:&gt;2} | {1} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;| {0} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h5 id="start">start</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>calls <code>self.game</code> in a 'would you like to play again?' loop</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="n">def</span> <span class="k">start</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+
+        <span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        calls `self.game` in a &#39;would you like to play again?&#39; loop</span>
+
+<span class="ss">        &quot;&quot;&quot;</span>
+
+        <span class="n">choice</span> <span class="o">=</span> <span class="ss">&quot;y&quot;</span>
+
+        <span class="n">while</span> <span class="n">choice</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="ss">&quot;y&quot;</span><span class="p">):</span>
+
+            <span class="n">cls</span><span class="p">()</span>
+
+            <span class="n">print</span><span class="p">(</span><span class="n">pyfiglet</span><span class="p">.</span><span class="n">figlet_format</span><span class="p">(</span><span class="ss">&quot;Memory&quot;</span><span class="p">))</span>
+
+            <span class="n">print</span><span class="p">()</span>
+
+            <span class="k">input</span><span class="p">(</span><span class="ss">&quot;enter to play\nctrl + c to quit to main menu\n\n&quot;</span><span class="p">)</span>
+
+            <span class="k">self</span><span class="p">.</span><span class="n">game</span><span class="p">()</span>
+
+            <span class="n">choice</span> <span class="o">=</span> <span class="k">input</span><span class="p">(</span><span class="ss">&quot;\nwould you like to play again?\n&gt; &quot;</span><span class="p">).</span><span class="n">strip</span><span class="p">()</span>
+</code></pre></div>
+
+</details>
+<h5 id="valid_coordinates">valid_coordinates</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">valid_coordinates</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">coordinates</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>determines whether <code>coordinates</code> are valid</p>
+<p>arguments:
+    coordinates :: str  :: the coordinates to check</p>
+<p>returns:
+                :: bool :: whether <code>coordinates</code> are valid</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="s s-Atom">def</span> <span class="nf">valid_coordinates</span><span class="p">(</span><span class="s s-Atom">self</span><span class="p">,</span> <span class="nn">coordinates</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span><span class="s s-Atom">:</span>
+
+        <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">        determines whether `coordinates` are valid</span>
+
+<span class="s2">        arguments:</span>
+
+<span class="s2">            coordinates :: str  :: the coordinates to check</span>
+
+<span class="s2">        returns:</span>
+
+<span class="s2">                        :: bool :: whether `coordinates` are valid</span>
+
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="s s-Atom">pattern</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span>
+
+            <span class="s s-Atom">r</span><span class="s2">&quot;(?P&lt;column&gt;[A-{0}])(?P&lt;row&gt;{1})&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+
+                <span class="s s-Atom">string</span><span class="p">.</span><span class="s s-Atom">ascii_uppercase</span><span class="p">[</span><span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+
+                <span class="s2">&quot;|&quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s s-Atom">self</span><span class="p">.</span><span class="s s-Atom">grid_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s s-Atom">::-</span><span class="mi">1</span><span class="p">]),</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="s s-Atom">match</span> <span class="o">=</span> <span class="s s-Atom">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s s-Atom">pattern</span><span class="p">,</span> <span class="s s-Atom">coordinates</span><span class="p">)</span>
+
+        <span class="s s-Atom">if</span> <span class="nn">match</span><span class="p">:</span>
+
+            <span class="s s-Atom">return</span> <span class="nv">True</span>
+
+        <span class="s s-Atom">return</span> <span class="nv">False</span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Index
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../minesweeper/" title="Minesweeper" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Minesweeper
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

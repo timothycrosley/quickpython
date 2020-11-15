@@ -1,0 +1,8561 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../art/logo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Hangman - quickpython</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../../art/stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="quickpython" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-quickpythonexampleshangman" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../.." title="quickpython" class="md-header-nav__button md-logo" aria-label="quickpython">
+      
+  <img src="../../../../art/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            quickpython
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Hangman
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/timothycrosley/quickpython/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    quickpython
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="quickpython" class="md-nav__button md-logo" aria-label="quickpython">
+      
+  <img src="../../../../art/logo.png" alt="logo">
+
+    </a>
+    quickpython
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/timothycrosley/quickpython/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    quickpython
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../CHANGELOG/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Contributing
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Contributing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/1.-contributing-guide/" title="1. Contributing Guide" class="md-nav__link">
+      1. Contributing Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/2.-coding-standard/" title="2. Coding Standard" class="md-nav__link">
+      2. Coding Standard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/3.-code-of-conduct/" title="3. Code Of Conduct" class="md-nav__link">
+      3. Code Of Conduct
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/contributing/4.-acknowledgements/" title="4. Acknowledgements" class="md-nav__link">
+      4. Acknowledgements
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Usage
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Usage" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/usage/functions/" title="Functions" class="md-nav__link">
+      Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Quickpython
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Quickpython" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        <span class="md-nav__icon md-icon"></span>
+        Quickpython
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../extensions/" title="Extensions" class="md-nav__link">
+      Extensions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1-4" type="checkbox" id="nav-5-1-4" checked>
+    
+    <label class="md-nav__link" for="nav-5-1-4">
+      Examples
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Examples" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connect/" title="Connect" class="md-nav__link">
+      Connect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../eightpuzzle/" title="Eightpuzzle" class="md-nav__link">
+      Eightpuzzle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Hangman
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Hangman" class="md-nav__link md-nav__link--active">
+      Hangman
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hangman" class="md-nav__link">
+    Hangman
+  </a>
+  
+    <nav class="md-nav" aria-label="Hangman">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game" class="md-nav__link">
+    game
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    start
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../minesweeper/" title="Minesweeper" class="md-nav__link">
+      Minesweeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../simon/" title="Simon" class="md-nav__link">
+      Simon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tictactoe/" title="Tictactoe" class="md-nav__link">
+      Tictactoe
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../towers/" title="Towers" class="md-nav__link">
+      Towers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../uno/" title="Uno" class="md-nav__link">
+      Uno
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../zigzag/" title="Zigzag" class="md-nav__link">
+      Zigzag
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hangman" class="md-nav__link">
+    Hangman
+  </a>
+  
+    <nav class="md-nav" aria-label="Hangman">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game" class="md-nav__link">
+    game
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    start
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/timothycrosley/quickpython/edit/develop/reference/quickpython/examples/hangman.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-quickpythonexampleshangman">Module quickpython.examples.hangman</h1>
+<p>/games/hangman.py</p>
+<p>Copyright (c) 2019 ShineyDev</p>
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<div class="codehilite"><pre><span></span><code><span class="c">http://www.apache.org/licenses/LICENSE-2.0</span>
+</code></pre></div>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">/games/hangman.py</span>
+
+<span class="sd">    Copyright (c) 2019 ShineyDev</span>
+
+<span class="sd">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+
+<span class="sd">    you may not use this file except in compliance with the License.</span>
+
+<span class="sd">    You may obtain a copy of the License at</span>
+
+<span class="sd">        http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="sd">    Unless required by applicable law or agreed to in writing, software</span>
+
+<span class="sd">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+
+<span class="sd">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+
+<span class="sd">    See the License for the specific language governing permissions and</span>
+
+<span class="sd">    limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__authors__</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;shineydev&quot;</span><span class="p">,</span> <span class="s2">&quot;contact@shiney.dev&quot;</span><span class="p">)]</span>
+
+<span class="n">__maintainers__</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;shineydev&quot;</span><span class="p">,</span> <span class="s2">&quot;contact@shiney.dev&quot;</span><span class="p">)]</span>
+
+<span class="n">__version_info__</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;final&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;{0}.{1}.{2}{3}{4}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+
+    <span class="o">*</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">__version_info__</span><span class="p">)]</span>
+
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">import</span> <span class="nn">pyfiglet</span>
+
+<span class="n">HANGMAN</span> <span class="o">=</span> <span class="p">[</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t|  -+-</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-\\</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-\\</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-\\</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-\\</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|  |</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-\\</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|  |</span>
+
+<span class="sd">\t|  |</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-\\</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|  | |</span>
+
+<span class="sd">\t|  |</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">\t-----</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   0</span>
+
+<span class="sd">\t| /-+-\\</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|   |</span>
+
+<span class="sd">\t|  | |</span>
+
+<span class="sd">\t|  | |</span>
+
+<span class="sd">\t|</span>
+
+<span class="sd">\t--------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+
+<span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">Hangman</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        initializes a `Hangman` object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        starts the game</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">lives</span> <span class="o">=</span> <span class="mi">11</span>
+
+        <span class="n">word</span> <span class="o">=</span> <span class="p">[</span><span class="n">character</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">WORDS</span><span class="p">)]</span>
+
+        <span class="n">word_hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_&quot;</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">word</span><span class="p">]</span>
+
+        <span class="n">guessed</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">lives</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">word_hidden</span><span class="p">):</span>
+
+            <span class="bp">cls</span><span class="p">()</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="n">HANGMAN</span><span class="p">[</span><span class="o">-</span><span class="n">lives</span><span class="p">])</span>
+
+            <span class="k">print</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">guessed</span><span class="p">:</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">guessed</span><span class="p">))</span>
+
+                <span class="k">print</span><span class="p">()</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word_hidden</span><span class="p">))</span>
+
+            <span class="k">print</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">:</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+                <span class="k">print</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;you have {0} attempt{1} remaining&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lives</span><span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">lives</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;s&quot;</span><span class="p">))</span>
+
+                <span class="k">print</span><span class="p">()</span>
+
+            <span class="n">letter</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;choose a letter;</span><span class="se">\n</span><span class="s2">&gt; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">letter</span><span class="p">:</span>
+
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;too many letters&quot;</span>
+
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">letter</span><span class="o">.</span><span class="n">isalpha</span><span class="p">():</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;that is not a letter&quot;</span>
+
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="n">letter</span> <span class="ow">in</span> <span class="n">guessed</span><span class="p">:</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;you&#39;ve already guessed that letter&quot;</span>
+
+                <span class="k">continue</span>
+
+            <span class="n">guessed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">letter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+
+                <span class="n">lives</span> <span class="o">-=</span> <span class="mi">1</span>
+
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)):</span>
+
+                <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="n">word</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+
+                    <span class="n">word_hidden</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter</span>
+
+        <span class="bp">cls</span><span class="p">()</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="n">HANGMAN</span><span class="p">[</span><span class="o">-</span><span class="n">lives</span><span class="p">])</span>
+
+        <span class="k">print</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">guessed</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">guessed</span><span class="p">))</span>
+
+            <span class="k">print</span><span class="p">()</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word_hidden</span><span class="p">))</span>
+
+        <span class="k">print</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">lives</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;you lose&quot;</span><span class="p">)</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;the word was {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span><span class="p">)))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;you win&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        calls `self.game` in a &#39;would you like to play again?&#39; loop</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">choice</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+
+        <span class="k">while</span> <span class="n">choice</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">):</span>
+
+            <span class="bp">cls</span><span class="p">()</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="n">pyfiglet</span><span class="o">.</span><span class="n">figlet_format</span><span class="p">(</span><span class="s2">&quot;Hangman&quot;</span><span class="p">))</span>
+
+            <span class="k">print</span><span class="p">()</span>
+
+            <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;enter to play</span><span class="se">\n</span><span class="s2">ctrl + c to quit to main menu</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">()</span>
+
+            <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">would you like to play again?</span><span class="se">\n</span><span class="s2">&gt; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">WORDS</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;aa</span>
+
+<span class="s2">ab</span>
+
+<span class="s2">ad</span>
+
+<span class="s2">ag</span>
+
+<span class="s2">ah</span>
+
+<span class="s2">ai</span>
+
+<span class="s2">am</span>
+
+<span class="s2">an</span>
+
+<span class="s2">as</span>
+
+<span class="s2">at</span>
+
+<span class="s2">aw</span>
+
+<span class="s2">ax</span>
+
+<span class="s2">ay</span>
+
+<span class="s2">ba</span>
+
+<span class="s2">be</span>
+
+<span class="s2">bi</span>
+
+<span class="s2">bo</span>
+
+<span class="s2">by</span>
+
+<span class="s2">da</span>
+
+<span class="s2">do</span>
+
+<span class="s2">dy</span>
+
+<span class="s2">ee</span>
+
+<span class="s2">eh</span>
+
+<span class="s2">el</span>
+
+<span class="s2">em</span>
+
+<span class="s2">en</span>
+
+<span class="s2">er</span>
+
+<span class="s2">ex</span>
+
+<span class="s2">fa</span>
+
+<span class="s2">ga</span>
+
+<span class="s2">gi</span>
+
+<span class="s2">go</span>
+
+<span class="s2">ha</span>
+
+<span class="s2">he</span>
+
+<span class="s2">hi</span>
+
+<span class="s2">ho</span>
+
+<span class="s2">id</span>
+
+<span class="s2">if</span>
+
+<span class="s2">in</span>
+
+<span class="s2">io</span>
+
+<span class="s2">is</span>
+
+<span class="s2">it</span>
+
+<span class="s2">ka</span>
+
+<span class="s2">ki</span>
+
+<span class="s2">la</span>
+
+<span class="s2">li</span>
+
+<span class="s2">lo</span>
+
+<span class="s2">ma</span>
+
+<span class="s2">me</span>
+
+<span class="s2">mo</span>
+
+<span class="s2">my</span>
+
+<span class="s2">no</span>
+
+<span class="s2">of</span>
+
+<span class="s2">oh</span>
+
+<span class="s2">oi</span>
+
+<span class="s2">ok</span>
+
+<span class="s2">on</span>
+
+<span class="s2">op</span>
+
+<span class="s2">or</span>
+
+<span class="s2">ou</span>
+
+<span class="s2">ow</span>
+
+<span class="s2">ox</span>
+
+<span class="s2">oz</span>
+
+<span class="s2">pa</span>
+
+<span class="s2">pi</span>
+
+<span class="s2">re</span>
+
+<span class="s2">so</span>
+
+<span class="s2">te</span>
+
+<span class="s2">to</span>
+
+<span class="s2">uh</span>
+
+<span class="s2">um</span>
+
+<span class="s2">up</span>
+
+<span class="s2">us</span>
+
+<span class="s2">wa</span>
+
+<span class="s2">we</span>
+
+<span class="s2">ye</span>
+
+<span class="s2">yo</span>
+
+<span class="s2">act</span>
+
+<span class="s2">add</span>
+
+<span class="s2">age</span>
+
+<span class="s2">ago</span>
+
+<span class="s2">aid</span>
+
+<span class="s2">aim</span>
+
+<span class="s2">air</span>
+
+<span class="s2">all</span>
+
+<span class="s2">and</span>
+
+<span class="s2">any</span>
+
+<span class="s2">arm</span>
+
+<span class="s2">art</span>
+
+<span class="s2">ask</span>
+
+<span class="s2">bad</span>
+
+<span class="s2">bag</span>
+
+<span class="s2">ban</span>
+
+<span class="s2">bar</span>
+
+<span class="s2">bay</span>
+
+<span class="s2">bed</span>
+
+<span class="s2">bet</span>
+
+<span class="s2">bid</span>
+
+<span class="s2">big</span>
+
+<span class="s2">bin</span>
+
+<span class="s2">bit</span>
+
+<span class="s2">box</span>
+
+<span class="s2">boy</span>
+
+<span class="s2">bus</span>
+
+<span class="s2">but</span>
+
+<span class="s2">buy</span>
+
+<span class="s2">bye</span>
+
+<span class="s2">can</span>
+
+<span class="s2">cap</span>
+
+<span class="s2">car</span>
+
+<span class="s2">cat</span>
+
+<span class="s2">cow</span>
+
+<span class="s2">cry</span>
+
+<span class="s2">cup</span>
+
+<span class="s2">cut</span>
+
+<span class="s2">dad</span>
+
+<span class="s2">day</span>
+
+<span class="s2">die</span>
+
+<span class="s2">dig</span>
+
+<span class="s2">dog</span>
+
+<span class="s2">dot</span>
+
+<span class="s2">dry</span>
+
+<span class="s2">due</span>
+
+<span class="s2">dvd</span>
+
+<span class="s2">dye</span>
+
+<span class="s2">ear</span>
+
+<span class="s2">eat</span>
+
+<span class="s2">egg</span>
+
+<span class="s2">end</span>
+
+<span class="s2">etc</span>
+
+<span class="s2">eye</span>
+
+<span class="s2">fan</span>
+
+<span class="s2">far</span>
+
+<span class="s2">fat</span>
+
+<span class="s2">fee</span>
+
+<span class="s2">few</span>
+
+<span class="s2">fit</span>
+
+<span class="s2">fix</span>
+
+<span class="s2">flu</span>
+
+<span class="s2">fly</span>
+
+<span class="s2">for</span>
+
+<span class="s2">fry</span>
+
+<span class="s2">fun</span>
+
+<span class="s2">fur</span>
+
+<span class="s2">gap</span>
+
+<span class="s2">gas</span>
+
+<span class="s2">get</span>
+
+<span class="s2">god</span>
+
+<span class="s2">gun</span>
+
+<span class="s2">guy</span>
+
+<span class="s2">hat</span>
+
+<span class="s2">her</span>
+
+<span class="s2">hip</span>
+
+<span class="s2">his</span>
+
+<span class="s2">hit</span>
+
+<span class="s2">hot</span>
+
+<span class="s2">how</span>
+
+<span class="s2">ice</span>
+
+<span class="s2">ill</span>
+
+<span class="s2">ink</span>
+
+<span class="s2">jam</span>
+
+<span class="s2">job</span>
+
+<span class="s2">joy</span>
+
+<span class="s2">key</span>
+
+<span class="s2">kid</span>
+
+<span class="s2">lab</span>
+
+<span class="s2">law</span>
+
+<span class="s2">lay</span>
+
+<span class="s2">leg</span>
+
+<span class="s2">let</span>
+
+<span class="s2">lid</span>
+
+<span class="s2">lie</span>
+
+<span class="s2">lip</span>
+
+<span class="s2">lot</span>
+
+<span class="s2">low</span>
+
+<span class="s2">mad</span>
+
+<span class="s2">map</span>
+
+<span class="s2">may</span>
+
+<span class="s2">mix</span>
+
+<span class="s2">mrs</span>
+
+<span class="s2">net</span>
+
+<span class="s2">new</span>
+
+<span class="s2">nor</span>
+
+<span class="s2">not</span>
+
+<span class="s2">now</span>
+
+<span class="s2">nut</span>
+
+<span class="s2">odd</span>
+
+<span class="s2">off</span>
+
+<span class="s2">oil</span>
+
+<span class="s2">old</span>
+
+<span class="s2">one</span>
+
+<span class="s2">our</span>
+
+<span class="s2">out</span>
+
+<span class="s2">owe</span>
+
+<span class="s2">own</span>
+
+<span class="s2">pan</span>
+
+<span class="s2">pay</span>
+
+<span class="s2">pen</span>
+
+<span class="s2">per</span>
+
+<span class="s2">pet</span>
+
+<span class="s2">pig</span>
+
+<span class="s2">pin</span>
+
+<span class="s2">pop</span>
+
+<span class="s2">pot</span>
+
+<span class="s2">pub</span>
+
+<span class="s2">put</span>
+
+<span class="s2">raw</span>
+
+<span class="s2">red</span>
+
+<span class="s2">rid</span>
+
+<span class="s2">rob</span>
+
+<span class="s2">rub</span>
+
+<span class="s2">run</span>
+
+<span class="s2">say</span>
+
+<span class="s2">sea</span>
+
+<span class="s2">see</span>
+
+<span class="s2">set</span>
+
+<span class="s2">sew</span>
+
+<span class="s2">sex</span>
+
+<span class="s2">she</span>
+
+<span class="s2">shy</span>
+
+<span class="s2">sir</span>
+
+<span class="s2">sit</span>
+
+<span class="s2">six</span>
+
+<span class="s2">sky</span>
+
+<span class="s2">son</span>
+
+<span class="s2">sum</span>
+
+<span class="s2">sun</span>
+
+<span class="s2">tap</span>
+
+<span class="s2">tax</span>
+
+<span class="s2">tea</span>
+
+<span class="s2">ten</span>
+
+<span class="s2">the</span>
+
+<span class="s2">tie</span>
+
+<span class="s2">tin</span>
+
+<span class="s2">tip</span>
+
+<span class="s2">toe</span>
+
+<span class="s2">ton</span>
+
+<span class="s2">too</span>
+
+<span class="s2">top</span>
+
+<span class="s2">toy</span>
+
+<span class="s2">try</span>
+
+<span class="s2">two</span>
+
+<span class="s2">use</span>
+
+<span class="s2">van</span>
+
+<span class="s2">via</span>
+
+<span class="s2">war</span>
+
+<span class="s2">way</span>
+
+<span class="s2">web</span>
+
+<span class="s2">wet</span>
+
+<span class="s2">who</span>
+
+<span class="s2">why</span>
+
+<span class="s2">win</span>
+
+<span class="s2">yes</span>
+
+<span class="s2">yet</span>
+
+<span class="s2">you</span>
+
+<span class="s2">able</span>
+
+<span class="s2">acid</span>
+
+<span class="s2">aged</span>
+
+<span class="s2">ally</span>
+
+<span class="s2">also</span>
+
+<span class="s2">area</span>
+
+<span class="s2">arms</span>
+
+<span class="s2">army</span>
+
+<span class="s2">atom</span>
+
+<span class="s2">aunt</span>
+
+<span class="s2">away</span>
+
+<span class="s2">baby</span>
+
+<span class="s2">back</span>
+
+<span class="s2">bake</span>
+
+<span class="s2">ball</span>
+
+<span class="s2">band</span>
+
+<span class="s2">bank</span>
+
+<span class="s2">base</span>
+
+<span class="s2">bath</span>
+
+<span class="s2">beak</span>
+
+<span class="s2">bear</span>
+
+<span class="s2">beat</span>
+
+<span class="s2">beef</span>
+
+<span class="s2">beer</span>
+
+<span class="s2">bell</span>
+
+<span class="s2">belt</span>
+
+<span class="s2">bend</span>
+
+<span class="s2">bent</span>
+
+<span class="s2">best</span>
+
+<span class="s2">bike</span>
+
+<span class="s2">bill</span>
+
+<span class="s2">bird</span>
+
+<span class="s2">bite</span>
+
+<span class="s2">blow</span>
+
+<span class="s2">blue</span>
+
+<span class="s2">boat</span>
+
+<span class="s2">body</span>
+
+<span class="s2">boil</span>
+
+<span class="s2">bomb</span>
+
+<span class="s2">bone</span>
+
+<span class="s2">book</span>
+
+<span class="s2">boot</span>
+
+<span class="s2">bore</span>
+
+<span class="s2">born</span>
+
+<span class="s2">boss</span>
+
+<span class="s2">both</span>
+
+<span class="s2">bowl</span>
+
+<span class="s2">burn</span>
+
+<span class="s2">bury</span>
+
+<span class="s2">bush</span>
+
+<span class="s2">busy</span>
+
+<span class="s2">cake</span>
+
+<span class="s2">call</span>
+
+<span class="s2">calm</span>
+
+<span class="s2">camp</span>
+
+<span class="s2">card</span>
+
+<span class="s2">care</span>
+
+<span class="s2">case</span>
+
+<span class="s2">cash</span>
+
+<span class="s2">cast</span>
+
+<span class="s2">cell</span>
+
+<span class="s2">cent</span>
+
+<span class="s2">chat</span>
+
+<span class="s2">chew</span>
+
+<span class="s2">chin</span>
+
+<span class="s2">chip</span>
+
+<span class="s2">chop</span>
+
+<span class="s2">city</span>
+
+<span class="s2">clap</span>
+
+<span class="s2">club</span>
+
+<span class="s2">coal</span>
+
+<span class="s2">coat</span>
+
+<span class="s2">code</span>
+
+<span class="s2">coin</span>
+
+<span class="s2">cold</span>
+
+<span class="s2">come</span>
+
+<span class="s2">cook</span>
+
+<span class="s2">cool</span>
+
+<span class="s2">cope</span>
+
+<span class="s2">copy</span>
+
+<span class="s2">core</span>
+
+<span class="s2">cost</span>
+
+<span class="s2">crop</span>
+
+<span class="s2">curb</span>
+
+<span class="s2">cure</span>
+
+<span class="s2">curl</span>
+
+<span class="s2">damp</span>
+
+<span class="s2">dare</span>
+
+<span class="s2">dark</span>
+
+<span class="s2">data</span>
+
+<span class="s2">date</span>
+
+<span class="s2">dead</span>
+
+<span class="s2">deaf</span>
+
+<span class="s2">deal</span>
+
+<span class="s2">dear</span>
+
+<span class="s2">debt</span>
+
+<span class="s2">deep</span>
+
+<span class="s2">deny</span>
+
+<span class="s2">desk</span>
+
+<span class="s2">diet</span>
+
+<span class="s2">dirt</span>
+
+<span class="s2">disc</span>
+
+<span class="s2">dish</span>
+
+<span class="s2">disk</span>
+
+<span class="s2">door</span>
+
+<span class="s2">down</span>
+
+<span class="s2">drag</span>
+
+<span class="s2">draw</span>
+
+<span class="s2">drop</span>
+
+<span class="s2">drug</span>
+
+<span class="s2">drum</span>
+
+<span class="s2">dull</span>
+
+<span class="s2">dump</span>
+
+<span class="s2">dust</span>
+
+<span class="s2">duty</span>
+
+<span class="s2">each</span>
+
+<span class="s2">earn</span>
+
+<span class="s2">ease</span>
+
+<span class="s2">east</span>
+
+<span class="s2">easy</span>
+
+<span class="s2">edge</span>
+
+<span class="s2">else</span>
+
+<span class="s2">euro</span>
+
+<span class="s2">even</span>
+
+<span class="s2">ever</span>
+
+<span class="s2">evil</span>
+
+<span class="s2">exam</span>
+
+<span class="s2">exit</span>
+
+<span class="s2">face</span>
+
+<span class="s2">fact</span>
+
+<span class="s2">fail</span>
+
+<span class="s2">fair</span>
+
+<span class="s2">fall</span>
+
+<span class="s2">fame</span>
+
+<span class="s2">farm</span>
+
+<span class="s2">fast</span>
+
+<span class="s2">fear</span>
+
+<span class="s2">feed</span>
+
+<span class="s2">feel</span>
+
+<span class="s2">file</span>
+
+<span class="s2">fill</span>
+
+<span class="s2">film</span>
+
+<span class="s2">find</span>
+
+<span class="s2">fine</span>
+
+<span class="s2">fire</span>
+
+<span class="s2">firm</span>
+
+<span class="s2">fish</span>
+
+<span class="s2">five</span>
+
+<span class="s2">flag</span>
+
+<span class="s2">flat</span>
+
+<span class="s2">flow</span>
+
+<span class="s2">fold</span>
+
+<span class="s2">food</span>
+
+<span class="s2">foot</span>
+
+<span class="s2">fork</span>
+
+<span class="s2">form</span>
+
+<span class="s2">four</span>
+
+<span class="s2">free</span>
+
+<span class="s2">from</span>
+
+<span class="s2">fuel</span>
+
+<span class="s2">full</span>
+
+<span class="s2">fund</span>
+
+<span class="s2">gain</span>
+
+<span class="s2">game</span>
+
+<span class="s2">gate</span>
+
+<span class="s2">gear</span>
+
+<span class="s2">gift</span>
+
+<span class="s2">girl</span>
+
+<span class="s2">give</span>
+
+<span class="s2">glad</span>
+
+<span class="s2">glue</span>
+
+<span class="s2">goal</span>
+
+<span class="s2">gold</span>
+
+<span class="s2">good</span>
+
+<span class="s2">grab</span>
+
+<span class="s2">gram</span>
+
+<span class="s2">grey</span>
+
+<span class="s2">grow</span>
+
+<span class="s2">hair</span>
+
+<span class="s2">half</span>
+
+<span class="s2">hall</span>
+
+<span class="s2">hand</span>
+
+<span class="s2">hang</span>
+
+<span class="s2">hard</span>
+
+<span class="s2">harm</span>
+
+<span class="s2">hate</span>
+
+<span class="s2">have</span>
+
+<span class="s2">head</span>
+
+<span class="s2">heal</span>
+
+<span class="s2">hear</span>
+
+<span class="s2">heat</span>
+
+<span class="s2">heel</span>
+
+<span class="s2">hell</span>
+
+<span class="s2">help</span>
+
+<span class="s2">here</span>
+
+<span class="s2">hero</span>
+
+<span class="s2">hers</span>
+
+<span class="s2">hide</span>
+
+<span class="s2">high</span>
+
+<span class="s2">hill</span>
+
+<span class="s2">hire</span>
+
+<span class="s2">hold</span>
+
+<span class="s2">hole</span>
+
+<span class="s2">holy</span>
+
+<span class="s2">home</span>
+
+<span class="s2">hook</span>
+
+<span class="s2">hope</span>
+
+<span class="s2">horn</span>
+
+<span class="s2">host</span>
+
+<span class="s2">hour</span>
+
+<span class="s2">huge</span>
+
+<span class="s2">hunt</span>
+
+<span class="s2">hurt</span>
+
+<span class="s2">idea</span>
+
+<span class="s2">inch</span>
+
+<span class="s2">into</span>
+
+<span class="s2">iron</span>
+
+<span class="s2">item</span>
+
+<span class="s2">join</span>
+
+<span class="s2">joke</span>
+
+<span class="s2">july</span>
+
+<span class="s2">jump</span>
+
+<span class="s2">june</span>
+
+<span class="s2">just</span>
+
+<span class="s2">keen</span>
+
+<span class="s2">keep</span>
+
+<span class="s2">kick</span>
+
+<span class="s2">kill</span>
+
+<span class="s2">kind</span>
+
+<span class="s2">king</span>
+
+<span class="s2">kiss</span>
+
+<span class="s2">knee</span>
+
+<span class="s2">knit</span>
+
+<span class="s2">knot</span>
+
+<span class="s2">know</span>
+
+<span class="s2">lack</span>
+
+<span class="s2">lady</span>
+
+<span class="s2">lake</span>
+
+<span class="s2">lamp</span>
+
+<span class="s2">land</span>
+
+<span class="s2">lane</span>
+
+<span class="s2">last</span>
+
+<span class="s2">late</span>
+
+<span class="s2">lazy</span>
+
+<span class="s2">lead</span>
+
+<span class="s2">leaf</span>
+
+<span class="s2">lean</span>
+
+<span class="s2">left</span>
+
+<span class="s2">lend</span>
+
+<span class="s2">less</span>
+
+<span class="s2">life</span>
+
+<span class="s2">lift</span>
+
+<span class="s2">like</span>
+
+<span class="s2">line</span>
+
+<span class="s2">link</span>
+
+<span class="s2">list</span>
+
+<span class="s2">live</span>
+
+<span class="s2">load</span>
+
+<span class="s2">loan</span>
+
+<span class="s2">lock</span>
+
+<span class="s2">long</span>
+
+<span class="s2">look</span>
+
+<span class="s2">lord</span>
+
+<span class="s2">lose</span>
+
+<span class="s2">loss</span>
+
+<span class="s2">lost</span>
+
+<span class="s2">loud</span>
+
+<span class="s2">love</span>
+
+<span class="s2">luck</span>
+
+<span class="s2">lump</span>
+
+<span class="s2">lung</span>
+
+<span class="s2">mail</span>
+
+<span class="s2">main</span>
+
+<span class="s2">make</span>
+
+<span class="s2">male</span>
+
+<span class="s2">mall</span>
+
+<span class="s2">many</span>
+
+<span class="s2">mark</span>
+
+<span class="s2">mass</span>
+
+<span class="s2">mate</span>
+
+<span class="s2">meal</span>
+
+<span class="s2">mean</span>
+
+<span class="s2">meat</span>
+
+<span class="s2">meet</span>
+
+<span class="s2">melt</span>
+
+<span class="s2">menu</span>
+
+<span class="s2">mere</span>
+
+<span class="s2">mess</span>
+
+<span class="s2">mild</span>
+
+<span class="s2">mile</span>
+
+<span class="s2">milk</span>
+
+<span class="s2">mind</span>
+
+<span class="s2">mine</span>
+
+<span class="s2">miss</span>
+
+<span class="s2">mood</span>
+
+<span class="s2">moon</span>
+
+<span class="s2">more</span>
+
+<span class="s2">most</span>
+
+<span class="s2">move</span>
+
+<span class="s2">much</span>
+
+<span class="s2">must</span>
+
+<span class="s2">nail</span>
+
+<span class="s2">name</span>
+
+<span class="s2">navy</span>
+
+<span class="s2">near</span>
+
+<span class="s2">neat</span>
+
+<span class="s2">neck</span>
+
+<span class="s2">need</span>
+
+<span class="s2">nest</span>
+
+<span class="s2">news</span>
+
+<span class="s2">next</span>
+
+<span class="s2">nice</span>
+
+<span class="s2">nine</span>
+
+<span class="s2">none</span>
+
+<span class="s2">nose</span>
+
+<span class="s2">note</span>
+
+<span class="s2">obey</span>
+
+<span class="s2">once</span>
+
+<span class="s2">only</span>
+
+<span class="s2">onto</span>
+
+<span class="s2">open</span>
+
+<span class="s2">ours</span>
+
+<span class="s2">oven</span>
+
+<span class="s2">over</span>
+
+<span class="s2">pace</span>
+
+<span class="s2">pack</span>
+
+<span class="s2">page</span>
+
+<span class="s2">pain</span>
+
+<span class="s2">pair</span>
+
+<span class="s2">pale</span>
+
+<span class="s2">park</span>
+
+<span class="s2">part</span>
+
+<span class="s2">pass</span>
+
+<span class="s2">past</span>
+
+<span class="s2">path</span>
+
+<span class="s2">peak</span>
+
+<span class="s2">pick</span>
+
+<span class="s2">pile</span>
+
+<span class="s2">pill</span>
+
+<span class="s2">pink</span>
+
+<span class="s2">pint</span>
+
+<span class="s2">pipe</span>
+
+<span class="s2">pity</span>
+
+<span class="s2">plan</span>
+
+<span class="s2">play</span>
+
+<span class="s2">plot</span>
+
+<span class="s2">plug</span>
+
+<span class="s2">plus</span>
+
+<span class="s2">poem</span>
+
+<span class="s2">pole</span>
+
+<span class="s2">pool</span>
+
+<span class="s2">poor</span>
+
+<span class="s2">port</span>
+
+<span class="s2">pose</span>
+
+<span class="s2">post</span>
+
+<span class="s2">pour</span>
+
+<span class="s2">pray</span>
+
+<span class="s2">pull</span>
+
+<span class="s2">pure</span>
+
+<span class="s2">push</span>
+
+<span class="s2">quit</span>
+
+<span class="s2">race</span>
+
+<span class="s2">rail</span>
+
+<span class="s2">rain</span>
+
+<span class="s2">rank</span>
+
+<span class="s2">rare</span>
+
+<span class="s2">rate</span>
+
+<span class="s2">read</span>
+
+<span class="s2">real</span>
+
+<span class="s2">rear</span>
+
+<span class="s2">rely</span>
+
+<span class="s2">rent</span>
+
+<span class="s2">rest</span>
+
+<span class="s2">rice</span>
+
+<span class="s2">rich</span>
+
+<span class="s2">ride</span>
+
+<span class="s2">ring</span>
+
+<span class="s2">rise</span>
+
+<span class="s2">risk</span>
+
+<span class="s2">road</span>
+
+<span class="s2">rock</span>
+
+<span class="s2">role</span>
+
+<span class="s2">roll</span>
+
+<span class="s2">roof</span>
+
+<span class="s2">room</span>
+
+<span class="s2">root</span>
+
+<span class="s2">rope</span>
+
+<span class="s2">rude</span>
+
+<span class="s2">ruin</span>
+
+<span class="s2">rule</span>
+
+<span class="s2">rush</span>
+
+<span class="s2">sack</span>
+
+<span class="s2">safe</span>
+
+<span class="s2">sail</span>
+
+<span class="s2">sale</span>
+
+<span class="s2">salt</span>
+
+<span class="s2">same</span>
+
+<span class="s2">sand</span>
+
+<span class="s2">save</span>
+
+<span class="s2">seal</span>
+
+<span class="s2">seat</span>
+
+<span class="s2">seed</span>
+
+<span class="s2">seek</span>
+
+<span class="s2">seem</span>
+
+<span class="s2">self</span>
+
+<span class="s2">sell</span>
+
+<span class="s2">send</span>
+
+<span class="s2">ship</span>
+
+<span class="s2">shoe</span>
+
+<span class="s2">shop</span>
+
+<span class="s2">shot</span>
+
+<span class="s2">show</span>
+
+<span class="s2">shut</span>
+
+<span class="s2">sick</span>
+
+<span class="s2">side</span>
+
+<span class="s2">sign</span>
+
+<span class="s2">silk</span>
+
+<span class="s2">sing</span>
+
+<span class="s2">sink</span>
+
+<span class="s2">site</span>
+
+<span class="s2">size</span>
+
+<span class="s2">skin</span>
+
+<span class="s2">slip</span>
+
+<span class="s2">slow</span>
+
+<span class="s2">snow</span>
+
+<span class="s2">soap</span>
+
+<span class="s2">sock</span>
+
+<span class="s2">soft</span>
+
+<span class="s2">soil</span>
+
+<span class="s2">some</span>
+
+<span class="s2">song</span>
+
+<span class="s2">soon</span>
+
+<span class="s2">sore</span>
+
+<span class="s2">sort</span>
+
+<span class="s2">soul</span>
+
+<span class="s2">soup</span>
+
+<span class="s2">sour</span>
+
+<span class="s2">spin</span>
+
+<span class="s2">spot</span>
+
+<span class="s2">star</span>
+
+<span class="s2">stay</span>
+
+<span class="s2">step</span>
+
+<span class="s2">stir</span>
+
+<span class="s2">stop</span>
+
+<span class="s2">such</span>
+
+<span class="s2">suck</span>
+
+<span class="s2">suit</span>
+
+<span class="s2">sure</span>
+
+<span class="s2">swim</span>
+
+<span class="s2">tail</span>
+
+<span class="s2">take</span>
+
+<span class="s2">talk</span>
+
+<span class="s2">tall</span>
+
+<span class="s2">tank</span>
+
+<span class="s2">tape</span>
+
+<span class="s2">task</span>
+
+<span class="s2">taxi</span>
+
+<span class="s2">team</span>
+
+<span class="s2">tear</span>
+
+<span class="s2">tell</span>
+
+<span class="s2">tend</span>
+
+<span class="s2">tent</span>
+
+<span class="s2">term</span>
+
+<span class="s2">test</span>
+
+<span class="s2">text</span>
+
+<span class="s2">than</span>
+
+<span class="s2">that</span>
+
+<span class="s2">them</span>
+
+<span class="s2">then</span>
+
+<span class="s2">they</span>
+
+<span class="s2">thin</span>
+
+<span class="s2">this</span>
+
+<span class="s2">thus</span>
+
+<span class="s2">tidy</span>
+
+<span class="s2">till</span>
+
+<span class="s2">time</span>
+
+<span class="s2">tiny</span>
+
+<span class="s2">tire</span>
+
+<span class="s2">tone</span>
+
+<span class="s2">tool</span>
+
+<span class="s2">tour</span>
+
+<span class="s2">town</span>
+
+<span class="s2">trap</span>
+
+<span class="s2">tree</span>
+
+<span class="s2">trip</span>
+
+<span class="s2">true</span>
+
+<span class="s2">tube</span>
+
+<span class="s2">tune</span>
+
+<span class="s2">turn</span>
+
+<span class="s2">twin</span>
+
+<span class="s2">type</span>
+
+<span class="s2">tyre</span>
+
+<span class="s2">ugly</span>
+
+<span class="s2">undo</span>
+
+<span class="s2">unit</span>
+
+<span class="s2">upon</span>
+
+<span class="s2">urge</span>
+
+<span class="s2">used</span>
+
+<span class="s2">user</span>
+
+<span class="s2">vary</span>
+
+<span class="s2">vast</span>
+
+<span class="s2">very</span>
+
+<span class="s2">view</span>
+
+<span class="s2">vote</span>
+
+<span class="s2">wage</span>
+
+<span class="s2">wait</span>
+
+<span class="s2">wake</span>
+
+<span class="s2">walk</span>
+
+<span class="s2">wall</span>
+
+<span class="s2">want</span>
+
+<span class="s2">warm</span>
+
+<span class="s2">warn</span>
+
+<span class="s2">wash</span>
+
+<span class="s2">wave</span>
+
+<span class="s2">weak</span>
+
+<span class="s2">wear</span>
+
+<span class="s2">week</span>
+
+<span class="s2">well</span>
+
+<span class="s2">west</span>
+
+<span class="s2">what</span>
+
+<span class="s2">when</span>
+
+<span class="s2">whom</span>
+
+<span class="s2">wide</span>
+
+<span class="s2">wife</span>
+
+<span class="s2">wild</span>
+
+<span class="s2">will</span>
+
+<span class="s2">wind</span>
+
+<span class="s2">wine</span>
+
+<span class="s2">wing</span>
+
+<span class="s2">wire</span>
+
+<span class="s2">wise</span>
+
+<span class="s2">wish</span>
+
+<span class="s2">with</span>
+
+<span class="s2">wood</span>
+
+<span class="s2">wool</span>
+
+<span class="s2">word</span>
+
+<span class="s2">work</span>
+
+<span class="s2">wrap</span>
+
+<span class="s2">zero</span>
+
+<span class="s2">zone</span>
+
+<span class="s2">about</span>
+
+<span class="s2">above</span>
+
+<span class="s2">abuse</span>
+
+<span class="s2">actor</span>
+
+<span class="s2">adapt</span>
+
+<span class="s2">admit</span>
+
+<span class="s2">adopt</span>
+
+<span class="s2">adult</span>
+
+<span class="s2">after</span>
+
+<span class="s2">again</span>
+
+<span class="s2">agent</span>
+
+<span class="s2">agree</span>
+
+<span class="s2">ahead</span>
+
+<span class="s2">alarm</span>
+
+<span class="s2">alive</span>
+
+<span class="s2">allow</span>
+
+<span class="s2">alone</span>
+
+<span class="s2">along</span>
+
+<span class="s2">aloud</span>
+
+<span class="s2">alter</span>
+
+<span class="s2">amaze</span>
+
+<span class="s2">among</span>
+
+<span class="s2">amuse</span>
+
+<span class="s2">anger</span>
+
+<span class="s2">angle</span>
+
+<span class="s2">angry</span>
+
+<span class="s2">ankle</span>
+
+<span class="s2">annoy</span>
+
+<span class="s2">apart</span>
+
+<span class="s2">apple</span>
+
+<span class="s2">apply</span>
+
+<span class="s2">april</span>
+
+<span class="s2">argue</span>
+
+<span class="s2">arise</span>
+
+<span class="s2">armed</span>
+
+<span class="s2">arrow</span>
+
+<span class="s2">aside</span>
+
+<span class="s2">avoid</span>
+
+<span class="s2">awake</span>
+
+<span class="s2">award</span>
+
+<span class="s2">aware</span>
+
+<span class="s2">awful</span>
+
+<span class="s2">badly</span>
+
+<span class="s2">based</span>
+
+<span class="s2">basic</span>
+
+<span class="s2">basis</span>
+
+<span class="s2">beach</span>
+
+<span class="s2">beard</span>
+
+<span class="s2">begin</span>
+
+<span class="s2">below</span>
+
+<span class="s2">birth</span>
+
+<span class="s2">black</span>
+
+<span class="s2">blade</span>
+
+<span class="s2">blame</span>
+
+<span class="s2">blank</span>
+
+<span class="s2">blind</span>
+
+<span class="s2">block</span>
+
+<span class="s2">blood</span>
+
+<span class="s2">board</span>
+
+<span class="s2">bored</span>
+
+<span class="s2">bound</span>
+
+<span class="s2">brain</span>
+
+<span class="s2">brand</span>
+
+<span class="s2">brave</span>
+
+<span class="s2">bread</span>
+
+<span class="s2">break</span>
+
+<span class="s2">breed</span>
+
+<span class="s2">brick</span>
+
+<span class="s2">brief</span>
+
+<span class="s2">bring</span>
+
+<span class="s2">broad</span>
+
+<span class="s2">brown</span>
+
+<span class="s2">brush</span>
+
+<span class="s2">build</span>
+
+<span class="s2">bunch</span>
+
+<span class="s2">burnt</span>
+
+<span class="s2">burst</span>
+
+<span class="s2">buyer</span>
+
+<span class="s2">cable</span>
+
+<span class="s2">candy</span>
+
+<span class="s2">carry</span>
+
+<span class="s2">catch</span>
+
+<span class="s2">cause</span>
+
+<span class="s2">cease</span>
+
+<span class="s2">chain</span>
+
+<span class="s2">chair</span>
+
+<span class="s2">chart</span>
+
+<span class="s2">chase</span>
+
+<span class="s2">cheap</span>
+
+<span class="s2">cheat</span>
+
+<span class="s2">check</span>
+
+<span class="s2">cheek</span>
+
+<span class="s2">chest</span>
+
+<span class="s2">chief</span>
+
+<span class="s2">child</span>
+
+<span class="s2">civil</span>
+
+<span class="s2">claim</span>
+
+<span class="s2">class</span>
+
+<span class="s2">clean</span>
+
+<span class="s2">clear</span>
+
+<span class="s2">clerk</span>
+
+<span class="s2">click</span>
+
+<span class="s2">climb</span>
+
+<span class="s2">clock</span>
+
+<span class="s2">close</span>
+
+<span class="s2">cloth</span>
+
+<span class="s2">cloud</span>
+
+<span class="s2">coach</span>
+
+<span class="s2">coast</span>
+
+<span class="s2">cough</span>
+
+<span class="s2">could</span>
+
+<span class="s2">count</span>
+
+<span class="s2">court</span>
+
+<span class="s2">cover</span>
+
+<span class="s2">crack</span>
+
+<span class="s2">craft</span>
+
+<span class="s2">crash</span>
+
+<span class="s2">crazy</span>
+
+<span class="s2">cream</span>
+
+<span class="s2">crime</span>
+
+<span class="s2">crisp</span>
+
+<span class="s2">cross</span>
+
+<span class="s2">crowd</span>
+
+<span class="s2">crown</span>
+
+<span class="s2">cruel</span>
+
+<span class="s2">crush</span>
+
+<span class="s2">curly</span>
+
+<span class="s2">curve</span>
+
+<span class="s2">cycle</span>
+
+<span class="s2">daily</span>
+
+<span class="s2">dance</span>
+
+<span class="s2">death</span>
+
+<span class="s2">decay</span>
+
+<span class="s2">delay</span>
+
+<span class="s2">depth</span>
+
+<span class="s2">diary</span>
+
+<span class="s2">dirty</span>
+
+<span class="s2">doubt</span>
+
+<span class="s2">dozen</span>
+
+<span class="s2">draft</span>
+
+<span class="s2">drama</span>
+
+<span class="s2">dream</span>
+
+<span class="s2">dress</span>
+
+<span class="s2">drink</span>
+
+<span class="s2">drive</span>
+
+<span class="s2">drunk</span>
+
+<span class="s2">dying</span>
+
+<span class="s2">early</span>
+
+<span class="s2">earth</span>
+
+<span class="s2">eight</span>
+
+<span class="s2">elbow</span>
+
+<span class="s2">elect</span>
+
+<span class="s2">email</span>
+
+<span class="s2">empty</span>
+
+<span class="s2">enemy</span>
+
+<span class="s2">enjoy</span>
+
+<span class="s2">enter</span>
+
+<span class="s2">entry</span>
+
+<span class="s2">equal</span>
+
+<span class="s2">error</span>
+
+<span class="s2">essay</span>
+
+<span class="s2">event</span>
+
+<span class="s2">every</span>
+
+<span class="s2">exact</span>
+
+<span class="s2">exist</span>
+
+<span class="s2">extra</span>
+
+<span class="s2">faint</span>
+
+<span class="s2">faith</span>
+
+<span class="s2">false</span>
+
+<span class="s2">fancy</span>
+
+<span class="s2">fault</span>
+
+<span class="s2">fence</span>
+
+<span class="s2">fetch</span>
+
+<span class="s2">fever</span>
+
+<span class="s2">field</span>
+
+<span class="s2">fifth</span>
+
+<span class="s2">fifty</span>
+
+<span class="s2">fight</span>
+
+<span class="s2">final</span>
+
+<span class="s2">first</span>
+
+<span class="s2">fixed</span>
+
+<span class="s2">flame</span>
+
+<span class="s2">flash</span>
+
+<span class="s2">flesh</span>
+
+<span class="s2">float</span>
+
+<span class="s2">flood</span>
+
+<span class="s2">floor</span>
+
+<span class="s2">flour</span>
+
+<span class="s2">focus</span>
+
+<span class="s2">force</span>
+
+<span class="s2">forty</span>
+
+<span class="s2">found</span>
+
+<span class="s2">frame</span>
+
+<span class="s2">fresh</span>
+
+<span class="s2">front</span>
+
+<span class="s2">fruit</span>
+
+<span class="s2">fully</span>
+
+<span class="s2">funny</span>
+
+<span class="s2">giant</span>
+
+<span class="s2">glass</span>
+
+<span class="s2">glove</span>
+
+<span class="s2">goods</span>
+
+<span class="s2">grade</span>
+
+<span class="s2">grain</span>
+
+<span class="s2">grand</span>
+
+<span class="s2">grant</span>
+
+<span class="s2">grass</span>
+
+<span class="s2">grave</span>
+
+<span class="s2">great</span>
+
+<span class="s2">green</span>
+
+<span class="s2">group</span>
+
+<span class="s2">guard</span>
+
+<span class="s2">guess</span>
+
+<span class="s2">guest</span>
+
+<span class="s2">guide</span>
+
+<span class="s2">habit</span>
+
+<span class="s2">happy</span>
+
+<span class="s2">heart</span>
+
+<span class="s2">heavy</span>
+
+<span class="s2">hello</span>
+
+<span class="s2">hence</span>
+
+<span class="s2">hobby</span>
+
+<span class="s2">horse</span>
+
+<span class="s2">hotel</span>
+
+<span class="s2">house</span>
+
+<span class="s2">human</span>
+
+<span class="s2">hurry</span>
+
+<span class="s2">ideal</span>
+
+<span class="s2">image</span>
+
+<span class="s2">imply</span>
+
+<span class="s2">index</span>
+
+<span class="s2">inner</span>
+
+<span class="s2">issue</span>
+
+<span class="s2">jeans</span>
+
+<span class="s2">jelly</span>
+
+<span class="s2">joint</span>
+
+<span class="s2">judge</span>
+
+<span class="s2">juice</span>
+
+<span class="s2">knife</span>
+
+<span class="s2">knock</span>
+
+<span class="s2">label</span>
+
+<span class="s2">large</span>
+
+<span class="s2">later</span>
+
+<span class="s2">laugh</span>
+
+<span class="s2">layer</span>
+
+<span class="s2">learn</span>
+
+<span class="s2">least</span>
+
+<span class="s2">leave</span>
+
+<span class="s2">legal</span>
+
+<span class="s2">lemon</span>
+
+<span class="s2">level</span>
+
+<span class="s2">light</span>
+
+<span class="s2">limit</span>
+
+<span class="s2">litre</span>
+
+<span class="s2">local</span>
+
+<span class="s2">logic</span>
+
+<span class="s2">loose</span>
+
+<span class="s2">lorry</span>
+
+<span class="s2">lover</span>
+
+<span class="s2">loyal</span>
+
+<span class="s2">lucky</span>
+
+<span class="s2">lunch</span>
+
+<span class="s2">magic</span>
+
+<span class="s2">major</span>
+
+<span class="s2">march</span>
+
+<span class="s2">marry</span>
+
+<span class="s2">match</span>
+
+<span class="s2">maybe</span>
+
+<span class="s2">mayor</span>
+
+<span class="s2">means</span>
+
+<span class="s2">media</span>
+
+<span class="s2">metal</span>
+
+<span class="s2">metre</span>
+
+<span class="s2">might</span>
+
+<span class="s2">minor</span>
+
+<span class="s2">mixed</span>
+
+<span class="s2">model</span>
+
+<span class="s2">money</span>
+
+<span class="s2">month</span>
+
+<span class="s2">moral</span>
+
+<span class="s2">motor</span>
+
+<span class="s2">mount</span>
+
+<span class="s2">mouse</span>
+
+<span class="s2">mouth</span>
+
+<span class="s2">movie</span>
+
+<span class="s2">music</span>
+
+<span class="s2">naked</span>
+
+<span class="s2">nerve</span>
+
+<span class="s2">never</span>
+
+<span class="s2">newly</span>
+
+<span class="s2">niece</span>
+
+<span class="s2">night</span>
+
+<span class="s2">ninth</span>
+
+<span class="s2">noise</span>
+
+<span class="s2">noisy</span>
+
+<span class="s2">north</span>
+
+<span class="s2">novel</span>
+
+<span class="s2">nurse</span>
+
+<span class="s2">occur</span>
+
+<span class="s2">ocean</span>
+
+<span class="s2">oddly</span>
+
+<span class="s2">offer</span>
+
+<span class="s2">often</span>
+
+<span class="s2">onion</span>
+
+<span class="s2">order</span>
+
+<span class="s2">organ</span>
+
+<span class="s2">other</span>
+
+<span class="s2">ought</span>
+
+<span class="s2">outer</span>
+
+<span class="s2">owner</span>
+
+<span class="s2">paint</span>
+
+<span class="s2">panel</span>
+
+<span class="s2">pants</span>
+
+<span class="s2">paper</span>
+
+<span class="s2">party</span>
+
+<span class="s2">pause</span>
+
+<span class="s2">peace</span>
+
+<span class="s2">penny</span>
+
+<span class="s2">phase</span>
+
+<span class="s2">phone</span>
+
+<span class="s2">photo</span>
+
+<span class="s2">piano</span>
+
+<span class="s2">piece</span>
+
+<span class="s2">pilot</span>
+
+<span class="s2">pitch</span>
+
+<span class="s2">place</span>
+
+<span class="s2">plain</span>
+
+<span class="s2">plane</span>
+
+<span class="s2">plant</span>
+
+<span class="s2">plate</span>
+
+<span class="s2">point</span>
+
+<span class="s2">pound</span>
+
+<span class="s2">power</span>
+
+<span class="s2">press</span>
+
+<span class="s2">price</span>
+
+<span class="s2">pride</span>
+
+<span class="s2">prime</span>
+
+<span class="s2">print</span>
+
+<span class="s2">prior</span>
+
+<span class="s2">prize</span>
+
+<span class="s2">proof</span>
+
+<span class="s2">proud</span>
+
+<span class="s2">prove</span>
+
+<span class="s2">punch</span>
+
+<span class="s2">pupil</span>
+
+<span class="s2">queen</span>
+
+<span class="s2">quick</span>
+
+<span class="s2">quiet</span>
+
+<span class="s2">quite</span>
+
+<span class="s2">quote</span>
+
+<span class="s2">radio</span>
+
+<span class="s2">raise</span>
+
+<span class="s2">range</span>
+
+<span class="s2">rapid</span>
+
+<span class="s2">reach</span>
+
+<span class="s2">react</span>
+
+<span class="s2">ready</span>
+
+<span class="s2">refer</span>
+
+<span class="s2">relax</span>
+
+<span class="s2">reply</span>
+
+<span class="s2">rider</span>
+
+<span class="s2">right</span>
+
+<span class="s2">rival</span>
+
+<span class="s2">river</span>
+
+<span class="s2">rough</span>
+
+<span class="s2">round</span>
+
+<span class="s2">route</span>
+
+<span class="s2">royal</span>
+
+<span class="s2">ruler</span>
+
+<span class="s2">rural</span>
+
+<span class="s2">sadly</span>
+
+<span class="s2">salad</span>
+
+<span class="s2">salty</span>
+
+<span class="s2">sauce</span>
+
+<span class="s2">scale</span>
+
+<span class="s2">scare</span>
+
+<span class="s2">scene</span>
+
+<span class="s2">score</span>
+
+<span class="s2">screw</span>
+
+<span class="s2">sense</span>
+
+<span class="s2">serve</span>
+
+<span class="s2">seven</span>
+
+<span class="s2">shade</span>
+
+<span class="s2">shake</span>
+
+<span class="s2">shall</span>
+
+<span class="s2">shame</span>
+
+<span class="s2">shape</span>
+
+<span class="s2">share</span>
+
+<span class="s2">sharp</span>
+
+<span class="s2">shave</span>
+
+<span class="s2">sheep</span>
+
+<span class="s2">sheet</span>
+
+<span class="s2">shelf</span>
+
+<span class="s2">shell</span>
+
+<span class="s2">shift</span>
+
+<span class="s2">shine</span>
+
+<span class="s2">shiny</span>
+
+<span class="s2">shirt</span>
+
+<span class="s2">shock</span>
+
+<span class="s2">shoot</span>
+
+<span class="s2">short</span>
+
+<span class="s2">shout</span>
+
+<span class="s2">sight</span>
+
+<span class="s2">silly</span>
+
+<span class="s2">since</span>
+
+<span class="s2">sixth</span>
+
+<span class="s2">sixty</span>
+
+<span class="s2">skill</span>
+
+<span class="s2">skirt</span>
+
+<span class="s2">sleep</span>
+
+<span class="s2">slice</span>
+
+<span class="s2">slide</span>
+
+<span class="s2">slope</span>
+
+<span class="s2">small</span>
+
+<span class="s2">smart</span>
+
+<span class="s2">smash</span>
+
+<span class="s2">smell</span>
+
+<span class="s2">smile</span>
+
+<span class="s2">smoke</span>
+
+<span class="s2">snake</span>
+
+<span class="s2">solid</span>
+
+<span class="s2">solve</span>
+
+<span class="s2">sorry</span>
+
+<span class="s2">sound</span>
+
+<span class="s2">south</span>
+
+<span class="s2">space</span>
+
+<span class="s2">spare</span>
+
+<span class="s2">speak</span>
+
+<span class="s2">speed</span>
+
+<span class="s2">spell</span>
+
+<span class="s2">spend</span>
+
+<span class="s2">spice</span>
+
+<span class="s2">spicy</span>
+
+<span class="s2">spite</span>
+
+<span class="s2">split</span>
+
+<span class="s2">spoil</span>
+
+<span class="s2">spoon</span>
+
+<span class="s2">sport</span>
+
+<span class="s2">spray</span>
+
+<span class="s2">staff</span>
+
+<span class="s2">stage</span>
+
+<span class="s2">stair</span>
+
+<span class="s2">stamp</span>
+
+<span class="s2">stand</span>
+
+<span class="s2">stare</span>
+
+<span class="s2">start</span>
+
+<span class="s2">state</span>
+
+<span class="s2">steal</span>
+
+<span class="s2">steam</span>
+
+<span class="s2">steel</span>
+
+<span class="s2">steep</span>
+
+<span class="s2">steer</span>
+
+<span class="s2">stick</span>
+
+<span class="s2">stiff</span>
+
+<span class="s2">still</span>
+
+<span class="s2">sting</span>
+
+<span class="s2">stock</span>
+
+<span class="s2">stone</span>
+
+<span class="s2">store</span>
+
+<span class="s2">storm</span>
+
+<span class="s2">story</span>
+
+<span class="s2">stove</span>
+
+<span class="s2">strip</span>
+
+<span class="s2">study</span>
+
+<span class="s2">stuff</span>
+
+<span class="s2">style</span>
+
+<span class="s2">sugar</span>
+
+<span class="s2">swear</span>
+
+<span class="s2">sweat</span>
+
+<span class="s2">sweep</span>
+
+<span class="s2">sweet</span>
+
+<span class="s2">swell</span>
+
+<span class="s2">swing</span>
+
+<span class="s2">table</span>
+
+<span class="s2">taste</span>
+
+<span class="s2">teach</span>
+
+<span class="s2">tenth</span>
+
+<span class="s2">thank</span>
+
+<span class="s2">their</span>
+
+<span class="s2">theme</span>
+
+<span class="s2">there</span>
+
+<span class="s2">thick</span>
+
+<span class="s2">thief</span>
+
+<span class="s2">thing</span>
+
+<span class="s2">think</span>
+
+<span class="s2">third</span>
+
+<span class="s2">three</span>
+
+<span class="s2">throw</span>
+
+<span class="s2">thumb</span>
+
+<span class="s2">tight</span>
+
+<span class="s2">tired</span>
+
+<span class="s2">title</span>
+
+<span class="s2">today</span>
+
+<span class="s2">tonne</span>
+
+<span class="s2">tooth</span>
+
+<span class="s2">topic</span>
+
+<span class="s2">total</span>
+
+<span class="s2">touch</span>
+
+<span class="s2">tough</span>
+
+<span class="s2">towel</span>
+
+<span class="s2">tower</span>
+
+<span class="s2">trace</span>
+
+<span class="s2">track</span>
+
+<span class="s2">trade</span>
+
+<span class="s2">train</span>
+
+<span class="s2">treat</span>
+
+<span class="s2">trend</span>
+
+<span class="s2">trial</span>
+
+<span class="s2">trick</span>
+
+<span class="s2">truck</span>
+
+<span class="s2">truly</span>
+
+<span class="s2">trust</span>
+
+<span class="s2">truth</span>
+
+<span class="s2">twice</span>
+
+<span class="s2">twist</span>
+
+<span class="s2">uncle</span>
+
+<span class="s2">under</span>
+
+<span class="s2">union</span>
+
+<span class="s2">unite</span>
+
+<span class="s2">until</span>
+
+<span class="s2">upper</span>
+
+<span class="s2">upset</span>
+
+<span class="s2">urban</span>
+
+<span class="s2">usual</span>
+
+<span class="s2">valid</span>
+
+<span class="s2">value</span>
+
+<span class="s2">video</span>
+
+<span class="s2">virus</span>
+
+<span class="s2">visit</span>
+
+<span class="s2">vital</span>
+
+<span class="s2">voice</span>
+
+<span class="s2">waist</span>
+
+<span class="s2">waste</span>
+
+<span class="s2">watch</span>
+
+<span class="s2">water</span>
+
+<span class="s2">weigh</span>
+
+<span class="s2">wheel</span>
+
+<span class="s2">where</span>
+
+<span class="s2">which</span>
+
+<span class="s2">while</span>
+
+<span class="s2">white</span>
+
+<span class="s2">whole</span>
+
+<span class="s2">whose</span>
+
+<span class="s2">width</span>
+
+<span class="s2">woman</span>
+
+<span class="s2">world</span>
+
+<span class="s2">worry</span>
+
+<span class="s2">worse</span>
+
+<span class="s2">worst</span>
+
+<span class="s2">worth</span>
+
+<span class="s2">would</span>
+
+<span class="s2">wound</span>
+
+<span class="s2">wrist</span>
+
+<span class="s2">write</span>
+
+<span class="s2">wrong</span>
+
+<span class="s2">young</span>
+
+<span class="s2">yours</span>
+
+<span class="s2">youth</span>
+
+<span class="s2">abroad</span>
+
+<span class="s2">absent</span>
+
+<span class="s2">absorb</span>
+
+<span class="s2">accent</span>
+
+<span class="s2">accept</span>
+
+<span class="s2">access</span>
+
+<span class="s2">accuse</span>
+
+<span class="s2">across</span>
+
+<span class="s2">action</span>
+
+<span class="s2">active</span>
+
+<span class="s2">actual</span>
+
+<span class="s2">adjust</span>
+
+<span class="s2">admire</span>
+
+<span class="s2">advert</span>
+
+<span class="s2">advice</span>
+
+<span class="s2">advise</span>
+
+<span class="s2">affair</span>
+
+<span class="s2">affect</span>
+
+<span class="s2">afford</span>
+
+<span class="s2">afraid</span>
+
+<span class="s2">agency</span>
+
+<span class="s2">allied</span>
+
+<span class="s2">almost</span>
+
+<span class="s2">always</span>
+
+<span class="s2">amazed</span>
+
+<span class="s2">amount</span>
+
+<span class="s2">amused</span>
+
+<span class="s2">animal</span>
+
+<span class="s2">annual</span>
+
+<span class="s2">answer</span>
+
+<span class="s2">anyone</span>
+
+<span class="s2">anyway</span>
+
+<span class="s2">appeal</span>
+
+<span class="s2">appear</span>
+
+<span class="s2">around</span>
+
+<span class="s2">arrest</span>
+
+<span class="s2">arrive</span>
+
+<span class="s2">artist</span>
+
+<span class="s2">asleep</span>
+
+<span class="s2">aspect</span>
+
+<span class="s2">assist</span>
+
+<span class="s2">assume</span>
+
+<span class="s2">assure</span>
+
+<span class="s2">attach</span>
+
+<span class="s2">attack</span>
+
+<span class="s2">attend</span>
+
+<span class="s2">august</span>
+
+<span class="s2">author</span>
+
+<span class="s2">autumn</span>
+
+<span class="s2">battle</span>
+
+<span class="s2">beauty</span>
+
+<span class="s2">become</span>
+
+<span class="s2">before</span>
+
+<span class="s2">behalf</span>
+
+<span class="s2">behave</span>
+
+<span class="s2">behind</span>
+
+<span class="s2">belief</span>
+
+<span class="s2">belong</span>
+
+<span class="s2">beside</span>
+
+<span class="s2">better</span>
+
+<span class="s2">beyond</span>
+
+<span class="s2">bitter</span>
+
+<span class="s2">blonde</span>
+
+<span class="s2">border</span>
+
+<span class="s2">boring</span>
+
+<span class="s2">borrow</span>
+
+<span class="s2">bother</span>
+
+<span class="s2">bottle</span>
+
+<span class="s2">bottom</span>
+
+<span class="s2">branch</span>
+
+<span class="s2">breast</span>
+
+<span class="s2">breath</span>
+
+<span class="s2">bridge</span>
+
+<span class="s2">bright</span>
+
+<span class="s2">broken</span>
+
+<span class="s2">bubble</span>
+
+<span class="s2">budget</span>
+
+<span class="s2">bullet</span>
+
+<span class="s2">butter</span>
+
+<span class="s2">button</span>
+
+<span class="s2">called</span>
+
+<span class="s2">calmly</span>
+
+<span class="s2">camera</span>
+
+<span class="s2">cancel</span>
+
+<span class="s2">cancer</span>
+
+<span class="s2">cannot</span>
+
+<span class="s2">career</span>
+
+<span class="s2">carpet</span>
+
+<span class="s2">carrot</span>
+
+<span class="s2">castle</span>
+
+<span class="s2">centre</span>
+
+<span class="s2">chance</span>
+
+<span class="s2">change</span>
+
+<span class="s2">charge</span>
+
+<span class="s2">cheese</span>
+
+<span class="s2">cheque</span>
+
+<span class="s2">choice</span>
+
+<span class="s2">choose</span>
+
+<span class="s2">church</span>
+
+<span class="s2">cinema</span>
+
+<span class="s2">circle</span>
+
+<span class="s2">clever</span>
+
+<span class="s2">client</span>
+
+<span class="s2">closed</span>
+
+<span class="s2">closet</span>
+
+<span class="s2">coffee</span>
+
+<span class="s2">coldly</span>
+
+<span class="s2">colour</span>
+
+<span class="s2">column</span>
+
+<span class="s2">comedy</span>
+
+<span class="s2">commit</span>
+
+<span class="s2">common</span>
+
+<span class="s2">cooker</span>
+
+<span class="s2">cookie</span>
+
+<span class="s2">corner</span>
+
+<span class="s2">cotton</span>
+
+<span class="s2">county</span>
+
+<span class="s2">couple</span>
+
+<span class="s2">course</span>
+
+<span class="s2">cousin</span>
+
+<span class="s2">create</span>
+
+<span class="s2">credit</span>
+
+<span class="s2">crisis</span>
+
+<span class="s2">curved</span>
+
+<span class="s2">custom</span>
+
+<span class="s2">damage</span>
+
+<span class="s2">dancer</span>
+
+<span class="s2">danger</span>
+
+<span class="s2">debate</span>
+
+<span class="s2">decade</span>
+
+<span class="s2">decide</span>
+
+<span class="s2">deeply</span>
+
+<span class="s2">defeat</span>
+
+<span class="s2">defend</span>
+
+<span class="s2">define</span>
+
+<span class="s2">degree</span>
+
+<span class="s2">demand</span>
+
+<span class="s2">depend</span>
+
+<span class="s2">derive</span>
+
+<span class="s2">desert</span>
+
+<span class="s2">design</span>
+
+<span class="s2">desire</span>
+
+<span class="s2">detail</span>
+
+<span class="s2">device</span>
+
+<span class="s2">devote</span>
+
+<span class="s2">dinner</span>
+
+<span class="s2">direct</span>
+
+<span class="s2">divide</span>
+
+<span class="s2">doctor</span>
+
+<span class="s2">dollar</span>
+
+<span class="s2">double</span>
+
+<span class="s2">drawer</span>
+
+<span class="s2">driver</span>
+
+<span class="s2">during</span>
+
+<span class="s2">easily</span>
+
+<span class="s2">editor</span>
+
+<span class="s2">effect</span>
+
+<span class="s2">effort</span>
+
+<span class="s2">eighth</span>
+
+<span class="s2">eighty</span>
+
+<span class="s2">either</span>
+
+<span class="s2">eleven</span>
+
+<span class="s2">emerge</span>
+
+<span class="s2">empire</span>
+
+<span class="s2">employ</span>
+
+<span class="s2">enable</span>
+
+<span class="s2">ending</span>
+
+<span class="s2">energy</span>
+
+<span class="s2">engage</span>
+
+<span class="s2">engine</span>
+
+<span class="s2">enough</span>
+
+<span class="s2">ensure</span>
+
+<span class="s2">entire</span>
+
+<span class="s2">escape</span>
+
+<span class="s2">estate</span>
+
+<span class="s2">except</span>
+
+<span class="s2">excite</span>
+
+<span class="s2">excuse</span>
+
+<span class="s2">expand</span>
+
+<span class="s2">expect</span>
+
+<span class="s2">expert</span>
+
+<span class="s2">export</span>
+
+<span class="s2">expose</span>
+
+<span class="s2">extend</span>
+
+<span class="s2">extent</span>
+
+<span class="s2">factor</span>
+
+<span class="s2">fairly</span>
+
+<span class="s2">family</span>
+
+<span class="s2">famous</span>
+
+<span class="s2">farmer</span>
+
+<span class="s2">fasten</span>
+
+<span class="s2">father</span>
+
+<span class="s2">faucet</span>
+
+<span class="s2">favour</span>
+
+<span class="s2">fellow</span>
+
+<span class="s2">female</span>
+
+<span class="s2">figure</span>
+
+<span class="s2">finely</span>
+
+<span class="s2">finger</span>
+
+<span class="s2">finish</span>
+
+<span class="s2">firmly</span>
+
+<span class="s2">flight</span>
+
+<span class="s2">flower</span>
+
+<span class="s2">flying</span>
+
+<span class="s2">follow</span>
+
+<span class="s2">forest</span>
+
+<span class="s2">forget</span>
+
+<span class="s2">formal</span>
+
+<span class="s2">former</span>
+
+<span class="s2">fourth</span>
+
+<span class="s2">freely</span>
+
+<span class="s2">freeze</span>
+
+<span class="s2">friday</span>
+
+<span class="s2">fridge</span>
+
+<span class="s2">friend</span>
+
+<span class="s2">frozen</span>
+
+<span class="s2">future</span>
+
+<span class="s2">gallon</span>
+
+<span class="s2">gamble</span>
+
+<span class="s2">garage</span>
+
+<span class="s2">garden</span>
+
+<span class="s2">gather</span>
+
+<span class="s2">gentle</span>
+
+<span class="s2">gently</span>
+
+<span class="s2">global</span>
+
+<span class="s2">govern</span>
+
+<span class="s2">ground</span>
+
+<span class="s2">growth</span>
+
+<span class="s2">guilty</span>
+
+<span class="s2">hammer</span>
+
+<span class="s2">handle</span>
+
+<span class="s2">happen</span>
+
+<span class="s2">hardly</span>
+
+<span class="s2">hatred</span>
+
+<span class="s2">health</span>
+
+<span class="s2">heaven</span>
+
+<span class="s2">height</span>
+
+<span class="s2">highly</span>
+
+<span class="s2">hollow</span>
+
+<span class="s2">honest</span>
+
+<span class="s2">honour</span>
+
+<span class="s2">horror</span>
+
+<span class="s2">humour</span>
+
+<span class="s2">hungry</span>
+
+<span class="s2">ignore</span>
+
+<span class="s2">impact</span>
+
+<span class="s2">import</span>
+
+<span class="s2">impose</span>
+
+<span class="s2">income</span>
+
+<span class="s2">indeed</span>
+
+<span class="s2">indoor</span>
+
+<span class="s2">infect</span>
+
+<span class="s2">inform</span>
+
+<span class="s2">injure</span>
+
+<span class="s2">injury</span>
+
+<span class="s2">insect</span>
+
+<span class="s2">insert</span>
+
+<span class="s2">inside</span>
+
+<span class="s2">insist</span>
+
+<span class="s2">insult</span>
+
+<span class="s2">intend</span>
+
+<span class="s2">invent</span>
+
+<span class="s2">invest</span>
+
+<span class="s2">invite</span>
+
+<span class="s2">island</span>
+
+<span class="s2">itself</span>
+
+<span class="s2">jacket</span>
+
+<span class="s2">junior</span>
+
+<span class="s2">kindly</span>
+
+<span class="s2">labour</span>
+
+<span class="s2">latest</span>
+
+<span class="s2">latter</span>
+
+<span class="s2">launch</span>
+
+<span class="s2">lawyer</span>
+
+<span class="s2">leader</span>
+
+<span class="s2">league</span>
+
+<span class="s2">length</span>
+
+<span class="s2">lesson</span>
+
+<span class="s2">letter</span>
+
+<span class="s2">likely</span>
+
+<span class="s2">liquid</span>
+
+<span class="s2">listen</span>
+
+<span class="s2">little</span>
+
+<span class="s2">lively</span>
+
+<span class="s2">living</span>
+
+<span class="s2">locate</span>
+
+<span class="s2">lonely</span>
+
+<span class="s2">loudly</span>
+
+<span class="s2">lovely</span>
+
+<span class="s2">mainly</span>
+
+<span class="s2">manage</span>
+
+<span class="s2">manner</span>
+
+<span class="s2">market</span>
+
+<span class="s2">master</span>
+
+<span class="s2">matter</span>
+
+<span class="s2">medium</span>
+
+<span class="s2">member</span>
+
+<span class="s2">memory</span>
+
+<span class="s2">mental</span>
+
+<span class="s2">merely</span>
+
+<span class="s2">method</span>
+
+<span class="s2">midday</span>
+
+<span class="s2">middle</span>
+
+<span class="s2">minute</span>
+
+<span class="s2">mirror</span>
+
+<span class="s2">mobile</span>
+
+<span class="s2">modern</span>
+
+<span class="s2">moment</span>
+
+<span class="s2">monday</span>
+
+<span class="s2">mostly</span>
+
+<span class="s2">mother</span>
+
+<span class="s2">motion</span>
+
+<span class="s2">moving</span>
+
+<span class="s2">murder</span>
+
+<span class="s2">muscle</span>
+
+<span class="s2">museum</span>
+
+<span class="s2">myself</span>
+
+<span class="s2">narrow</span>
+
+<span class="s2">nation</span>
+
+<span class="s2">nature</span>
+
+<span class="s2">nearby</span>
+
+<span class="s2">nearly</span>
+
+<span class="s2">neatly</span>
+
+<span class="s2">needle</span>
+
+<span class="s2">nephew</span>
+
+<span class="s2">nicely</span>
+
+<span class="s2">ninety</span>
+
+<span class="s2">nobody</span>
+
+<span class="s2">normal</span>
+
+<span class="s2">notice</span>
+
+<span class="s2">number</span>
+
+<span class="s2">object</span>
+
+<span class="s2">obtain</span>
+
+<span class="s2">occupy</span>
+
+<span class="s2">offend</span>
+
+<span class="s2">office</span>
+
+<span class="s2">online</span>
+
+<span class="s2">openly</span>
+
+<span class="s2">oppose</span>
+
+<span class="s2">option</span>
+
+<span class="s2">orange</span>
+
+<span class="s2">origin</span>
+
+<span class="s2">output</span>
+
+<span class="s2">packet</span>
+
+<span class="s2">palace</span>
+
+<span class="s2">parent</span>
+
+<span class="s2">partly</span>
+
+<span class="s2">pencil</span>
+
+<span class="s2">people</span>
+
+<span class="s2">pepper</span>
+
+<span class="s2">period</span>
+
+<span class="s2">permit</span>
+
+<span class="s2">person</span>
+
+<span class="s2">petrol</span>
+
+<span class="s2">phrase</span>
+
+<span class="s2">planet</span>
+
+<span class="s2">player</span>
+
+<span class="s2">please</span>
+
+<span class="s2">plenty</span>
+
+<span class="s2">pocket</span>
+
+<span class="s2">poetry</span>
+
+<span class="s2">poison</span>
+
+<span class="s2">police</span>
+
+<span class="s2">policy</span>
+
+<span class="s2">polish</span>
+
+<span class="s2">polite</span>
+
+<span class="s2">potato</span>
+
+<span class="s2">powder</span>
+
+<span class="s2">praise</span>
+
+<span class="s2">prayer</span>
+
+<span class="s2">prefer</span>
+
+<span class="s2">pretty</span>
+
+<span class="s2">priest</span>
+
+<span class="s2">prince</span>
+
+<span class="s2">prison</span>
+
+<span class="s2">profit</span>
+
+<span class="s2">prompt</span>
+
+<span class="s2">proper</span>
+
+<span class="s2">public</span>
+
+<span class="s2">punish</span>
+
+<span class="s2">purely</span>
+
+<span class="s2">purple</span>
+
+<span class="s2">pursue</span>
+
+<span class="s2">racing</span>
+
+<span class="s2">rarely</span>
+
+<span class="s2">rather</span>
+
+<span class="s2">reader</span>
+
+<span class="s2">really</span>
+
+<span class="s2">reason</span>
+
+<span class="s2">recall</span>
+
+<span class="s2">recent</span>
+
+<span class="s2">reckon</span>
+
+<span class="s2">record</span>
+
+<span class="s2">reduce</span>
+
+<span class="s2">reform</span>
+
+<span class="s2">refuse</span>
+
+<span class="s2">regard</span>
+
+<span class="s2">region</span>
+
+<span class="s2">regret</span>
+
+<span class="s2">reject</span>
+
+<span class="s2">relate</span>
+
+<span class="s2">relief</span>
+
+<span class="s2">remain</span>
+
+<span class="s2">remark</span>
+
+<span class="s2">remind</span>
+
+<span class="s2">remote</span>
+
+<span class="s2">remove</span>
+
+<span class="s2">rented</span>
+
+<span class="s2">repair</span>
+
+<span class="s2">repeat</span>
+
+<span class="s2">report</span>
+
+<span class="s2">rescue</span>
+
+<span class="s2">resist</span>
+
+<span class="s2">resort</span>
+
+<span class="s2">result</span>
+
+<span class="s2">retain</span>
+
+<span class="s2">retire</span>
+
+<span class="s2">return</span>
+
+<span class="s2">reveal</span>
+
+<span class="s2">review</span>
+
+<span class="s2">revise</span>
+
+<span class="s2">reward</span>
+
+<span class="s2">rhythm</span>
+
+<span class="s2">riding</span>
+
+<span class="s2">rubber</span>
+
+<span class="s2">rudely</span>
+
+<span class="s2">ruined</span>
+
+<span class="s2">rumour</span>
+
+<span class="s2">runner</span>
+
+<span class="s2">safely</span>
+
+<span class="s2">safety</span>
+
+<span class="s2">sailor</span>
+
+<span class="s2">salary</span>
+
+<span class="s2">sample</span>
+
+<span class="s2">saving</span>
+
+<span class="s2">scared</span>
+
+<span class="s2">scheme</span>
+
+<span class="s2">school</span>
+
+<span class="s2">scream</span>
+
+<span class="s2">screen</span>
+
+<span class="s2">search</span>
+
+<span class="s2">season</span>
+
+<span class="s2">second</span>
+
+<span class="s2">secret</span>
+
+<span class="s2">sector</span>
+
+<span class="s2">secure</span>
+
+<span class="s2">select</span>
+
+<span class="s2">senate</span>
+
+<span class="s2">senior</span>
+
+<span class="s2">series</span>
+
+<span class="s2">settle</span>
+
+<span class="s2">severe</span>
+
+<span class="s2">sewing</span>
+
+<span class="s2">sexual</span>
+
+<span class="s2">shadow</span>
+
+<span class="s2">shaped</span>
+
+<span class="s2">should</span>
+
+<span class="s2">shower</span>
+
+<span class="s2">signal</span>
+
+<span class="s2">silent</span>
+
+<span class="s2">silver</span>
+
+<span class="s2">simple</span>
+
+<span class="s2">simply</span>
+
+<span class="s2">singer</span>
+
+<span class="s2">single</span>
+
+<span class="s2">sister</span>
+
+<span class="s2">sleeve</span>
+
+<span class="s2">slight</span>
+
+<span class="s2">slowly</span>
+
+<span class="s2">smooth</span>
+
+<span class="s2">social</span>
+
+<span class="s2">softly</span>
+
+<span class="s2">source</span>
+
+<span class="s2">speech</span>
+
+<span class="s2">spider</span>
+
+<span class="s2">spirit</span>
+
+<span class="s2">spoken</span>
+
+<span class="s2">spread</span>
+
+<span class="s2">spring</span>
+
+<span class="s2">square</span>
+
+<span class="s2">stable</span>
+
+<span class="s2">statue</span>
+
+<span class="s2">status</span>
+
+<span class="s2">steady</span>
+
+<span class="s2">sticky</span>
+
+<span class="s2">strain</span>
+
+<span class="s2">stream</span>
+
+<span class="s2">street</span>
+
+<span class="s2">stress</span>
+
+<span class="s2">strict</span>
+
+<span class="s2">strike</span>
+
+<span class="s2">string</span>
+
+<span class="s2">stripe</span>
+
+<span class="s2">stroke</span>
+
+<span class="s2">strong</span>
+
+<span class="s2">studio</span>
+
+<span class="s2">stupid</span>
+
+<span class="s2">sudden</span>
+
+<span class="s2">suffer</span>
+
+<span class="s2">suited</span>
+
+<span class="s2">summer</span>
+
+<span class="s2">sunday</span>
+
+<span class="s2">supply</span>
+
+<span class="s2">surely</span>
+
+<span class="s2">survey</span>
+
+<span class="s2">switch</span>
+
+<span class="s2">symbol</span>
+
+<span class="s2">system</span>
+
+<span class="s2">tablet</span>
+
+<span class="s2">tackle</span>
+
+<span class="s2">target</span>
+
+<span class="s2">thanks</span>
+
+<span class="s2">theirs</span>
+
+<span class="s2">theory</span>
+
+<span class="s2">thirty</span>
+
+<span class="s2">though</span>
+
+<span class="s2">thread</span>
+
+<span class="s2">threat</span>
+
+<span class="s2">throat</span>
+
+<span class="s2">ticket</span>
+
+<span class="s2">tiring</span>
+
+<span class="s2">toilet</span>
+
+<span class="s2">tomato</span>
+
+<span class="s2">tongue</span>
+
+<span class="s2">travel</span>
+
+<span class="s2">tunnel</span>
+
+<span class="s2">twelve</span>
+
+<span class="s2">twenty</span>
+
+<span class="s2">unable</span>
+
+<span class="s2">unfair</span>
+
+<span class="s2">unique</span>
+
+<span class="s2">united</span>
+
+<span class="s2">unkind</span>
+
+<span class="s2">unless</span>
+
+<span class="s2">unlike</span>
+
+<span class="s2">unload</span>
+
+<span class="s2">untidy</span>
+
+<span class="s2">upside</span>
+
+<span class="s2">upward</span>
+
+<span class="s2">urgent</span>
+
+<span class="s2">useful</span>
+
+<span class="s2">valley</span>
+
+<span class="s2">varied</span>
+
+<span class="s2">victim</span>
+
+<span class="s2">vision</span>
+
+<span class="s2">volume</span>
+
+<span class="s2">waiter</span>
+
+<span class="s2">wallet</span>
+
+<span class="s2">wander</span>
+
+<span class="s2">warmth</span>
+
+<span class="s2">wealth</span>
+
+<span class="s2">weapon</span>
+
+<span class="s2">weekly</span>
+
+<span class="s2">weight</span>
+
+<span class="s2">widely</span>
+
+<span class="s2">wildly</span>
+
+<span class="s2">window</span>
+
+<span class="s2">winner</span>
+
+<span class="s2">winter</span>
+
+<span class="s2">within</span>
+
+<span class="s2">wonder</span>
+
+<span class="s2">wooden</span>
+
+<span class="s2">worker</span>
+
+<span class="s2">writer</span>
+
+<span class="s2">yellow</span>
+
+<span class="s2">abandon</span>
+
+<span class="s2">ability</span>
+
+<span class="s2">absence</span>
+
+<span class="s2">account</span>
+
+<span class="s2">achieve</span>
+
+<span class="s2">acquire</span>
+
+<span class="s2">actress</span>
+
+<span class="s2">address</span>
+
+<span class="s2">advance</span>
+
+<span class="s2">against</span>
+
+<span class="s2">airport</span>
+
+<span class="s2">alarmed</span>
+
+<span class="s2">alcohol</span>
+
+<span class="s2">already</span>
+
+<span class="s2">amazing</span>
+
+<span class="s2">amusing</span>
+
+<span class="s2">analyse</span>
+
+<span class="s2">ancient</span>
+
+<span class="s2">angrily</span>
+
+<span class="s2">annoyed</span>
+
+<span class="s2">another</span>
+
+<span class="s2">anxiety</span>
+
+<span class="s2">anxious</span>
+
+<span class="s2">anybody</span>
+
+<span class="s2">appoint</span>
+
+<span class="s2">approve</span>
+
+<span class="s2">arrange</span>
+
+<span class="s2">arrival</span>
+
+<span class="s2">article</span>
+
+<span class="s2">ashamed</span>
+
+<span class="s2">attempt</span>
+
+<span class="s2">attract</span>
+
+<span class="s2">average</span>
+
+<span class="s2">awfully</span>
+
+<span class="s2">awkward</span>
+
+<span class="s2">baggage</span>
+
+<span class="s2">balance</span>
+
+<span class="s2">bandage</span>
+
+<span class="s2">bargain</span>
+
+<span class="s2">barrier</span>
+
+<span class="s2">battery</span>
+
+<span class="s2">because</span>
+
+<span class="s2">bedroom</span>
+
+<span class="s2">believe</span>
+
+<span class="s2">beneath</span>
+
+<span class="s2">benefit</span>
+
+<span class="s2">betting</span>
+
+<span class="s2">between</span>
+
+<span class="s2">bicycle</span>
+
+<span class="s2">billion</span>
+
+<span class="s2">biology</span>
+
+<span class="s2">biscuit</span>
+
+<span class="s2">breathe</span>
+
+<span class="s2">briefly</span>
+
+<span class="s2">broadly</span>
+
+<span class="s2">brother</span>
+
+<span class="s2">cabinet</span>
+
+<span class="s2">camping</span>
+
+<span class="s2">capable</span>
+
+<span class="s2">capital</span>
+
+<span class="s2">captain</span>
+
+<span class="s2">capture</span>
+
+<span class="s2">careful</span>
+
+<span class="s2">ceiling</span>
+
+<span class="s2">central</span>
+
+<span class="s2">century</span>
+
+<span class="s2">certain</span>
+
+<span class="s2">chamber</span>
+
+<span class="s2">channel</span>
+
+<span class="s2">chapter</span>
+
+<span class="s2">charity</span>
+
+<span class="s2">cheaply</span>
+
+<span class="s2">chemist</span>
+
+<span class="s2">chicken</span>
+
+<span class="s2">citizen</span>
+
+<span class="s2">classic</span>
+
+<span class="s2">clearly</span>
+
+<span class="s2">climate</span>
+
+<span class="s2">closely</span>
+
+<span class="s2">clothes</span>
+
+<span class="s2">collect</span>
+
+<span class="s2">college</span>
+
+<span class="s2">combine</span>
+
+<span class="s2">comfort</span>
+
+<span class="s2">command</span>
+
+<span class="s2">comment</span>
+
+<span class="s2">company</span>
+
+<span class="s2">compare</span>
+
+<span class="s2">compete</span>
+
+<span class="s2">complex</span>
+
+<span class="s2">concept</span>
+
+<span class="s2">concern</span>
+
+<span class="s2">concert</span>
+
+<span class="s2">conduct</span>
+
+<span class="s2">confine</span>
+
+<span class="s2">confirm</span>
+
+<span class="s2">confuse</span>
+
+<span class="s2">connect</span>
+
+<span class="s2">consist</span>
+
+<span class="s2">consult</span>
+
+<span class="s2">contact</span>
+
+<span class="s2">contain</span>
+
+<span class="s2">content</span>
+
+<span class="s2">contest</span>
+
+<span class="s2">context</span>
+
+<span class="s2">control</span>
+
+<span class="s2">convert</span>
+
+<span class="s2">cooking</span>
+
+<span class="s2">correct</span>
+
+<span class="s2">cottage</span>
+
+<span class="s2">council</span>
+
+<span class="s2">counter</span>
+
+<span class="s2">country</span>
+
+<span class="s2">courage</span>
+
+<span class="s2">covered</span>
+
+<span class="s2">cracked</span>
+
+<span class="s2">crowded</span>
+
+<span class="s2">crucial</span>
+
+<span class="s2">culture</span>
+
+<span class="s2">curious</span>
+
+<span class="s2">current</span>
+
+<span class="s2">curtain</span>
+
+<span class="s2">customs</span>
+
+<span class="s2">cycling</span>
+
+<span class="s2">dancing</span>
+
+<span class="s2">declare</span>
+
+<span class="s2">decline</span>
+
+<span class="s2">defence</span>
+
+<span class="s2">delight</span>
+
+<span class="s2">deliver</span>
+
+<span class="s2">dentist</span>
+
+<span class="s2">deposit</span>
+
+<span class="s2">depress</span>
+
+<span class="s2">deserve</span>
+
+<span class="s2">despite</span>
+
+<span class="s2">destroy</span>
+
+<span class="s2">develop</span>
+
+<span class="s2">devoted</span>
+
+<span class="s2">diagram</span>
+
+<span class="s2">diamond</span>
+
+<span class="s2">digital</span>
+
+<span class="s2">discuss</span>
+
+<span class="s2">disease</span>
+
+<span class="s2">disgust</span>
+
+<span class="s2">dislike</span>
+
+<span class="s2">dismiss</span>
+
+<span class="s2">display</span>
+
+<span class="s2">disturb</span>
+
+<span class="s2">divorce</span>
+
+<span class="s2">drawing</span>
+
+<span class="s2">dressed</span>
+
+<span class="s2">driving</span>
+
+<span class="s2">eastern</span>
+
+<span class="s2">economy</span>
+
+<span class="s2">edition</span>
+
+<span class="s2">educate</span>
+
+<span class="s2">elderly</span>
+
+<span class="s2">elegant</span>
+
+<span class="s2">element</span>
+
+<span class="s2">emotion</span>
+
+<span class="s2">engaged</span>
+
+<span class="s2">enquiry</span>
+
+<span class="s2">entitle</span>
+
+<span class="s2">equally</span>
+
+<span class="s2">evening</span>
+
+<span class="s2">exactly</span>
+
+<span class="s2">examine</span>
+
+<span class="s2">example</span>
+
+<span class="s2">excited</span>
+
+<span class="s2">exclude</span>
+
+<span class="s2">exhibit</span>
+
+<span class="s2">expense</span>
+
+<span class="s2">explain</span>
+
+<span class="s2">explode</span>
+
+<span class="s2">explore</span>
+
+<span class="s2">express</span>
+
+<span class="s2">extreme</span>
+
+<span class="s2">factory</span>
+
+<span class="s2">failure</span>
+
+<span class="s2">faintly</span>
+
+<span class="s2">farming</span>
+
+<span class="s2">farther</span>
+
+<span class="s2">fashion</span>
+
+<span class="s2">feather</span>
+
+<span class="s2">feature</span>
+
+<span class="s2">federal</span>
+
+<span class="s2">feeling</span>
+
+<span class="s2">fifteen</span>
+
+<span class="s2">finally</span>
+
+<span class="s2">finance</span>
+
+<span class="s2">fishing</span>
+
+<span class="s2">flavour</span>
+
+<span class="s2">flooded</span>
+
+<span class="s2">folding</span>
+
+<span class="s2">foreign</span>
+
+<span class="s2">forever</span>
+
+<span class="s2">forgive</span>
+
+<span class="s2">formula</span>
+
+<span class="s2">fortune</span>
+
+<span class="s2">forward</span>
+
+<span class="s2">freedom</span>
+
+<span class="s2">freshly</span>
+
+<span class="s2">funeral</span>
+
+<span class="s2">further</span>
+
+<span class="s2">garbage</span>
+
+<span class="s2">general</span>
+
+<span class="s2">genuine</span>
+
+<span class="s2">goodbye</span>
+
+<span class="s2">gradual</span>
+
+<span class="s2">grammar</span>
+
+<span class="s2">gravely</span>
+
+<span class="s2">greatly</span>
+
+<span class="s2">grocery</span>
+
+<span class="s2">happily</span>
+
+<span class="s2">harmful</span>
+
+<span class="s2">healthy</span>
+
+<span class="s2">hearing</span>
+
+<span class="s2">heating</span>
+
+<span class="s2">heavily</span>
+
+<span class="s2">helpful</span>
+
+<span class="s2">herself</span>
+
+<span class="s2">highway</span>
+
+<span class="s2">himself</span>
+
+<span class="s2">history</span>
+
+<span class="s2">holiday</span>
+
+<span class="s2">housing</span>
+
+<span class="s2">however</span>
+
+<span class="s2">hundred</span>
+
+<span class="s2">hunting</span>
+
+<span class="s2">husband</span>
+
+<span class="s2">illegal</span>
+
+<span class="s2">illness</span>
+
+<span class="s2">imagine</span>
+
+<span class="s2">immoral</span>
+
+<span class="s2">impress</span>
+
+<span class="s2">improve</span>
+
+<span class="s2">include</span>
+
+<span class="s2">indoors</span>
+
+<span class="s2">initial</span>
+
+<span class="s2">injured</span>
+
+<span class="s2">install</span>
+
+<span class="s2">instead</span>
+
+<span class="s2">involve</span>
+
+<span class="s2">january</span>
+
+<span class="s2">jealous</span>
+
+<span class="s2">jointly</span>
+
+<span class="s2">journey</span>
+
+<span class="s2">justice</span>
+
+<span class="s2">justify</span>
+
+<span class="s2">killing</span>
+
+<span class="s2">kitchen</span>
+
+<span class="s2">knitted</span>
+
+<span class="s2">lacking</span>
+
+<span class="s2">largely</span>
+
+<span class="s2">leading</span>
+
+<span class="s2">leather</span>
+
+<span class="s2">lecture</span>
+
+<span class="s2">legally</span>
+
+<span class="s2">library</span>
+
+<span class="s2">licence</span>
+
+<span class="s2">license</span>
+
+<span class="s2">lightly</span>
+
+<span class="s2">limited</span>
+
+<span class="s2">locally</span>
+
+<span class="s2">located</span>
+
+<span class="s2">logical</span>
+
+<span class="s2">loosely</span>
+
+<span class="s2">luggage</span>
+
+<span class="s2">machine</span>
+
+<span class="s2">manager</span>
+
+<span class="s2">married</span>
+
+<span class="s2">massive</span>
+
+<span class="s2">maximum</span>
+
+<span class="s2">meaning</span>
+
+<span class="s2">measure</span>
+
+<span class="s2">medical</span>
+
+<span class="s2">meeting</span>
+
+<span class="s2">mention</span>
+
+<span class="s2">message</span>
+
+<span class="s2">million</span>
+
+<span class="s2">mineral</span>
+
+<span class="s2">minimum</span>
+
+<span class="s2">missing</span>
+
+<span class="s2">mistake</span>
+
+<span class="s2">mixture</span>
+
+<span class="s2">monitor</span>
+
+<span class="s2">morally</span>
+
+<span class="s2">morning</span>
+
+<span class="s2">musical</span>
+
+<span class="s2">mystery</span>
+
+<span class="s2">natural</span>
+
+<span class="s2">neither</span>
+
+<span class="s2">nervous</span>
+
+<span class="s2">network</span>
+
+<span class="s2">noisily</span>
+
+<span class="s2">nothing</span>
+
+<span class="s2">nowhere</span>
+
+<span class="s2">nuclear</span>
+
+<span class="s2">observe</span>
+
+<span class="s2">obvious</span>
+
+<span class="s2">october</span>
+
+<span class="s2">offence</span>
+
+<span class="s2">offense</span>
+
+<span class="s2">officer</span>
+
+<span class="s2">opening</span>
+
+<span class="s2">operate</span>
+
+<span class="s2">opinion</span>
+
+<span class="s2">opposed</span>
+
+<span class="s2">outdoor</span>
+
+<span class="s2">outline</span>
+
+<span class="s2">outside</span>
+
+<span class="s2">overall</span>
+
+<span class="s2">package</span>
+
+<span class="s2">painful</span>
+
+<span class="s2">painter</span>
+
+<span class="s2">partner</span>
+
+<span class="s2">passage</span>
+
+<span class="s2">passing</span>
+
+<span class="s2">patient</span>
+
+<span class="s2">pattern</span>
+
+<span class="s2">payment</span>
+
+<span class="s2">pension</span>
+
+<span class="s2">perfect</span>
+
+<span class="s2">perform</span>
+
+<span class="s2">perhaps</span>
+
+<span class="s2">physics</span>
+
+<span class="s2">picture</span>
+
+<span class="s2">plastic</span>
+
+<span class="s2">pleased</span>
+
+<span class="s2">pointed</span>
+
+<span class="s2">popular</span>
+
+<span class="s2">possess</span>
+
+<span class="s2">precise</span>
+
+<span class="s2">predict</span>
+
+<span class="s2">prepare</span>
+
+<span class="s2">present</span>
+
+<span class="s2">pretend</span>
+
+<span class="s2">prevent</span>
+
+<span class="s2">primary</span>
+
+<span class="s2">printer</span>
+
+<span class="s2">private</span>
+
+<span class="s2">problem</span>
+
+<span class="s2">proceed</span>
+
+<span class="s2">process</span>
+
+<span class="s2">produce</span>
+
+<span class="s2">product</span>
+
+<span class="s2">program</span>
+
+<span class="s2">project</span>
+
+<span class="s2">promise</span>
+
+<span class="s2">promote</span>
+
+<span class="s2">propose</span>
+
+<span class="s2">protect</span>
+
+<span class="s2">protest</span>
+
+<span class="s2">proudly</span>
+
+<span class="s2">provide</span>
+
+<span class="s2">publish</span>
+
+<span class="s2">purpose</span>
+
+<span class="s2">qualify</span>
+
+<span class="s2">quality</span>
+
+<span class="s2">quarter</span>
+
+<span class="s2">quickly</span>
+
+<span class="s2">quietly</span>
+
+<span class="s2">railway</span>
+
+<span class="s2">rapidly</span>
+
+<span class="s2">reading</span>
+
+<span class="s2">reality</span>
+
+<span class="s2">realize</span>
+
+<span class="s2">receipt</span>
+
+<span class="s2">receive</span>
+
+<span class="s2">recover</span>
+
+<span class="s2">reflect</span>
+
+<span class="s2">refusal</span>
+
+<span class="s2">regular</span>
+
+<span class="s2">related</span>
+
+<span class="s2">relaxed</span>
+
+<span class="s2">release</span>
+
+<span class="s2">remains</span>
+
+<span class="s2">removal</span>
+
+<span class="s2">replace</span>
+
+<span class="s2">request</span>
+
+<span class="s2">require</span>
+
+<span class="s2">reserve</span>
+
+<span class="s2">resolve</span>
+
+<span class="s2">respect</span>
+
+<span class="s2">respond</span>
+
+<span class="s2">restore</span>
+
+<span class="s2">retired</span>
+
+<span class="s2">reverse</span>
+
+<span class="s2">rightly</span>
+
+<span class="s2">roughly</span>
+
+<span class="s2">rounded</span>
+
+<span class="s2">routine</span>
+
+<span class="s2">rubbish</span>
+
+<span class="s2">running</span>
+
+<span class="s2">sadness</span>
+
+<span class="s2">sailing</span>
+
+<span class="s2">satisfy</span>
+
+<span class="s2">science</span>
+
+<span class="s2">scratch</span>
+
+<span class="s2">section</span>
+
+<span class="s2">senator</span>
+
+<span class="s2">serious</span>
+
+<span class="s2">servant</span>
+
+<span class="s2">service</span>
+
+<span class="s2">session</span>
+
+<span class="s2">seventh</span>
+
+<span class="s2">seventy</span>
+
+<span class="s2">several</span>
+
+<span class="s2">shallow</span>
+
+<span class="s2">sharply</span>
+
+<span class="s2">shelter</span>
+
+<span class="s2">shocked</span>
+
+<span class="s2">shortly</span>
+
+<span class="s2">silence</span>
+
+<span class="s2">similar</span>
+
+<span class="s2">sincere</span>
+
+<span class="s2">singing</span>
+
+<span class="s2">sixteen</span>
+
+<span class="s2">skilful</span>
+
+<span class="s2">skilled</span>
+
+<span class="s2">smoking</span>
+
+<span class="s2">society</span>
+
+<span class="s2">soldier</span>
+
+<span class="s2">somehow</span>
+
+<span class="s2">someone</span>
+
+<span class="s2">speaker</span>
+
+<span class="s2">special</span>
+
+<span class="s2">squeeze</span>
+
+<span class="s2">station</span>
+
+<span class="s2">steeply</span>
+
+<span class="s2">stiffly</span>
+
+<span class="s2">stomach</span>
+
+<span class="s2">strange</span>
+
+<span class="s2">stretch</span>
+
+<span class="s2">striped</span>
+
+<span class="s2">student</span>
+
+<span class="s2">subject</span>
+
+<span class="s2">succeed</span>
+
+<span class="s2">success</span>
+
+<span class="s2">suggest</span>
+
+<span class="s2">summary</span>
+
+<span class="s2">support</span>
+
+<span class="s2">suppose</span>
+
+<span class="s2">surface</span>
+
+<span class="s2">surname</span>
+
+<span class="s2">survive</span>
+
+<span class="s2">suspect</span>
+
+<span class="s2">swallow</span>
+
+<span class="s2">sweater</span>
+
+<span class="s2">swollen</span>
+
+<span class="s2">teacher</span>
+
+<span class="s2">tension</span>
+
+<span class="s2">theatre</span>
+
+<span class="s2">thickly</span>
+
+<span class="s2">thirsty</span>
+
+<span class="s2">thought</span>
+
+<span class="s2">through</span>
+
+<span class="s2">tightly</span>
+
+<span class="s2">tonight</span>
+
+<span class="s2">totally</span>
+
+<span class="s2">tourist</span>
+
+<span class="s2">towards</span>
+
+<span class="s2">trading</span>
+
+<span class="s2">traffic</span>
+
+<span class="s2">trouble</span>
+
+<span class="s2">tuesday</span>
+
+<span class="s2">twelfth</span>
+
+<span class="s2">twisted</span>
+
+<span class="s2">typical</span>
+
+<span class="s2">unhappy</span>
+
+<span class="s2">uniform</span>
+
+<span class="s2">unknown</span>
+
+<span class="s2">unlucky</span>
+
+<span class="s2">unusual</span>
+
+<span class="s2">upwards</span>
+
+<span class="s2">useless</span>
+
+<span class="s2">usually</span>
+
+<span class="s2">variety</span>
+
+<span class="s2">various</span>
+
+<span class="s2">vehicle</span>
+
+<span class="s2">venture</span>
+
+<span class="s2">version</span>
+
+<span class="s2">victory</span>
+
+<span class="s2">village</span>
+
+<span class="s2">violent</span>
+
+<span class="s2">visible</span>
+
+<span class="s2">visitor</span>
+
+<span class="s2">walking</span>
+
+<span class="s2">warning</span>
+
+<span class="s2">washing</span>
+
+<span class="s2">weather</span>
+
+<span class="s2">website</span>
+
+<span class="s2">wedding</span>
+
+<span class="s2">weekend</span>
+
+<span class="s2">welcome</span>
+
+<span class="s2">western</span>
+
+<span class="s2">whereas</span>
+
+<span class="s2">whether</span>
+
+<span class="s2">whisper</span>
+
+<span class="s2">whistle</span>
+
+<span class="s2">whoever</span>
+
+<span class="s2">willing</span>
+
+<span class="s2">winning</span>
+
+<span class="s2">without</span>
+
+<span class="s2">witness</span>
+
+<span class="s2">working</span>
+
+<span class="s2">worried</span>
+
+<span class="s2">worship</span>
+
+<span class="s2">wounded</span>
+
+<span class="s2">writing</span>
+
+<span class="s2">written</span>
+
+<span class="s2">wrongly</span>
+
+<span class="s2">absolute</span>
+
+<span class="s2">academic</span>
+
+<span class="s2">accident</span>
+
+<span class="s2">accurate</span>
+
+<span class="s2">actively</span>
+
+<span class="s2">activity</span>
+
+<span class="s2">actually</span>
+
+<span class="s2">addition</span>
+
+<span class="s2">adequate</span>
+
+<span class="s2">advanced</span>
+
+<span class="s2">aircraft</span>
+
+<span class="s2">alarming</span>
+
+<span class="s2">alphabet</span>
+
+<span class="s2">although</span>
+
+<span class="s2">ambition</span>
+
+<span class="s2">analysis</span>
+
+<span class="s2">announce</span>
+
+<span class="s2">annoying</span>
+
+<span class="s2">annually</span>
+
+<span class="s2">anything</span>
+
+<span class="s2">anywhere</span>
+
+<span class="s2">apparent</span>
+
+<span class="s2">approach</span>
+
+<span class="s2">approval</span>
+
+<span class="s2">argument</span>
+
+<span class="s2">artistic</span>
+
+<span class="s2">attached</span>
+
+<span class="s2">attitude</span>
+
+<span class="s2">attorney</span>
+
+<span class="s2">audience</span>
+
+<span class="s2">backward</span>
+
+<span class="s2">bacteria</span>
+
+<span class="s2">bathroom</span>
+
+<span class="s2">birthday</span>
+
+<span class="s2">bitterly</span>
+
+<span class="s2">brightly</span>
+
+<span class="s2">building</span>
+
+<span class="s2">business</span>
+
+<span class="s2">campaign</span>
+
+<span class="s2">capacity</span>
+
+<span class="s2">careless</span>
+
+<span class="s2">category</span>
+
+<span class="s2">ceremony</span>
+
+<span class="s2">chairman</span>
+
+<span class="s2">cheerful</span>
+
+<span class="s2">chemical</span>
+
+<span class="s2">climbing</span>
+
+<span class="s2">clothing</span>
+
+<span class="s2">collapse</span>
+
+<span class="s2">coloured</span>
+
+<span class="s2">commonly</span>
+
+<span class="s2">complain</span>
+
+<span class="s2">complete</span>
+
+<span class="s2">computer</span>
+
+<span class="s2">conclude</span>
+
+<span class="s2">concrete</span>
+
+<span class="s2">confined</span>
+
+<span class="s2">conflict</span>
+
+<span class="s2">confront</span>
+
+<span class="s2">confused</span>
+
+<span class="s2">congress</span>
+
+<span class="s2">consider</span>
+
+<span class="s2">constant</span>
+
+<span class="s2">consumer</span>
+
+<span class="s2">continue</span>
+
+<span class="s2">contract</span>
+
+<span class="s2">contrast</span>
+
+<span class="s2">convince</span>
+
+<span class="s2">coughing</span>
+
+<span class="s2">covering</span>
+
+<span class="s2">creature</span>
+
+<span class="s2">criminal</span>
+
+<span class="s2">critical</span>
+
+<span class="s2">cultural</span>
+
+<span class="s2">cupboard</span>
+
+<span class="s2">customer</span>
+
+<span class="s2">daughter</span>
+
+<span class="s2">december</span>
+
+<span class="s2">decision</span>
+
+<span class="s2">decorate</span>
+
+<span class="s2">decrease</span>
+
+<span class="s2">definite</span>
+
+<span class="s2">delicate</span>
+
+<span class="s2">delivery</span>
+
+<span class="s2">describe</span>
+
+<span class="s2">deserted</span>
+
+<span class="s2">detailed</span>
+
+<span class="s2">directly</span>
+
+<span class="s2">director</span>
+
+<span class="s2">disabled</span>
+
+<span class="s2">disagree</span>
+
+<span class="s2">disaster</span>
+
+<span class="s2">discount</span>
+
+<span class="s2">discover</span>
+
+<span class="s2">dissolve</span>
+
+<span class="s2">distance</span>
+
+<span class="s2">district</span>
+
+<span class="s2">division</span>
+
+<span class="s2">divorced</span>
+
+<span class="s2">document</span>
+
+<span class="s2">domestic</span>
+
+<span class="s2">dominate</span>
+
+<span class="s2">downward</span>
+
+<span class="s2">dramatic</span>
+
+<span class="s2">economic</span>
+
+<span class="s2">educated</span>
+
+<span class="s2">eighteen</span>
+
+<span class="s2">election</span>
+
+<span class="s2">electric</span>
+
+<span class="s2">elevator</span>
+
+<span class="s2">eleventh</span>
+
+<span class="s2">emphasis</span>
+
+<span class="s2">employee</span>
+
+<span class="s2">employer</span>
+
+<span class="s2">engineer</span>
+
+<span class="s2">enormous</span>
+
+<span class="s2">entirely</span>
+
+<span class="s2">entrance</span>
+
+<span class="s2">envelope</span>
+
+<span class="s2">estimate</span>
+
+<span class="s2">everyone</span>
+
+<span class="s2">evidence</span>
+
+<span class="s2">exchange</span>
+
+<span class="s2">exciting</span>
+
+<span class="s2">exercise</span>
+
+<span class="s2">expected</span>
+
+<span class="s2">facility</span>
+
+<span class="s2">faithful</span>
+
+<span class="s2">familiar</span>
+
+<span class="s2">farthest</span>
+
+<span class="s2">february</span>
+
+<span class="s2">festival</span>
+
+<span class="s2">fiftieth</span>
+
+<span class="s2">fighting</span>
+
+<span class="s2">finished</span>
+
+<span class="s2">flooding</span>
+
+<span class="s2">football</span>
+
+<span class="s2">forecast</span>
+
+<span class="s2">formally</span>
+
+<span class="s2">formerly</span>
+
+<span class="s2">fortieth</span>
+
+<span class="s2">fourteen</span>
+
+<span class="s2">frequent</span>
+
+<span class="s2">friendly</span>
+
+<span class="s2">frighten</span>
+
+<span class="s2">function</span>
+
+<span class="s2">gambling</span>
+
+<span class="s2">gasoline</span>
+
+<span class="s2">generate</span>
+
+<span class="s2">generous</span>
+
+<span class="s2">governor</span>
+
+<span class="s2">grandson</span>
+
+<span class="s2">grateful</span>
+
+<span class="s2">harmless</span>
+
+<span class="s2">headache</span>
+
+<span class="s2">hesitate</span>
+
+<span class="s2">homework</span>
+
+<span class="s2">honestly</span>
+
+<span class="s2">hospital</span>
+
+<span class="s2">humorous</span>
+
+<span class="s2">identify</span>
+
+<span class="s2">identity</span>
+
+<span class="s2">incident</span>
+
+<span class="s2">increase</span>
+
+<span class="s2">indicate</span>
+
+<span class="s2">indirect</span>
+
+<span class="s2">industry</span>
+
+<span class="s2">infected</span>
+
+<span class="s2">informal</span>
+
+<span class="s2">innocent</span>
+
+<span class="s2">instance</span>
+
+<span class="s2">intended</span>
+
+<span class="s2">interest</span>
+
+<span class="s2">interior</span>
+
+<span class="s2">internal</span>
+
+<span class="s2">internet</span>
+
+<span class="s2">interval</span>
+
+<span class="s2">involved</span>
+
+<span class="s2">irritate</span>
+
+<span class="s2">keyboard</span>
+
+<span class="s2">kilogram</span>
+
+<span class="s2">kindness</span>
+
+<span class="s2">knitting</span>
+
+<span class="s2">language</span>
+
+<span class="s2">location</span>
+
+<span class="s2">magazine</span>
+
+<span class="s2">maintain</span>
+
+<span class="s2">majority</span>
+
+<span class="s2">marriage</span>
+
+<span class="s2">matching</span>
+
+<span class="s2">material</span>
+
+<span class="s2">medicine</span>
+
+<span class="s2">mentally</span>
+
+<span class="s2">midnight</span>
+
+<span class="s2">military</span>
+
+<span class="s2">minister</span>
+
+<span class="s2">ministry</span>
+
+<span class="s2">minority</span>
+
+<span class="s2">mistaken</span>
+
+<span class="s2">moreover</span>
+
+<span class="s2">mountain</span>
+
+<span class="s2">movement</span>
+
+<span class="s2">multiply</span>
+
+<span class="s2">musician</span>
+
+<span class="s2">national</span>
+
+<span class="s2">negative</span>
+
+<span class="s2">nineteen</span>
+
+<span class="s2">nonsense</span>
+
+<span class="s2">normally</span>
+
+<span class="s2">northern</span>
+
+<span class="s2">november</span>
+
+<span class="s2">occasion</span>
+
+<span class="s2">occupied</span>
+
+<span class="s2">official</span>
+
+<span class="s2">opponent</span>
+
+<span class="s2">opposing</span>
+
+<span class="s2">opposite</span>
+
+<span class="s2">ordinary</span>
+
+<span class="s2">organize</span>
+
+<span class="s2">original</span>
+
+<span class="s2">outdoors</span>
+
+<span class="s2">overcome</span>
+
+<span class="s2">painting</span>
+
+<span class="s2">parallel</span>
+
+<span class="s2">passport</span>
+
+<span class="s2">patience</span>
+
+<span class="s2">peaceful</span>
+
+<span class="s2">personal</span>
+
+<span class="s2">persuade</span>
+
+<span class="s2">physical</span>
+
+<span class="s2">planning</span>
+
+<span class="s2">platform</span>
+
+<span class="s2">pleasant</span>
+
+<span class="s2">pleasing</span>
+
+<span class="s2">pleasure</span>
+
+<span class="s2">politely</span>
+
+<span class="s2">politics</span>
+
+<span class="s2">position</span>
+
+<span class="s2">positive</span>
+
+<span class="s2">possible</span>
+
+<span class="s2">possibly</span>
+
+<span class="s2">powerful</span>
+
+<span class="s2">practice</span>
+
+<span class="s2">practise</span>
+
+<span class="s2">pregnant</span>
+
+<span class="s2">premises</span>
+
+<span class="s2">prepared</span>
+
+<span class="s2">presence</span>
+
+<span class="s2">preserve</span>
+
+<span class="s2">pressure</span>
+
+<span class="s2">previous</span>
+
+<span class="s2">princess</span>
+
+<span class="s2">printing</span>
+
+<span class="s2">priority</span>
+
+<span class="s2">prisoner</span>
+
+<span class="s2">probable</span>
+
+<span class="s2">probably</span>
+
+<span class="s2">producer</span>
+
+<span class="s2">progress</span>
+
+<span class="s2">promptly</span>
+
+<span class="s2">properly</span>
+
+<span class="s2">property</span>
+
+<span class="s2">proposal</span>
+
+<span class="s2">prospect</span>
+
+<span class="s2">provided</span>
+
+<span class="s2">publicly</span>
+
+<span class="s2">purchase</span>
+
+<span class="s2">quantity</span>
+
+<span class="s2">question</span>
+
+<span class="s2">railroad</span>
+
+<span class="s2">reaction</span>
+
+<span class="s2">recently</span>
+
+<span class="s2">regional</span>
+
+<span class="s2">register</span>
+
+<span class="s2">relation</span>
+
+<span class="s2">relative</span>
+
+<span class="s2">relaxing</span>
+
+<span class="s2">relevant</span>
+
+<span class="s2">religion</span>
+
+<span class="s2">remember</span>
+
+<span class="s2">repeated</span>
+
+<span class="s2">research</span>
+
+<span class="s2">resident</span>
+
+<span class="s2">resource</span>
+
+<span class="s2">response</span>
+
+<span class="s2">restrict</span>
+
+<span class="s2">revision</span>
+
+<span class="s2">romantic</span>
+
+<span class="s2">saturday</span>
+
+<span class="s2">schedule</span>
+
+<span class="s2">scissors</span>
+
+<span class="s2">secretly</span>
+
+<span class="s2">security</span>
+
+<span class="s2">sensible</span>
+
+<span class="s2">sentence</span>
+
+<span class="s2">separate</span>
+
+<span class="s2">severely</span>
+
+<span class="s2">sexually</span>
+
+<span class="s2">shocking</span>
+
+<span class="s2">shooting</span>
+
+<span class="s2">shopping</span>
+
+<span class="s2">shoulder</span>
+
+<span class="s2">sideways</span>
+
+<span class="s2">sixtieth</span>
+
+<span class="s2">slightly</span>
+
+<span class="s2">smoothly</span>
+
+<span class="s2">socially</span>
+
+<span class="s2">software</span>
+
+<span class="s2">solution</span>
+
+<span class="s2">somebody</span>
+
+<span class="s2">somewhat</span>
+
+<span class="s2">southern</span>
+
+<span class="s2">specific</span>
+
+<span class="s2">spelling</span>
+
+<span class="s2">standard</span>
+
+<span class="s2">steadily</span>
+
+<span class="s2">straight</span>
+
+<span class="s2">stranger</span>
+
+<span class="s2">strategy</span>
+
+<span class="s2">strength</span>
+
+<span class="s2">stressed</span>
+
+<span class="s2">strictly</span>
+
+<span class="s2">striking</span>
+
+<span class="s2">strongly</span>
+
+<span class="s2">struggle</span>
+
+<span class="s2">suddenly</span>
+
+<span class="s2">suitable</span>
+
+<span class="s2">suitcase</span>
+
+<span class="s2">superior</span>
+
+<span class="s2">surprise</span>
+
+<span class="s2">surround</span>
+
+<span class="s2">swearing</span>
+
+<span class="s2">swelling</span>
+
+<span class="s2">swimming</span>
+
+<span class="s2">sympathy</span>
+
+<span class="s2">teaching</span>
+
+<span class="s2">tendency</span>
+
+<span class="s2">terrible</span>
+
+<span class="s2">terribly</span>
+
+<span class="s2">thinking</span>
+
+<span class="s2">thirteen</span>
+
+<span class="s2">thorough</span>
+
+<span class="s2">thousand</span>
+
+<span class="s2">threaten</span>
+
+<span class="s2">thursday</span>
+
+<span class="s2">together</span>
+
+<span class="s2">tomorrow</span>
+
+<span class="s2">training</span>
+
+<span class="s2">transfer</span>
+
+<span class="s2">triangle</span>
+
+<span class="s2">tropical</span>
+
+<span class="s2">trousers</span>
+
+<span class="s2">ultimate</span>
+
+<span class="s2">umbrella</span>
+
+<span class="s2">unfairly</span>
+
+<span class="s2">universe</span>
+
+<span class="s2">unlikely</span>
+
+<span class="s2">unsteady</span>
+
+<span class="s2">upstairs</span>
+
+<span class="s2">vacation</span>
+
+<span class="s2">valuable</span>
+
+<span class="s2">vertical</span>
+
+<span class="s2">violence</span>
+
+<span class="s2">weakness</span>
+
+<span class="s2">whatever</span>
+
+<span class="s2">whenever</span>
+
+<span class="s2">wherever</span>
+
+<span class="s2">withdraw</span>
+
+<span class="s2">worrying</span>
+
+<span class="s2">wrapping</span>
+
+<span class="s2">yourself</span>
+
+<span class="s2">abandoned</span>
+
+<span class="s2">accompany</span>
+
+<span class="s2">according</span>
+
+<span class="s2">advantage</span>
+
+<span class="s2">adventure</span>
+
+<span class="s2">advertise</span>
+
+<span class="s2">affection</span>
+
+<span class="s2">afternoon</span>
+
+<span class="s2">agreement</span>
+
+<span class="s2">alcoholic</span>
+
+<span class="s2">alongside</span>
+
+<span class="s2">ambulance</span>
+
+<span class="s2">anxiously</span>
+
+<span class="s2">apartment</span>
+
+<span class="s2">apologize</span>
+
+<span class="s2">approving</span>
+
+<span class="s2">assistant</span>
+
+<span class="s2">associate</span>
+
+<span class="s2">attempted</span>
+
+<span class="s2">attention</span>
+
+<span class="s2">authority</span>
+
+<span class="s2">automatic</span>
+
+<span class="s2">available</span>
+
+<span class="s2">awkwardly</span>
+
+<span class="s2">backwards</span>
+
+<span class="s2">basically</span>
+
+<span class="s2">beautiful</span>
+
+<span class="s2">beginning</span>
+
+<span class="s2">behaviour</span>
+
+<span class="s2">boyfriend</span>
+
+<span class="s2">breakfast</span>
+
+<span class="s2">breathing</span>
+
+<span class="s2">brilliant</span>
+
+<span class="s2">broadcast</span>
+
+<span class="s2">calculate</span>
+
+<span class="s2">candidate</span>
+
+<span class="s2">cardboard</span>
+
+<span class="s2">carefully</span>
+
+<span class="s2">celebrate</span>
+
+<span class="s2">certainly</span>
+
+<span class="s2">challenge</span>
+
+<span class="s2">character</span>
+
+<span class="s2">chemistry</span>
+
+<span class="s2">chocolate</span>
+
+<span class="s2">cigarette</span>
+
+<span class="s2">classroom</span>
+
+<span class="s2">colleague</span>
+
+<span class="s2">committee</span>
+
+<span class="s2">community</span>
+
+<span class="s2">complaint</span>
+
+<span class="s2">concerned</span>
+
+<span class="s2">condition</span>
+
+<span class="s2">confident</span>
+
+<span class="s2">confusing</span>
+
+<span class="s2">confusion</span>
+
+<span class="s2">connected</span>
+
+<span class="s2">conscious</span>
+
+<span class="s2">construct</span>
+
+<span class="s2">container</span>
+
+<span class="s2">continent</span>
+
+<span class="s2">correctly</span>
+
+<span class="s2">criterion</span>
+
+<span class="s2">criticism</span>
+
+<span class="s2">criticize</span>
+
+<span class="s2">curiously</span>
+
+<span class="s2">currently</span>
+
+<span class="s2">dangerous</span>
+
+<span class="s2">delighted</span>
+
+<span class="s2">departure</span>
+
+<span class="s2">depressed</span>
+
+<span class="s2">desperate</span>
+
+<span class="s2">determine</span>
+
+<span class="s2">different</span>
+
+<span class="s2">difficult</span>
+
+<span class="s2">direction</span>
+
+<span class="s2">disappear</span>
+
+<span class="s2">discovery</span>
+
+<span class="s2">disgusted</span>
+
+<span class="s2">dishonest</span>
+
+<span class="s2">downwards</span>
+
+<span class="s2">drugstore</span>
+
+<span class="s2">education</span>
+
+<span class="s2">effective</span>
+
+<span class="s2">efficient</span>
+
+<span class="s2">eightieth</span>
+
+<span class="s2">elsewhere</span>
+
+<span class="s2">embarrass</span>
+
+<span class="s2">emergency</span>
+
+<span class="s2">emotional</span>
+
+<span class="s2">emphasize</span>
+
+<span class="s2">encounter</span>
+
+<span class="s2">encourage</span>
+
+<span class="s2">enjoyable</span>
+
+<span class="s2">enjoyment</span>
+
+<span class="s2">entertain</span>
+
+<span class="s2">equipment</span>
+
+<span class="s2">essential</span>
+
+<span class="s2">establish</span>
+
+<span class="s2">everybody</span>
+
+<span class="s2">excellent</span>
+
+<span class="s2">exception</span>
+
+<span class="s2">excluding</span>
+
+<span class="s2">executive</span>
+
+<span class="s2">existence</span>
+
+<span class="s2">expensive</span>
+
+<span class="s2">explosion</span>
+
+<span class="s2">extension</span>
+
+<span class="s2">extensive</span>
+
+<span class="s2">extremely</span>
+
+<span class="s2">favourite</span>
+
+<span class="s2">fifteenth</span>
+
+<span class="s2">financial</span>
+
+<span class="s2">following</span>
+
+<span class="s2">furniture</span>
+
+<span class="s2">generally</span>
+
+<span class="s2">gentleman</span>
+
+<span class="s2">genuinely</span>
+
+<span class="s2">geography</span>
+
+<span class="s2">gradually</span>
+
+<span class="s2">guarantee</span>
+
+<span class="s2">happiness</span>
+
+<span class="s2">highlight</span>
+
+<span class="s2">household</span>
+
+<span class="s2">hundredth</span>
+
+<span class="s2">illegally</span>
+
+<span class="s2">imaginary</span>
+
+<span class="s2">immediate</span>
+
+<span class="s2">impatient</span>
+
+<span class="s2">important</span>
+
+<span class="s2">impressed</span>
+
+<span class="s2">inability</span>
+
+<span class="s2">including</span>
+
+<span class="s2">infection</span>
+
+<span class="s2">influence</span>
+
+<span class="s2">initially</span>
+
+<span class="s2">institute</span>
+
+<span class="s2">insulting</span>
+
+<span class="s2">insurance</span>
+
+<span class="s2">intention</span>
+
+<span class="s2">interpret</span>
+
+<span class="s2">interrupt</span>
+
+<span class="s2">interview</span>
+
+<span class="s2">introduce</span>
+
+<span class="s2">invention</span>
+
+<span class="s2">irritated</span>
+
+<span class="s2">jewellery</span>
+
+<span class="s2">judgement</span>
+
+<span class="s2">justified</span>
+
+<span class="s2">kilometre</span>
+
+<span class="s2">knowledge</span>
+
+<span class="s2">landscape</span>
+
+<span class="s2">machinery</span>
+
+<span class="s2">marketing</span>
+
+<span class="s2">meanwhile</span>
+
+<span class="s2">milligram</span>
+
+<span class="s2">millionth</span>
+
+<span class="s2">motorbike</span>
+
+<span class="s2">naturally</span>
+
+<span class="s2">necessary</span>
+
+<span class="s2">neighbour</span>
+
+<span class="s2">nervously</span>
+
+<span class="s2">newspaper</span>
+
+<span class="s2">ninetieth</span>
+
+<span class="s2">objective</span>
+
+<span class="s2">obviously</span>
+
+<span class="s2">o�clock</span>
+
+<span class="s2">offensive</span>
+
+<span class="s2">operation</span>
+
+<span class="s2">organized</span>
+
+<span class="s2">otherwise</span>
+
+<span class="s2">ourselves</span>
+
+<span class="s2">packaging</span>
+
+<span class="s2">passenger</span>
+
+<span class="s2">perfectly</span>
+
+<span class="s2">performer</span>
+
+<span class="s2">permanent</span>
+
+<span class="s2">photocopy</span>
+
+<span class="s2">poisonous</span>
+
+<span class="s2">political</span>
+
+<span class="s2">pollution</span>
+
+<span class="s2">potential</span>
+
+<span class="s2">practical</span>
+
+<span class="s2">precisely</span>
+
+<span class="s2">president</span>
+
+<span class="s2">primarily</span>
+
+<span class="s2">principle</span>
+
+<span class="s2">privately</span>
+
+<span class="s2">procedure</span>
+
+<span class="s2">professor</span>
+
+<span class="s2">programme</span>
+
+<span class="s2">promotion</span>
+
+<span class="s2">pronounce</span>
+
+<span class="s2">providing</span>
+
+<span class="s2">publicity</span>
+
+<span class="s2">qualified</span>
+
+<span class="s2">realistic</span>
+
+<span class="s2">reception</span>
+
+<span class="s2">recognize</span>
+
+<span class="s2">recommend</span>
+
+<span class="s2">recording</span>
+
+<span class="s2">reduction</span>
+
+<span class="s2">reference</span>
+
+<span class="s2">regarding</span>
+
+<span class="s2">regularly</span>
+
+<span class="s2">religious</span>
+
+<span class="s2">remaining</span>
+
+<span class="s2">represent</span>
+
+<span class="s2">reproduce</span>
+
+<span class="s2">satisfied</span>
+
+<span class="s2">scientist</span>
+
+<span class="s2">secondary</span>
+
+<span class="s2">secretary</span>
+
+<span class="s2">selection</span>
+
+<span class="s2">sensitive</span>
+
+<span class="s2">separated</span>
+
+<span class="s2">september</span>
+
+<span class="s2">seriously</span>
+
+<span class="s2">seventeen</span>
+
+<span class="s2">signature</span>
+
+<span class="s2">similarly</span>
+
+<span class="s2">sincerely</span>
+
+<span class="s2">situation</span>
+
+<span class="s2">skilfully</span>
+
+<span class="s2">something</span>
+
+<span class="s2">sometimes</span>
+
+<span class="s2">somewhere</span>
+
+<span class="s2">specially</span>
+
+<span class="s2">spiritual</span>
+
+<span class="s2">statement</span>
+
+<span class="s2">strangely</span>
+
+<span class="s2">structure</span>
+
+<span class="s2">substance</span>
+
+<span class="s2">suffering</span>
+
+<span class="s2">supporter</span>
+
+<span class="s2">surprised</span>
+
+<span class="s2">suspicion</span>
+
+<span class="s2">technical</span>
+
+<span class="s2">technique</span>
+
+<span class="s2">telephone</span>
+
+<span class="s2">temporary</span>
+
+<span class="s2">therefore</span>
+
+<span class="s2">thickness</span>
+
+<span class="s2">thirtieth</span>
+
+<span class="s2">timetable</span>
+
+<span class="s2">tradition</span>
+
+<span class="s2">transform</span>
+
+<span class="s2">translate</span>
+
+<span class="s2">transport</span>
+
+<span class="s2">traveller</span>
+
+<span class="s2">treatment</span>
+
+<span class="s2">twentieth</span>
+
+<span class="s2">typically</span>
+
+<span class="s2">uncertain</span>
+
+<span class="s2">underwear</span>
+
+<span class="s2">unusually</span>
+
+<span class="s2">unwilling</span>
+
+<span class="s2">upsetting</span>
+
+<span class="s2">variation</span>
+
+<span class="s2">vegetable</span>
+
+<span class="s2">violently</span>
+
+<span class="s2">virtually</span>
+
+<span class="s2">wednesday</span>
+
+<span class="s2">willingly</span>
+
+<span class="s2">wonderful</span>
+
+<span class="s2">yesterday</span>
+
+<span class="s2">absolutely</span>
+
+<span class="s2">acceptable</span>
+
+<span class="s2">accidental</span>
+
+<span class="s2">accurately</span>
+
+<span class="s2">additional</span>
+
+<span class="s2">adequately</span>
+
+<span class="s2">admiration</span>
+
+<span class="s2">afterwards</span>
+
+<span class="s2">aggressive</span>
+
+<span class="s2">altogether</span>
+
+<span class="s2">anticipate</span>
+
+<span class="s2">apparently</span>
+
+<span class="s2">appearance</span>
+
+<span class="s2">appreciate</span>
+
+<span class="s2">artificial</span>
+
+<span class="s2">assistance</span>
+
+<span class="s2">associated</span>
+
+<span class="s2">atmosphere</span>
+
+<span class="s2">attraction</span>
+
+<span class="s2">attractive</span>
+
+<span class="s2">background</span>
+
+<span class="s2">carelessly</span>
+
+<span class="s2">centimetre</span>
+
+<span class="s2">chairwoman</span>
+
+<span class="s2">cheerfully</span>
+
+<span class="s2">collection</span>
+
+<span class="s2">commercial</span>
+
+<span class="s2">commission</span>
+
+<span class="s2">commitment</span>
+
+<span class="s2">comparison</span>
+
+<span class="s2">completely</span>
+
+<span class="s2">complicate</span>
+
+<span class="s2">concerning</span>
+
+<span class="s2">conclusion</span>
+
+<span class="s2">conference</span>
+
+<span class="s2">confidence</span>
+
+<span class="s2">connection</span>
+
+<span class="s2">constantly</span>
+
+<span class="s2">continuous</span>
+
+<span class="s2">contribute</span>
+
+<span class="s2">controlled</span>
+
+<span class="s2">convenient</span>
+
+<span class="s2">convention</span>
+
+<span class="s2">decoration</span>
+
+<span class="s2">decorative</span>
+
+<span class="s2">definitely</span>
+
+<span class="s2">definition</span>
+
+<span class="s2">deliberate</span>
+
+<span class="s2">department</span>
+
+<span class="s2">depressing</span>
+
+<span class="s2">determined</span>
+
+<span class="s2">dictionary</span>
+
+<span class="s2">difference</span>
+
+<span class="s2">difficulty</span>
+
+<span class="s2">disappoint</span>
+
+<span class="s2">disapprove</span>
+
+<span class="s2">discipline</span>
+
+<span class="s2">discussion</span>
+
+<span class="s2">disgusting</span>
+
+<span class="s2">distribute</span>
+
+<span class="s2">disturbing</span>
+
+<span class="s2">downstairs</span>
+
+<span class="s2">eighteenth</span>
+
+<span class="s2">electrical</span>
+
+<span class="s2">electronic</span>
+
+<span class="s2">employment</span>
+
+<span class="s2">enthusiasm</span>
+
+<span class="s2">equivalent</span>
+
+<span class="s2">especially</span>
+
+<span class="s2">eventually</span>
+
+<span class="s2">everything</span>
+
+<span class="s2">everywhere</span>
+
+<span class="s2">exaggerate</span>
+
+<span class="s2">excitement</span>
+
+<span class="s2">exhibition</span>
+
+<span class="s2">experience</span>
+
+<span class="s2">experiment</span>
+
+<span class="s2">expression</span>
+
+<span class="s2">faithfully</span>
+
+<span class="s2">foundation</span>
+
+<span class="s2">fourteenth</span>
+
+<span class="s2">frequently</span>
+
+<span class="s2">friendship</span>
+
+<span class="s2">frightened</span>
+
+<span class="s2">generation</span>
+
+<span class="s2">generously</span>
+
+<span class="s2">girlfriend</span>
+
+<span class="s2">government</span>
+
+<span class="s2">grandchild</span>
+
+<span class="s2">historical</span>
+
+<span class="s2">horizontal</span>
+
+<span class="s2">illustrate</span>
+
+<span class="s2">importance</span>
+
+<span class="s2">impossible</span>
+
+<span class="s2">impression</span>
+
+<span class="s2">impressive</span>
+
+<span class="s2">indication</span>
+
+<span class="s2">indirectly</span>
+
+<span class="s2">individual</span>
+
+<span class="s2">industrial</span>
+
+<span class="s2">inevitable</span>
+
+<span class="s2">inevitably</span>
+
+<span class="s2">infectious</span>
+
+<span class="s2">ingredient</span>
+
+<span class="s2">initiative</span>
+
+<span class="s2">instrument</span>
+
+<span class="s2">interested</span>
+
+<span class="s2">investment</span>
+
+<span class="s2">invitation</span>
+
+<span class="s2">irritating</span>
+
+<span class="s2">journalist</span>
+
+<span class="s2">laboratory</span>
+
+<span class="s2">literature</span>
+
+<span class="s2">management</span>
+
+<span class="s2">membership</span>
+
+<span class="s2">millimetre</span>
+
+<span class="s2">motorcycle</span>
+
+<span class="s2">mysterious</span>
+
+<span class="s2">nineteenth</span>
+
+<span class="s2">noticeable</span>
+
+<span class="s2">officially</span>
+
+<span class="s2">opposition</span>
+
+<span class="s2">originally</span>
+
+<span class="s2">parliament</span>
+
+<span class="s2">particular</span>
+
+<span class="s2">permission</span>
+
+<span class="s2">personally</span>
+
+<span class="s2">philosophy</span>
+
+<span class="s2">photograph</span>
+
+<span class="s2">physically</span>
+
+<span class="s2">pleasantly</span>
+
+<span class="s2">politician</span>
+
+<span class="s2">population</span>
+
+<span class="s2">possession</span>
+
+<span class="s2">preference</span>
+
+<span class="s2">presumably</span>
+
+<span class="s2">previously</span>
+
+<span class="s2">production</span>
+
+<span class="s2">profession</span>
+
+<span class="s2">proportion</span>
+
+<span class="s2">protection</span>
+
+<span class="s2">publishing</span>
+
+<span class="s2">punishment</span>
+
+<span class="s2">reasonable</span>
+
+<span class="s2">reasonably</span>
+
+<span class="s2">regulation</span>
+
+<span class="s2">relatively</span>
+
+<span class="s2">remarkable</span>
+
+<span class="s2">remarkably</span>
+
+<span class="s2">repeatedly</span>
+
+<span class="s2">reputation</span>
+
+<span class="s2">resistance</span>
+
+<span class="s2">restaurant</span>
+
+<span class="s2">restricted</span>
+
+<span class="s2">retirement</span>
+
+<span class="s2">revolution</span>
+
+<span class="s2">ridiculous</span>
+
+<span class="s2">satisfying</span>
+
+<span class="s2">scientific</span>
+
+<span class="s2">separately</span>
+
+<span class="s2">separation</span>
+
+<span class="s2">seventieth</span>
+
+<span class="s2">specialist</span>
+
+<span class="s2">substitute</span>
+
+<span class="s2">successful</span>
+
+<span class="s2">sufficient</span>
+
+<span class="s2">suggestion</span>
+
+<span class="s2">surprising</span>
+
+<span class="s2">suspicious</span>
+
+<span class="s2">technology</span>
+
+<span class="s2">television</span>
+
+<span class="s2">themselves</span>
+
+<span class="s2">thirteenth</span>
+
+<span class="s2">thoroughly</span>
+
+<span class="s2">thousandth</span>
+
+<span class="s2">throughout</span>
+
+<span class="s2">ultimately</span>
+
+<span class="s2">underneath</span>
+
+<span class="s2">understand</span>
+
+<span class="s2">underwater</span>
+
+<span class="s2">unemployed</span>
+
+<span class="s2">unexpected</span>
+
+<span class="s2">unfriendly</span>
+
+<span class="s2">university</span>
+
+<span class="s2">unpleasant</span>
+
+<span class="s2">achievement</span>
+
+<span class="s2">acknowledge</span>
+
+<span class="s2">advertising</span>
+
+<span class="s2">alternative</span>
+
+<span class="s2">anniversary</span>
+
+<span class="s2">application</span>
+
+<span class="s2">appointment</span>
+
+<span class="s2">appropriate</span>
+
+<span class="s2">approximate</span>
+
+<span class="s2">arrangement</span>
+
+<span class="s2">association</span>
+
+<span class="s2">beautifully</span>
+
+<span class="s2">businessman</span>
+
+<span class="s2">calculation</span>
+
+<span class="s2">celebration</span>
+
+<span class="s2">certificate</span>
+
+<span class="s2">combination</span>
+
+<span class="s2">comfortable</span>
+
+<span class="s2">comfortably</span>
+
+<span class="s2">communicate</span>
+
+<span class="s2">competition</span>
+
+<span class="s2">competitive</span>
+
+<span class="s2">complicated</span>
+
+<span class="s2">concentrate</span>
+
+<span class="s2">confidently</span>
+
+<span class="s2">consequence</span>
+
+<span class="s2">contrasting</span>
+
+<span class="s2">countryside</span>
+
+<span class="s2">demonstrate</span>
+
+<span class="s2">description</span>
+
+<span class="s2">desperately</span>
+
+<span class="s2">destruction</span>
+
+<span class="s2">development</span>
+
+<span class="s2">differently</span>
+
+<span class="s2">disapproval</span>
+
+<span class="s2">dishonestly</span>
+
+<span class="s2">distinguish</span>
+
+<span class="s2">effectively</span>
+
+<span class="s2">efficiently</span>
+
+<span class="s2">electricity</span>
+
+<span class="s2">embarrassed</span>
+
+<span class="s2">emotionally</span>
+
+<span class="s2">engineering</span>
+
+<span class="s2">entertainer</span>
+
+<span class="s2">environment</span>
+
+<span class="s2">essentially</span>
+
+<span class="s2">exaggerated</span>
+
+<span class="s2">examination</span>
+
+<span class="s2">expectation</span>
+
+<span class="s2">experienced</span>
+
+<span class="s2">explanation</span>
+
+<span class="s2">fashionable</span>
+
+<span class="s2">frightening</span>
+
+<span class="s2">fundamental</span>
+
+<span class="s2">grandfather</span>
+
+<span class="s2">grandmother</span>
+
+<span class="s2">grandparent</span>
+
+<span class="s2">hairdresser</span>
+
+<span class="s2">imagination</span>
+
+<span class="s2">immediately</span>
+
+<span class="s2">implication</span>
+
+<span class="s2">importantly</span>
+
+<span class="s2">improvement</span>
+
+<span class="s2">independent</span>
+
+<span class="s2">information</span>
+
+<span class="s2">institution</span>
+
+<span class="s2">instruction</span>
+
+<span class="s2">intelligent</span>
+
+<span class="s2">interesting</span>
+
+<span class="s2">investigate</span>
+
+<span class="s2">involvement</span>
+
+<span class="s2">manufacture</span>
+
+<span class="s2">mathematics</span>
+
+<span class="s2">measurement</span>
+
+<span class="s2">necessarily</span>
+
+<span class="s2">observation</span>
+
+<span class="s2">opportunity</span>
+
+<span class="s2">outstanding</span>
+
+<span class="s2">partnership</span>
+
+<span class="s2">performance</span>
+
+<span class="s2">permanently</span>
+
+<span class="s2">personality</span>
+
+<span class="s2">photography</span>
+
+<span class="s2">politically</span>
+
+<span class="s2">possibility</span>
+
+<span class="s2">potentially</span>
+
+<span class="s2">practically</span>
+
+<span class="s2">preparation</span>
+
+<span class="s2">publication</span>
+
+<span class="s2">recognition</span>
+
+<span class="s2">requirement</span>
+
+<span class="s2">reservation</span>
+
+<span class="s2">responsible</span>
+
+<span class="s2">restriction</span>
+
+<span class="s2">significant</span>
+
+<span class="s2">substantial</span>
+
+<span class="s2">supermarket</span>
+
+<span class="s2">surrounding</span>
+
+<span class="s2">sympathetic</span>
+
+<span class="s2">temperature</span>
+
+<span class="s2">temporarily</span>
+
+<span class="s2">threatening</span>
+
+<span class="s2">traditional</span>
+
+<span class="s2">translation</span>
+
+<span class="s2">transparent</span>
+
+<span class="s2">unconscious</span>
+
+<span class="s2">underground</span>
+
+<span class="s2">unfortunate</span>
+
+<span class="s2">unimportant</span>
+
+<span class="s2">unnecessary</span>
+
+<span class="s2">unwillingly</span>
+
+<span class="s2">accidentally</span>
+
+<span class="s2">alphabetical</span>
+
+<span class="s2">artificially</span>
+
+<span class="s2">artistically</span>
+
+<span class="s2">circumstance</span>
+
+<span class="s2">congratulate</span>
+
+<span class="s2">conservative</span>
+
+<span class="s2">considerable</span>
+
+<span class="s2">considerably</span>
+
+<span class="s2">construction</span>
+
+<span class="s2">contemporary</span>
+
+<span class="s2">continuously</span>
+
+<span class="s2">contribution</span>
+
+<span class="s2">conventional</span>
+
+<span class="s2">conversation</span>
+
+<span class="s2">deliberately</span>
+
+<span class="s2">disadvantage</span>
+
+<span class="s2">disagreement</span>
+
+<span class="s2">disappointed</span>
+
+<span class="s2">disapproving</span>
+
+<span class="s2">distribution</span>
+
+<span class="s2">dramatically</span>
+
+<span class="s2">embarrassing</span>
+
+<span class="s2">entertaining</span>
+
+<span class="s2">enthusiastic</span>
+
+<span class="s2">increasingly</span>
+
+<span class="s2">independence</span>
+
+<span class="s2">intelligence</span>
+
+<span class="s2">interruption</span>
+
+<span class="s2">introduction</span>
+
+<span class="s2">manufacturer</span>
+
+<span class="s2">nevertheless</span>
+
+<span class="s2">occasionally</span>
+
+<span class="s2">organization</span>
+
+<span class="s2">particularly</span>
+
+<span class="s2">photographer</span>
+
+<span class="s2">presentation</span>
+
+<span class="s2">professional</span>
+
+<span class="s2">refrigerator</span>
+
+<span class="s2">relationship</span>
+
+<span class="s2">satisfaction</span>
+
+<span class="s2">specifically</span>
+
+<span class="s2">successfully</span>
+
+<span class="s2">sufficiently</span>
+
+<span class="s2">surprisingly</span>
+
+<span class="s2">surroundings</span>
+
+<span class="s2">unacceptable</span>
+
+<span class="s2">uncontrolled</span>
+
+<span class="s2">unemployment</span>
+
+<span class="s2">unexpectedly</span>
+
+<span class="s2">unreasonable</span>
+
+<span class="s2">unsuccessful</span>
+
+<span class="s2">accommodation</span>
+
+<span class="s2">advertisement</span>
+
+<span class="s2">alternatively</span>
+
+<span class="s2">approximately</span>
+
+<span class="s2">automatically</span>
+
+<span class="s2">communication</span>
+
+<span class="s2">concentration</span>
+
+<span class="s2">consideration</span>
+
+<span class="s2">determination</span>
+
+<span class="s2">disappointing</span>
+
+<span class="s2">embarrassment</span>
+
+<span class="s2">encouragement</span>
+
+<span class="s2">entertainment</span>
+
+<span class="s2">environmental</span>
+
+<span class="s2">extraordinary</span>
+
+<span class="s2">granddaughter</span>
+
+<span class="s2">independently</span>
+
+<span class="s2">international</span>
+
+<span class="s2">investigation</span>
+
+<span class="s2">manufacturing</span>
+
+<span class="s2">neighbourhood</span>
+
+<span class="s2">pronunciation</span>
+
+<span class="s2">qualification</span>
+
+<span class="s2">significantly</span>
+
+<span class="s2">substantially</span>
+
+<span class="s2">traditionally</span>
+
+<span class="s2">uncomfortable</span>
+
+<span class="s2">understanding</span>
+
+<span class="s2">unfortunately</span>
+
+<span class="s2">alphabetically</span>
+
+<span class="s2">characteristic</span>
+
+<span class="s2">congratulation</span>
+
+<span class="s2">disappointment</span>
+
+<span class="s2">interpretation</span>
+
+<span class="s2">representative</span>
+
+<span class="s2">responsibility</span>
+
+<span class="s2">transportation</span>
+
+<span class="s2">enthusiastically&quot;&quot;&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+
+    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">game</span> <span class="o">=</span> <span class="n">Hangman</span><span class="p">()</span>
+
+    <span class="n">game</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
+
+</details>
+<h2 id="variables">Variables</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">HANGMAN</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">WORDS</span>
+</code></pre></div>
+
+<h2 id="classes">Classes</h2>
+<h3 id="hangman">Hangman</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hangman</span><span class="p">(</span>
+
+<span class="p">)</span>
+</code></pre></div>
+
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Hangman</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        initializes a `Hangman` object</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">pass</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">game</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        starts the game</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">lives</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">character.upper() for character in random.choice(WORDS)</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">word_hidden</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;_&quot; for character in word</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">guessed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[]</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">lives</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;_&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">word_hidden</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">cls</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="n">HANGMAN</span><span class="o">[</span><span class="n">-lives</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nl">guessed</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot; &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">guessed</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">word_hidden</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="nl">message</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;you have {0} attempt{1} remaining&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">lives</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">lives</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="ss">&quot;s&quot;</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">letter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">input</span><span class="p">(</span><span class="ss">&quot;choose a letter;\n&gt; &quot;</span><span class="p">).</span><span class="nf">upper</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">letter</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">elif</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;too many letters&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">elif</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">letter</span><span class="p">.</span><span class="n">isalpha</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;that is not a letter&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">elif</span><span class="w"> </span><span class="n">letter</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">guessed</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;you&#39;ve already guessed that letter&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">guessed</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">letter</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">lives</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">word</span><span class="p">))</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">letter</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">word</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">word_hidden</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">letter</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">cls</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">(</span><span class="n">HANGMAN</span><span class="o">[</span><span class="n">-lives</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">guessed</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot; &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">guessed</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">word_hidden</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">lives</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;you lose&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;the word was {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">word</span><span class="p">)))</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;you win&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="k">start</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        calls `self.game` in a &#39;would you like to play again?&#39; loop</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">choice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;y&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="n">choice</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="ss">&quot;y&quot;</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">cls</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="n">pyfiglet</span><span class="p">.</span><span class="n">figlet_format</span><span class="p">(</span><span class="ss">&quot;Hangman&quot;</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">input</span><span class="p">(</span><span class="ss">&quot;enter to play\nctrl + c to quit to main menu\n\n&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">game</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">choice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">input</span><span class="p">(</span><span class="ss">&quot;\nwould you like to play again?\n&gt; &quot;</span><span class="p">).</span><span class="n">strip</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<hr />
+<h4 id="methods">Methods</h4>
+<h5 id="game">game</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">game</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>starts the game</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">game</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        starts the game</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">lives</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">character.upper() for character in random.choice(WORDS)</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">word_hidden</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;_&quot; for character in word</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">guessed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[]</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">lives</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;_&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">word_hidden</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">cls</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="n">HANGMAN</span><span class="o">[</span><span class="n">-lives</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nl">guessed</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot; &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">guessed</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">word_hidden</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="nl">message</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;you have {0} attempt{1} remaining&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">lives</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">lives</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="ss">&quot;s&quot;</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">letter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">input</span><span class="p">(</span><span class="ss">&quot;choose a letter;\n&gt; &quot;</span><span class="p">).</span><span class="nf">upper</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">letter</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">elif</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;too many letters&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">elif</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">letter</span><span class="p">.</span><span class="n">isalpha</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;that is not a letter&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">elif</span><span class="w"> </span><span class="n">letter</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">guessed</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">self</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;you&#39;ve already guessed that letter&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">guessed</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">letter</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">lives</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">continue</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">word</span><span class="p">))</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">letter</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">word</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">word_hidden</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">letter</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">cls</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">(</span><span class="n">HANGMAN</span><span class="o">[</span><span class="n">-lives</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">guessed</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot; &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">guessed</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">word_hidden</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">print</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">lives</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;you lose&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;the word was {0}&quot;</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">word</span><span class="p">)))</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;you win&quot;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="start">start</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>calls <code>self.game</code> in a 'would you like to play again?' loop</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="n">def</span> <span class="k">start</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+
+        <span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        calls `self.game` in a &#39;would you like to play again?&#39; loop</span>
+
+<span class="ss">        &quot;&quot;&quot;</span>
+
+        <span class="n">choice</span> <span class="o">=</span> <span class="ss">&quot;y&quot;</span>
+
+        <span class="n">while</span> <span class="n">choice</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="ss">&quot;y&quot;</span><span class="p">):</span>
+
+            <span class="n">cls</span><span class="p">()</span>
+
+            <span class="n">print</span><span class="p">(</span><span class="n">pyfiglet</span><span class="p">.</span><span class="n">figlet_format</span><span class="p">(</span><span class="ss">&quot;Hangman&quot;</span><span class="p">))</span>
+
+            <span class="n">print</span><span class="p">()</span>
+
+            <span class="k">input</span><span class="p">(</span><span class="ss">&quot;enter to play\nctrl + c to quit to main menu\n\n&quot;</span><span class="p">)</span>
+
+            <span class="k">self</span><span class="p">.</span><span class="n">game</span><span class="p">()</span>
+
+            <span class="n">choice</span> <span class="o">=</span> <span class="k">input</span><span class="p">(</span><span class="ss">&quot;\nwould you like to play again?\n&gt; &quot;</span><span class="p">).</span><span class="n">strip</span><span class="p">()</span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../eightpuzzle/" title="Eightpuzzle" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Eightpuzzle
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Index
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
