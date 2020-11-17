@@ -770,6 +770,10 @@ def example(game_name: str):
     return expand_example
 
 
+def built_in_functions():
+    raise NotYetImplemented()
+
+
 QLabel = partial(Label, dont_extend_width=True)
 SPACE = QLabel(" ")
 
@@ -864,7 +868,10 @@ root_container = MenuContainer(
         ),
         MenuItem(
             " Help ",
-            children=[MenuItem("About", handler=about)],
+            children=[
+                MenuItem("About", handler=about),
+                MenuItem("Built-in Functions", handler=built_in_functions),
+            ],
         ),
     ],
     floats=[
