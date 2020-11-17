@@ -1,6 +1,9 @@
 import asyncio
+import builtins
 import os
+import pydoc
 import sys
+import types
 from asyncio import Future, ensure_future
 from datetime import datetime
 from functools import partial
@@ -34,7 +37,7 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.widgets import Dialog, MenuContainer, MenuItem, SearchToolbar, TextArea
 from prompt_toolkit.widgets.base import Border, Button, Label
 
-from quickpython import __version__
+from quickpython import __version__, extensions
 
 ABOUT_MESSAGE = f"""QuickPython version {__version__}
 
@@ -771,7 +774,13 @@ def example(game_name: str):
 
 
 def built_in_functions():
-    raise NotYetImplemented()
+    docs = [
+        pydoc.render_doc(builtin, renderer=pydoc.plaintext).split("\n", 1)[1]
+        for builtin_name, builtin in vars(builtins).items()
+        if type(builtin) in (types.FunctionType, types.BuiltinFunctionType)
+        and not builtin_name.startswith("_")
+    ]
+    new("\n".join(docs))
 
 
 QLabel = partial(Label, dont_extend_width=True)
