@@ -1,10 +1,7 @@
-quickpython
+[![QuickPYTHON - Educational Interactive Coding Environment](https://raw.githubusercontent.com/timothycrosley/quickpython/master/art/logo_large.png)](https://timothycrosley.github.io/quickpython/)
 _________________
 
 [![PyPI version](https://badge.fury.io/py/quickpython.svg)](http://badge.fury.io/py/quickpython)
-[![Build Status](https://travis-ci.org/timothycrosley/quickpython.svg?branch=master)](https://travis-ci.org/timothycrosley/quickpython)
-[![codecov](https://codecov.io/gh/timothycrosley/quickpython/branch/master/graph/badge.svg)](https://codecov.io/gh/timothycrosley/quickpython)
-[![Join the chat at https://gitter.im/timothycrosley/quickpython](https://badges.gitter.im/timothycrosley/quickpython.svg)](https://gitter.im/timothycrosley/quickpython?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://pypi.python.org/pypi/quickpython/)
 [![Downloads](https://pepy.tech/badge/quickpython)](https://pepy.tech/project/quickpython)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
