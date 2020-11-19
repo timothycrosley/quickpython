@@ -714,9 +714,13 @@
 
 <span class="k">def</span> <span class="nf">beep</span><span class="p">():</span>
 
+    <span class="sd">&quot;&quot;&quot;Makes a beep sound.&quot;&quot;&quot;</span>
+
     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\a</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">cls</span><span class="p">():</span>
+
+    <span class="sd">&quot;&quot;&quot;Clears the screen.&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
 
@@ -727,6 +731,12 @@
         <span class="n">run</span><span class="p">(</span><span class="s2">&quot;clear&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;A decorator that causes the decorated function to be started</span>
+
+<span class="sd">    if ran directly but not if imported.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">caller</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 
@@ -753,7 +763,10 @@
 <span class="p">)</span>
 </code></pre></div>
 
+<p>Makes a beep sound.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">beep</span><span class="p">():</span>
+
+    <span class="ss">&quot;&quot;&quot;Makes a beep sound.&quot;&quot;&quot;</span>
 
     <span class="n">print</span><span class="p">(</span><span class="ss">&quot;\a&quot;</span><span class="p">,</span> <span class="k">end</span><span class="o">=</span><span class="ss">&quot;&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -765,7 +778,10 @@
 <span class="p">)</span>
 </code></pre></div>
 
+<p>Clears the screen.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">cls</span><span class="p">():</span>
+
+    <span class="ss">&quot;&quot;&quot;Clears the screen.&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">platform</span><span class="p">.</span><span class="k">system</span><span class="p">().</span><span class="k">lower</span><span class="p">()</span> <span class="o">==</span> <span class="ss">&quot;windows&quot;</span><span class="p">:</span>
 
@@ -783,7 +799,15 @@
 <span class="p">)</span>
 </code></pre></div>
 
+<p>A decorator that causes the decorated function to be started
+if ran directly but not if imported.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">main</span><span class="p">(</span><span class="k">function</span><span class="p">):</span>
+
+    <span class="ss">&quot;&quot;&quot;A decorator that causes the decorated function to be started</span>
+
+<span class="ss">    if ran directly but not if imported.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span>
 
     <span class="n">caller</span> <span class="o">=</span> <span class="n">inspect</span><span class="p">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 
