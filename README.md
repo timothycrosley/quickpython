@@ -11,4 +11,4 @@ _________________
 [Read Latest Documentation](https://timothycrosley.github.io/quickpython/) - [Browse GitHub Code Repository](https://github.com/timothycrosley/quickpython/)
 _________________
 
-**quickpython** A retro interactive coding environment powered by Python and nostalgia 
+**quickpython** A retro educational interactive coding environment powered by Python and nostalgia.
