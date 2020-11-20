@@ -13,7 +13,7 @@ _________________
 
 ![Example Usage](https://raw.githubusercontent.com/timothycrosley/quickpython/master/art/example.gif)
 
-**QuickPYTHON** The retro futuristic educational interactive coding environment you didn't know you were looking for. Powered by Python and nostalgia.
+**QuickPYTHON** A retro-futuristic educational interactive coding environment. Powered by Python and nostalgia.
 
 Key features
 
@@ -43,4 +43,4 @@ or
 quickpython
 ```
 
-*Disclaimer*: This project is provided as-is, for fun, with no gaurentee of long-term support or maintaince.
+*Disclaimer*: This project is provided as-is, for fun, with no guarantee of long-term support or maintenance.
