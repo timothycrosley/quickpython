@@ -25,4 +25,22 @@ Key features
 - Built-in help
 - Games!
 
+## Quick Start Instructions
+
+```bash
+pip install quickpython
+```
+
+then start with
+
+```bash
+qpython
+```
+
+or
+
+```bash
+quickpython
+```
+
 *Disclaimer*: This project is provided as-is, for fun, with no gaurentee of long-term support or maintaince.
