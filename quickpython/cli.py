@@ -34,7 +34,13 @@ from prompt_toolkit.output.color_depth import ColorDepth
 from prompt_toolkit.search import start_search
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
-from prompt_toolkit.widgets import Dialog, MenuContainer, MenuItem, SearchToolbar, TextArea
+from prompt_toolkit.widgets import (
+    Dialog,
+    MenuContainer,
+    MenuItem,
+    SearchToolbar,
+    TextArea,
+)
 from prompt_toolkit.widgets.base import Border, Button, Label
 
 from quickpython import __version__, extensions
@@ -254,7 +260,9 @@ def black_format_code(contents: str) -> str:
     """Formats the given import section using black."""
     try:
         immediate.buffer.text = ""
-        return black.format_file_contents(contents, fast=True, mode=black.FileMode(**black_config))
+        return black.format_file_contents(
+            contents, fast=True, mode=black.FileMode(**black_config)
+        )
     except black.NothingChanged:
         return contents
     except Exception as error:
@@ -296,7 +304,11 @@ def indent(event):
 def enter(event):
     buffer = event.app.current_buffer
     buffer.insert_text("\n")
-    if current_file and ".py" not in current_file.suffixes and ".pyi" not in current_file.suffixes:
+    if (
+        current_file
+        and ".py" not in current_file.suffixes
+        and ".pyi" not in current_file.suffixes
+    ):
         return
 
     old_cursor_position = buffer.cursor_position
@@ -330,7 +342,11 @@ async def _run_buffer(debug: bool = False):
     buffer_filename = f"{current_file or 'buffer'}.qpython"
     with open(buffer_filename, "w") as buffer_file:
         user_code = app.current_buffer.text
-        with_qpython_injected = isort.code(user_code, add_imports=["import quickpython.extensions"])
+        if not user_code.endswith("\n"):
+            user_code += "\n"
+        with_qpython_injected = isort.code(
+            user_code, add_imports=["import quickpython.extensions"]
+        )
         buffer_file.write(isort_format_code(with_qpython_injected))
         if debug:
             buffer_file.write("breakpoint()")
@@ -597,8 +613,8 @@ def goto(event=None):
         except ValueError:
             feedback("Invalid line number")
         else:
-            code.buffer.cursor_position = code.buffer.document.translate_row_col_to_index(
-                line_number - 1, 0
+            code.buffer.cursor_position = (
+                code.buffer.document.translate_row_col_to_index(line_number - 1, 0)
             )
 
     ensure_future(coroutine())
@@ -606,8 +622,12 @@ def goto(event=None):
 
 def replace_text():
     async def coroutine():
-        to_replace_dialog = TextInputDialog(title="Text to Replace", label_text="original:")
-        replacement_dialog = TextInputDialog(title="Replace With", label_text="replacement:")
+        to_replace_dialog = TextInputDialog(
+            title="Text to Replace", label_text="original:"
+        )
+        replacement_dialog = TextInputDialog(
+            title="Replace With", label_text="replacement:"
+        )
 
         to_replace = await show_dialog_as_float(to_replace_dialog)
         if to_replace is None:
@@ -617,7 +637,9 @@ def replace_text():
         if replacement is None:
             return
 
-        code.buffer.text = format_code(code.buffer.text.replace(to_replace, replacement))
+        code.buffer.text = format_code(
+            code.buffer.text.replace(to_replace, replacement)
+        )
 
     ensure_future(coroutine())
 
@@ -684,7 +706,9 @@ class {class_name}:
 '''
         )
         code.buffer.text = isort.code(
-            code.buffer.text, add_imports=["from dataclasses import dataclass"], float_to_top=True
+            code.buffer.text,
+            add_imports=["from dataclasses import dataclass"],
+            float_to_top=True,
         )
         code.buffer.text = format_code(code.buffer.text)
 
@@ -758,7 +782,9 @@ def search(event=None):
 def search_next(event=None):
     search_state = app.current_search_state
 
-    cursor_position = code.buffer.get_search_position(search_state, include_current_position=False)
+    cursor_position = code.buffer.get_search_position(
+        search_state, include_current_position=False
+    )
     code.buffer.cursor_position = cursor_position
 
 
@@ -858,7 +884,10 @@ root_container = MenuContainer(
         ),
         MenuItem(
             " Run ",
-            children=[MenuItem("Start (F5)", handler=run_buffer), MenuItem("Debug", handler=debug)],
+            children=[
+                MenuItem("Start (F5)", handler=run_buffer),
+                MenuItem("Debug", handler=debug),
+            ],
         ),
         MenuItem(
             " Examples ",
