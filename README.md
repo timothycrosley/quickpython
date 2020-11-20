@@ -16,4 +16,13 @@ _________________
 **QuickPYTHON** The retro futuristic educational interactive coding environment you didn't know you were looking for. Powered by Python and nostalgia.
 
 Key features
-* 
+
+- Mouse support
+- Futuristic blue color scheme
+- Auto-formatting
+- Integrated Debugging Support
+- Quick shortcuts for creating new dataclasses, static methods, etc
+- Built-in help
+- Games!
+
+*Disclaimer*: This project is provided as-is, for fun, with no gaurentee of long-term support or maintaince.
