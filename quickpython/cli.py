@@ -34,13 +34,7 @@ from prompt_toolkit.output.color_depth import ColorDepth
 from prompt_toolkit.search import start_search
 from prompt_toolkit.shortcuts import clear, message_dialog
 from prompt_toolkit.styles import Style
-from prompt_toolkit.widgets import (
-    Dialog,
-    MenuContainer,
-    MenuItem,
-    SearchToolbar,
-    TextArea,
-)
+from prompt_toolkit.widgets import Dialog, MenuContainer, MenuItem, SearchToolbar, TextArea
 from prompt_toolkit.widgets.base import Border, Button, Label
 
 from quickpython import __version__, extensions
@@ -205,7 +199,7 @@ def open_file(event=None):
         if filename is not None:
             current_file = Path(filename).resolve()
             isort_config = isort.Config(settings_path=current_file.parent)
-            black_config_file = black.find_pyproject_toml((current_file,))
+            black_config_file = black.find_pyproject_toml((str(current_file),))
             if black_config_file:
                 black_config = black.parse_pyproject_toml(black_config_file)
             else:
@@ -239,7 +233,7 @@ def save_as_file():
         if filename is not None:
             current_file = Path(filename).resolve()
             isort_config = isort.Config(settings_path=current_file.parent)
-            black_config_file = black.find_pyproject_toml((current_file,))
+            black_config_file = black.find_pyproject_toml((str(current_file),))
             if black_config_file:
                 black_config = black.parse_pyproject_toml(black_config_file)
             else:
@@ -260,9 +254,7 @@ def black_format_code(contents: str) -> str:
     """Formats the given import section using black."""
     try:
         immediate.buffer.text = ""
-        return black.format_file_contents(
-            contents, fast=True, mode=black.FileMode(**black_config)
-        )
+        return black.format_file_contents(contents, fast=True, mode=black.FileMode(**black_config))
     except black.NothingChanged:
         return contents
     except Exception as error:
@@ -304,11 +296,7 @@ def indent(event):
 def enter(event):
     buffer = event.app.current_buffer
     buffer.insert_text("\n")
-    if (
-        current_file
-        and ".py" not in current_file.suffixes
-        and ".pyi" not in current_file.suffixes
-    ):
+    if current_file and ".py" not in current_file.suffixes and ".pyi" not in current_file.suffixes:
         return
 
     old_cursor_position = buffer.cursor_position
@@ -344,9 +332,7 @@ async def _run_buffer(debug: bool = False):
         user_code = app.current_buffer.text
         if not user_code.endswith("\n"):
             user_code += "\n"
-        with_qpython_injected = isort.code(
-            user_code, add_imports=["import quickpython.extensions"]
-        )
+        with_qpython_injected = isort.code(user_code, add_imports=["import quickpython.extensions"])
         buffer_file.write(isort_format_code(with_qpython_injected))
         if debug:
             buffer_file.write("breakpoint()")
@@ -612,8 +598,8 @@ def goto(event=None):
         except ValueError:
             feedback("Invalid line number")
         else:
-            code.buffer.cursor_position = (
-                code.buffer.document.translate_row_col_to_index(line_number - 1, 0)
+            code.buffer.cursor_position = code.buffer.document.translate_row_col_to_index(
+                line_number - 1, 0
             )
 
     ensure_future(coroutine())
@@ -621,12 +607,8 @@ def goto(event=None):
 
 def replace_text():
     async def coroutine():
-        to_replace_dialog = TextInputDialog(
-            title="Text to Replace", label_text="original:"
-        )
-        replacement_dialog = TextInputDialog(
-            title="Replace With", label_text="replacement:"
-        )
+        to_replace_dialog = TextInputDialog(title="Text to Replace", label_text="original:")
+        replacement_dialog = TextInputDialog(title="Replace With", label_text="replacement:")
 
         to_replace = await show_dialog_as_float(to_replace_dialog)
         if to_replace is None:
@@ -636,9 +618,7 @@ def replace_text():
         if replacement is None:
             return
 
-        code.buffer.text = format_code(
-            code.buffer.text.replace(to_replace, replacement)
-        )
+        code.buffer.text = format_code(code.buffer.text.replace(to_replace, replacement))
 
     ensure_future(coroutine())
 
@@ -781,9 +761,7 @@ def search(event=None):
 def search_next(event=None):
     search_state = app.current_search_state
 
-    cursor_position = code.buffer.get_search_position(
-        search_state, include_current_position=False
-    )
+    cursor_position = code.buffer.get_search_position(search_state, include_current_position=False)
     code.buffer.cursor_position = cursor_position
 
 
