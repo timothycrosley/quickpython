@@ -18,6 +18,7 @@ pyfiglet = "^0.8.post1"
 [tool.poetry.scripts]
 quickpython = "quickpython.cli:start"
 qpython = "quickpython.cli:start"
+qp = "quickpython.cli:start"
 
 [tool.poetry.dev-dependencies]
 vulture = "^1.0"
