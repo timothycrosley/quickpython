@@ -37,7 +37,7 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.widgets import Dialog, MenuContainer, MenuItem, SearchToolbar, TextArea
 from prompt_toolkit.widgets.base import Border, Button, Label
 
-from quickpython import __version__, extensions
+from quickpython import __version__, extensions  # noqa
 
 ABOUT_MESSAGE = f"""QuickPython version {__version__}
 

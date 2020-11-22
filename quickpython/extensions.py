@@ -1,4 +1,5 @@
 import builtins
+import inspect
 import platform
 from subprocess import run
 
@@ -27,6 +28,6 @@ def main(function):
     return function
 
 
-setattr(builtins, "beep", beep)
-setattr(builtins, "cls", cls)
-setattr(builtins, "main", main)
+setattr(builtins, "beep", beep)  # noqa
+setattr(builtins, "cls", cls)  # noqa
+setattr(builtins, "main", main)  # noqa
