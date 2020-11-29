@@ -63,8 +63,6 @@ if default_black_config_file:
 else:
     default_black_config = {}
 
-default_black_config = {}
-
 isort_config: isort.Config = default_isort_config
 black_config: dict = default_black_config
 
@@ -915,6 +913,7 @@ app: Application = Application(
 def start(argv=None):
     global current_file
     global isort_config
+    global black_config
 
     argv = sys.argv if argv is None else argv
     if len(sys.argv) > 2:
@@ -922,6 +921,12 @@ def start(argv=None):
     elif len(sys.argv) == 2:
         current_file = Path(sys.argv[1]).resolve()
         isort_config = isort.Config(settings_path=current_file.parent)
+        black_config_file = black.find_pyproject_toml((str(current_file),))
+        if black_config_file:
+            black_config = black.parse_pyproject_toml(black_config_file)
+        else:
+            black_config = {}
+
         open_file_frame.title = current_file.name
         if current_file.exists():
             with current_file.open(encoding="utf8") as open_file:
