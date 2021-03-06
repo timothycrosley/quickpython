@@ -259,7 +259,7 @@ def black_format_code(contents: str) -> str:
             contents,
             fast=True,
             mode=black.FileMode(
-                **((k, v) for k, v in black_config.items() if k in BLACK_ALLOWED_MODE_KEYS)
+                **{k: v for k, v in black_config.items() if k in BLACK_ALLOWED_MODE_KEYS}
             ),
         )
     except black.NothingChanged:
