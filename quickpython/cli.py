@@ -1,5 +1,6 @@
 import asyncio
 import builtins
+import dataclasses
 import os
 import pydoc
 import sys
@@ -48,6 +49,8 @@ And you know, the rest of the world.
 A productive parody.
 Made in Seattle.
 """
+
+BLACK_ALLOWED_MODE_KEYS = {field.name for field in dataclasses.fields(black.FileMode)}
 
 kb = KeyBindings()
 eb = KeyBindings()
@@ -252,7 +255,13 @@ def black_format_code(contents: str) -> str:
     """Formats the given import section using black."""
     try:
         immediate.buffer.text = ""
-        return black.format_file_contents(contents, fast=True, mode=black.FileMode(**black_config))
+        return black.format_file_contents(
+            contents,
+            fast=True,
+            mode=black.FileMode(
+                **((k, v) for k, v in black_config.items() if k in BLACK_ALLOWED_MODE_KEYS)
+            ),
+        )
     except black.NothingChanged:
         return contents
     except Exception as error:
