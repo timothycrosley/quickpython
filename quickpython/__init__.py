@@ -3,4 +3,4 @@
 A retro interactive coding environment powered by Python and nostalgia
 """
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
